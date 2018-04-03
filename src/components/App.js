@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import AppHeader from './AppHeader';
+import TodoList from './TodoList';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>My React App!</h1>
+        <AppHeader />
+        <main className="ui main text container">
+          <TodoList />
+        </main>
       </div>
     );
   }

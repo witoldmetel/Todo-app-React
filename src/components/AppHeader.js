@@ -5,11 +5,10 @@ class AppHeader extends Component {
         return (
                 <header className="ui fixed menu">
                     <nav className="ui container">
-                        <a href="#" className="header item">
-                            <img className="logo" src="https://typeofweb.com/wp-content/uploads/2017/08/cropped-typeofweb_logo-04-white-smaller-1-e1504359870362.png"
-                            /> Todo App</a>
-                            <div className="header item">
-                            <button className="ui button">Dodaj</button>
+                        <a href="#" className="header item"><img className="logo" src="http://taylorehat.com/images/todo-cloud-hero.png"/> Todo Application</a>
+                        <div class="ui action input">
+                            <input type="text" placeholder="Add new task"></input>
+                            <button class="ui button">Add Task</button>
                         </div>
                     </nav>
                 </header>

@@ -1,0 +1,21 @@
+.ui.menu .item {
+    padding-left: 0;
+}
+
+.ui.menu .item img.logo {
+    width: 3.5em;
+    padding: 0 0.5rem;
+}
+
+.ui.input {
+    margin: 1rem;
+}
+
+.main.container {
+    margin-top: 5em;
+}
+
+ul.ui.list li:before {
+    display: none;
+    content: '';
+}

@@ -11,7 +11,7 @@ class AppHeader extends Component {
                             <button class="ui button">Add Task</button>
                         </div>
                         <div class="ui icon input">
-                                <input onInput={this.filterUsers.bind(this)} placeholder="Search task..."></input>
+                                <input type="text" placeholder="Search task..."></input>
                                 <i class="search icon"></i>
                         </div>
                     </nav>

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class TodoRandomImg extends Component {
+class TodoRandomImg extends React.Component {
     render() {
         const { randomFace } = this.props;
         const imgUrl = `https://api.adorable.io/avatars/55/${randomFace}.png`;

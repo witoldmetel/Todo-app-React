@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TodoRandomImg from './TodoRandomImg';
 
-class TodoTask extends Component {
+class TodoTask extends React.Component {
     render() {
         const { randomFace, taskNumber, taskDescription } = this.props;
         return (

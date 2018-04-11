@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppHeader from './AppHeader';
 import TodoList from './TodoList';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div>

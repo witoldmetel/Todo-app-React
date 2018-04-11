@@ -16,10 +16,10 @@ class TodoTask extends React.Component {
                 <li className="item">
                     <TodoRandomImg randomFace={randomFace}/>
                     <div className="content">
-                        <h4 className="header">{taskNumber}</h4>
+                        <h4 className="header">Task {taskNumber}</h4>
                         <div className="description">{taskDescription}</div>
                     </div>
-                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.id)}>Remove Task</button>
+                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.taskNumber)}>Remove Task</button>
                 </li>
         );
     }

@@ -13,7 +13,17 @@ class TodoList extends React.Component {
             nextTaskNumber: 4
         };
 
+        this.addTask = this.addTask.bind(this);
         this.removeTask - this.removeTask.bind(this);
+    }
+
+    addTask(textTask) {
+        let todos = this.state.todos.slice();
+        todos.push({ randomFace: `todoapp${nextTaskNumber}`, taskNumber: nextTaskNumber, taskDescription: textTask });
+        this.setState({
+            todos: todos,
+            nextTaskNumber: ++this.state.nextTaskNumber
+        })
     }
 
     removeTask(id) {

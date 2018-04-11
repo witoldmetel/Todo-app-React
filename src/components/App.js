@@ -5,18 +5,17 @@ import TodoList from './TodoList';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.addTask = this.addTask.bind(this);
   }
 
   addTask(textTask) {
-    console.log("Task", textTask);
+    // this.props.addTask(textTask);
+    console.log(textTask);
   }
 
   render() {
     return (
       <div>
-        <AppHeader todoTask="" addTask={this.addTask}/>
+        <AppHeader addTask={this.addTask}/>
         <main className="ui main text container">
           <TodoList />
         </main>

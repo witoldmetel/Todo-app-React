@@ -1,4 +1,5 @@
 import React from 'react';
+import AppHeader from './AppHeader';
 import TodoTask from './TodoTask';
 
 class TodoList extends React.Component {
@@ -28,6 +29,9 @@ class TodoList extends React.Component {
 
     removeTask(id) {
         console.log("remove", id);
+        // this.setState({
+        //     todos: this.state.todos.filter((todo, index) => todo.id !== id)
+        // })
     }
 
     render() {
@@ -35,7 +39,7 @@ class TodoList extends React.Component {
             <ul className="ui relaxed divided list selection">
             {
                 this.state.todos.map((todo) => {
-                        return <TodoTask key={todo.taskNumber} randomFace={todo.randomFace} taskNumber={todo.taskNumber} taskDescription={todo.taskDescription} removeTask={this.removeTask} />
+                    return <TodoTask key={todo.taskNumber} randomFace={todo.randomFace} taskNumber={todo.taskNumber} taskDescription={todo.taskDescription} removeTask={this.removeTask} />
                 })
             }
             </ul>

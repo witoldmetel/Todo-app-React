@@ -2,6 +2,14 @@ import React from 'react';
 import TodoRandomImg from './TodoRandomImg';
 
 class TodoTask extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    removeTask(id) {
+        this.props.removeTask(id);
+    }
+
     render() {
         const { randomFace, taskNumber, taskDescription } = this.props;
         return (
@@ -11,6 +19,7 @@ class TodoTask extends React.Component {
                         <h4 className="header">{taskNumber}</h4>
                         <div className="description">{taskDescription}</div>
                     </div>
+                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.id)}>Remove Task</button>
                 </li>
         );
     }

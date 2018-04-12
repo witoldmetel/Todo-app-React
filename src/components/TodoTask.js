@@ -19,7 +19,7 @@ class TodoTask extends React.Component {
                         <h4 className="header">Task {taskNumber}</h4>
                         <div className="description">{taskDescription}</div>
                     </div>
-                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.taskNumber)}>Remove Task</button>
+                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.taskNumber)}><i className="far fa-trash-alt"></i></button>
                 </li>
         );
     }

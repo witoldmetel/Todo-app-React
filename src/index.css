@@ -1,5 +1,6 @@
 .ui.menu .item {
     padding-left: 0;
+    position: relative;
 }
 
 .ui.menu .item img.logo {
@@ -18,4 +19,18 @@
 ul.ui.list li:before {
     display: none;
     content: '';
+}
+
+button.removeTask {
+    border: none;
+    background-color: transparent;
+    transition: 0.5s all;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 25%;
+}
+
+button.removeTask:hover {
+    transform: scale(1.1);
 }

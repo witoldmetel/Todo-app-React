@@ -11,11 +11,11 @@ class TodoList extends React.Component {
                 { randomFace: "todoapp2", taskNumber: 2, taskDescription: "Clean dishes" },
                 { randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk" }
             ],
-            nextTaskNumber: 4
+            nextTaskNumber: 4,
         };
+        // this.addTask = this.addTask.bind(this);
+        this.removeTask = this.removeTask.bind(this);
 
-        this.addTask = this.addTask.bind(this);
-        this.removeTask - this.removeTask.bind(this);
     }
 
     addTask(textTask) {
@@ -28,10 +28,9 @@ class TodoList extends React.Component {
     }
 
     removeTask(id) {
-        console.log("remove", id);
-        // this.setState({
-        //     todos: this.state.todos.filter((todo, index) => todo.id !== id)
-        // })
+        this.setState({
+            todos: this.state.todos.filter((todo, index) => todo.taskNumber !== id)
+        })
     }
 
     render() {

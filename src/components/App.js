@@ -3,12 +3,24 @@ import AppHeader from './AppHeader';
 import TodoList from './TodoList';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        textFromHeaderApp: null
+    };
+    this.addTaskCallback = this.addTaskCallback.bind(this);
+  }
+
+  addTaskCallback(textTask) {
+    this.setState({ textFromHeaderApp: textTask });
+  }
+
   render() {
     return (
       <div>
-        <AppHeader />
+        <AppHeader addTask={this.addTaskCallback}/>
         <main className="ui main text container">
-          <TodoList />
+          <TodoList addTask={this.state.textFromHeaderApp}/>
         </main>
       </div>
     );

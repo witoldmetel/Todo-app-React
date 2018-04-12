@@ -13,9 +13,8 @@ class TodoList extends React.Component {
             ],
             nextTaskNumber: 4,
         };
-        // this.addTask = this.addTask.bind(this);
+        this.addTask = this.addTask.bind(this);
         this.removeTask = this.removeTask.bind(this);
-
     }
 
     addTask(textTask) {

@@ -18,9 +18,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AppHeader addTask={this.addTaskCallback}/>
+        <AppHeader addTask={this.addTaskCallback} />
         <main className="ui main text container">
-          <TodoList addTask={this.state.textFromHeaderApp}/>
+          <TodoList addTask={this.props.textFromHeaderApp} />
         </main>
       </div>
     );

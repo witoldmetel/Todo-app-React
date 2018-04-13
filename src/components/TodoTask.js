@@ -1,28 +1,23 @@
 import React from 'react';
 import TodoRandomImg from './TodoRandomImg';
+import PropTypes from 'prop-types'
 
-class TodoTask extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const TodoTask = ({ randomFace, taskNumber, taskDescription, removeTask }) => (
+    <li className="item">
+        <TodoRandomImg randomFace={randomFace} />
+        <div className="content">
+            <h4 className="header">Task {taskNumber}</h4>
+            <div className="description">{taskDescription}</div>
+        </div>
+        <button className="removeTask" onClick={() => removeTask(this.taskNumber)}><i className="far fa-trash-alt"></i></button>
+    </li>
+)
 
-    removeTask(id) {
-        this.props.removeTask(id);
-    }
-
-    render() {
-        const { randomFace, taskNumber, taskDescription } = this.props;
-        return (
-                <li className="item">
-                    <TodoRandomImg randomFace={randomFace}/>
-                    <div className="content">
-                        <h4 className="header">Task {taskNumber}</h4>
-                        <div className="description">{taskDescription}</div>
-                    </div>
-                    <button className="removeTask" onClick={(e) => this.removeTask(this.props.taskNumber)}><i className="far fa-trash-alt"></i></button>
-                </li>
-        );
-    }
+TodoTask.propTypes = {
+    randomFace: PropTypes.number.isRequired,
+    taskNumber: PropTypes.number.isRequired,
+    taskDescription: PropTypes.string.isRequired,
+    removeTask: PropTypes.func.isRequired
 }
 
 export default TodoTask;

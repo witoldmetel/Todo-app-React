@@ -2,29 +2,11 @@ import React from 'react';
 import AppHeader from './AppHeader';
 import TodoList from './TodoList';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        textFromHeaderApp: null
-    };
-    this.addTaskCallback = this.addTaskCallback.bind(this);
-  }
-
-  addTaskCallback(textTask) {
-    this.setState({ textFromHeaderApp: textTask });
-  }
-
-  render() {
-    return (
+const App = () => (
       <div>
-        <AppHeader addTask={this.addTaskCallback} />
-        <main className="ui main text container">
-          <TodoList addTask={this.props.textFromHeaderApp} />
-        </main>
+        <AppHeader />
+        <TodoList />
       </div>
-    );
-  }
-}
+)
 
 export default App;

@@ -1,23 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TodoRandomImg from './TodoRandomImg';
-import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux';
+import { deleteTask } from '../actions/';
 
-const TodoTask = ({ randomFace, taskNumber, taskDescription, removeTask }) => (
-    <li className="item">
-        <TodoRandomImg randomFace={randomFace} />
-        <div className="content">
-            <h4 className="header">Task {taskNumber}</h4>
-            <div className="description">{taskDescription}</div>
-        </div>
-        <button className="removeTask" onClick={() => removeTask(this.taskNumber)}><i className="far fa-trash-alt"></i></button>
-    </li>
-)
-
-TodoTask.propTypes = {
-    randomFace: PropTypes.number.isRequired,
-    taskNumber: PropTypes.number.isRequired,
-    taskDescription: PropTypes.string.isRequired,
-    removeTask: PropTypes.func.isRequired
+class TodoTask extends React.Component {
+    render() {
+        return (
+            <li className="item">
+                <TodoRandomImg randomFace={3} />
+                <div className="content">
+                    <div className="description">{this.props.task}</div>
+                </div>
+                <button className="removeTask" onClick={() => this.props.deleteTask(this.props.id)}><i className="far fa-trash-alt"></i></button>
+            </li>
+        )
+    }
 }
 
-export default TodoTask;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({deleteTask}, dispatch);
+}
+
+export default connect(() => {}, mapDispatchToProps)(TodoTask);

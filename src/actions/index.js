@@ -1,15 +1,14 @@
-const addTask = (taskDescription) => {
-    return {
+export const addTask = (todo) => {
+    console.log("Click on", todo.taskDescription);
+    return  {
         type: 'ADD_TASK',
-        taskDescription
-    };
-},
+        payload: todo.taskDescription
+    }
+};
 
-deleteTask = (taskNumber) => {
+export const deleteTask = (todo) => {
     return {
         type: 'DELETE_TASK',
-        taskNumber
+        payload: todo.taskNumber
     };
 }
-
-export default { addTask, deleteTask };

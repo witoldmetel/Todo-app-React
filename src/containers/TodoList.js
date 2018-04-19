@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { deleteTask } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 import TodoTask from './TodoTask';
 
@@ -7,7 +9,7 @@ class TodoList extends React.Component {
     renderList() {
         return this.props.todos.map((todo) => {
             return (
-                <TodoTask key={todo.taskNumber} randomFace={todo.taskNumber} taskNumber={todo.taskNumber} taskDescription={todo.taskDescription} />
+                <TodoTask key={todo.taskNumber} randomFace={todo.taskNumber} taskNumber={todo.taskNumber} taskDescription={todo.taskDescription} deleteTask={() => this.props.deleteTask(todo)} />
             );
         });
     }
@@ -29,4 +31,9 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(TodoList);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ deleteTask: deleteTask }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

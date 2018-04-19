@@ -4,10 +4,17 @@ const initialState = [
     { randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk" }
 ]
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case 'ADD_TASK':
-            return console.log("add task");
+            return [
+                ...state,
+                {
+                    randomFace: Math.random(),
+                    taskNumber: Math.random(),
+                    taskDescription: action.payload
+                }
+            ]
         case 'DELETE_TASK':
             return state.filter((todo) => todo.taskNumber !== action.payload);
     }

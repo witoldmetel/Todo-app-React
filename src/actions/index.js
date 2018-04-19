@@ -1,8 +1,8 @@
-export const addTask = (todo) => {
-    console.log("Click on", todo.taskDescription);
+export const addTask = (inputText) => {
+    console.log("Click on", inputText);
     return  {
         type: 'ADD_TASK',
-        payload: todo.taskDescription
+        payload: inputText
     }
 };
 

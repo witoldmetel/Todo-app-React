@@ -1,7 +1,7 @@
-const addTask = (text) => {
+const addTask = (taskDescription) => {
     return {
         type: 'ADD_TASK',
-        text
+        taskDescription
     };
 },
 

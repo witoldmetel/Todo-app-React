@@ -1,16 +1,14 @@
 import React from 'react';
-import AppHeader from '../components/AppHeader';
-import TodoList from '../components/TodoList';
+import AppHeader from '../containers/AppHeader';
+import TodoList from '../containers/TodoList';
 
-class App extends React.Component {
+export default class App extends React.Component {
   render() {
     return (
       <div>
         <AppHeader />
         <TodoList />
       </div>
-    )
+    );
   }
 }
-
-export default App;

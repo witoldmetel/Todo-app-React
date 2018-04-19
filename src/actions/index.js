@@ -1,5 +1,4 @@
 export const addTask = (inputText) => {
-    console.log("Click on", inputText);
     return  {
         type: 'ADD_TASK',
         payload: inputText
@@ -12,3 +11,10 @@ export const deleteTask = (todo) => {
         payload: todo.taskNumber
     };
 }
+
+// export const searchTask = (todo) => {
+//     return {
+//         type: 'SEARCH_TASK',
+//         payload: todo.taskDescription
+//     };
+// }

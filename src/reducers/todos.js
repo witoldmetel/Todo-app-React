@@ -16,7 +16,9 @@ export default function(state = initialState, action) {
                 }
             ]
         case 'DELETE_TASK':
-            return state.filter((todo) => todo.taskNumber !== action.payload);
+            return state.filter(todo => todo.taskNumber !== action.payload);
+        // case 'SEARCH_TASK':
+        //     return state.filter(todo => todo.toLowerCase().includes(action.payload.toLowerCase()));
     }
 
     return state

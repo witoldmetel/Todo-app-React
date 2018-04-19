@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTask } from '../actions/index';
+import { addTask, searchTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class AppHeader extends React.Component {
@@ -17,7 +17,7 @@ class AppHeader extends React.Component {
                         }}>Add Task</button>
                         </div>
                         <div className="ui icon input">
-                            <input type="text" placeholder="Search task..."></input>
+                            <input type="search" placeholder="Search task..."></input>
                             <i className="search icon"></i>
                         </div>
                 </nav>

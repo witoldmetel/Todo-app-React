@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TodoRandomImg from '../components/TodoRandomImg';
+import TodoRandomImg from './TodoRandomImg';
 
 class TodoTask extends React.Component {
     render() {

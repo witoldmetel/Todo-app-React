@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { deleteTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
-import TodoTask from './TodoTask';
+import TodoTask from '../components/TodoTask';
 
 class TodoList extends React.Component {
     renderList() {

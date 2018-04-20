@@ -6,7 +6,7 @@
 # Install dependencies
 npm install
 
-# Serve on localhost:3000
+# Serve on localhost:8080
 npm start
 
 # Build for production
@@ -15,4 +15,4 @@ npm run build
 
 ## App Info
 
-First App in Webpack and React - Simple Todo List
+First App in Webpack / React / Redux - Simple Todo App

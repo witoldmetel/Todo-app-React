@@ -12,8 +12,10 @@ class AppHeader extends React.Component {
                         <div className="ui action input">
                         <input placeholder="Add new task" type="text" ref="inputText"></input>
                         <button className="ui button" onClick={() => {
-                            this.props.addTask(this.refs.inputText.value);
-                            this.setState(this.refs.inputText.value = '');
+                            if (this.refs.inputText.value.trim() !== '') {
+                                this.props.addTask(this.refs.inputText.value.trim());
+                                this.setState(this.refs.inputText.value = '');
+                            }
                         }}>Add Task</button>
                         </div>
                         <div className="ui icon input">
@@ -26,14 +28,8 @@ class AppHeader extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        todos: state.todos
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addTask: addTask }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
+export default connect(()=>{}, mapDispatchToProps)(AppHeader);

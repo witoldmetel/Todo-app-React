@@ -19,8 +19,13 @@ class AppHeader extends React.Component {
                         }}>Add Task</button>
                         </div>
                         <div className="ui icon input">
-                            <input type="search" placeholder="Search task..."></input>
+                            <input type="search" placeholder="Search task... "></input>
                             <i className="search icon"></i>
+                        </div>
+                        <div className="ui filter buttons">
+                            <button className="ui active button">All</button>
+                            <button className="ui button">Incompleted</button>
+                            <button className="ui button">Completed</button>
                         </div>
                 </nav>
             </header>
@@ -28,8 +33,14 @@ class AppHeader extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        todos: state.todos
+    };
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addTask: addTask }, dispatch)
 }
 
-export default connect(()=>{}, mapDispatchToProps)(AppHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

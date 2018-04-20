@@ -1,7 +1,7 @@
 const initialState = [
-    { randomFace: "todoapp1", taskNumber: 1, taskDescription: "Do homework" },
-    { randomFace: "todoapp2", taskNumber: 2, taskDescription: "Clean dishes" },
-    { randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk" }
+    { randomFace: "todoapp1", taskNumber: 1, taskDescription: "Do homework", completed: false },
+    { randomFace: "todoapp2", taskNumber: 2, taskDescription: "Clean dishes", completed: false },
+    { randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk", completed: false }
 ]
 
 export default function(state = initialState, action) {
@@ -12,13 +12,21 @@ export default function(state = initialState, action) {
                 {
                     randomFace: Math.random(),
                     taskNumber: Math.round(Math.random()*100),
-                    taskDescription: action.payload
+                    taskDescription: action.payload,
+                    completed: false
                 }
             ]
         case 'DELETE_TASK':
             return state.filter(todo => todo.taskNumber !== action.payload);
-        // case 'SEARCH_TASK':
-        //     return state.filter(todo => todo.toLowerCase().includes(action.payload.toLowerCase()));
+        case 'TOGGLE_TASK':
+            return state.map(todo =>
+                (todo.taskNumber === action.payload)
+                    ? {
+                        taskNumber: todo.taskNumber,
+                        taskDescription: todo.taskDescription,
+                        completed: !todo.completed}
+                    : todo
+            )
     }
 
     return state

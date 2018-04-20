@@ -12,9 +12,9 @@ export const deleteTask = (todo) => {
     };
 }
 
-// export const searchTask = (todo) => {
-//     return {
-//         type: 'SEARCH_TASK',
-//         payload: todo.taskDescription
-//     };
-// }
+export const toggleTask = (todo) => {
+    return {
+        type: 'TOGGLE_TASK',
+        payload: todo.taskNumber
+    };
+}

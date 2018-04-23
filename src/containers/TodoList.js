@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteTask, toggleTask } from '../actions/index';
+import { editTask, deleteTask, toggleTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import TodoTask from '../components/TodoTask';
@@ -15,6 +15,7 @@ class TodoList extends React.Component {
                     taskNumber={todo.taskNumber}
                     taskDescription={todo.taskDescription}
                     completed={todo.completed}
+                    editTask={() => this.props.editTask(todo)}
                     deleteTask={() => this.props.deleteTask(todo)}
                     toggleTask={() => this.props.toggleTask(todo)}/>
             );
@@ -38,6 +39,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        editTask: editTask,
         deleteTask: deleteTask,
         toggleTask: toggleTask
     }, dispatch)

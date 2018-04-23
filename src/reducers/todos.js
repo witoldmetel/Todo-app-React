@@ -16,6 +16,15 @@ export default function(state = initialState, action) {
                     completed: false
                 }
             ]
+        case 'EDIT_TASK':
+            return state.map(todo =>
+                (todo.taskNumber === action.id)
+                    ? {
+                        taskNumber: todo.taskNumber,
+                        taskDescription: action.payload,
+                        completed: !todo.completed
+                    } : todo
+            )
         case 'DELETE_TASK':
             return state.filter(todo => todo.taskNumber !== action.payload);
         case 'TOGGLE_TASK':
@@ -24,8 +33,8 @@ export default function(state = initialState, action) {
                     ? {
                         taskNumber: todo.taskNumber,
                         taskDescription: todo.taskDescription,
-                        completed: !todo.completed}
-                    : todo
+                        completed: !todo.completed
+                    } : todo
             )
     }
 

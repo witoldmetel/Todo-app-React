@@ -4,7 +4,7 @@ import TodoRandomImg from './TodoRandomImg';
 
 export default class TodoTask extends React.Component {
     render() {
-        const { randomFace, taskNumber, taskDescription, completed, deleteTask, toggleTask } = this.props;
+        const { randomFace, taskNumber, taskDescription, completed, editTask, deleteTask, toggleTask } = this.props;
         return (
             <li className="item" completed={completed} onClick={toggleTask}>
                 <TodoRandomImg randomFace={randomFace} />
@@ -12,8 +12,9 @@ export default class TodoTask extends React.Component {
                     <div className="task-number">Task: {taskNumber}</div>
                     <div className="task-description">{taskDescription}</div>
                 </div>
-                <button className="editTask" onClick={deleteTask}><i className="far fa-edit"></i></button>
-                <button className="removeTask" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
+                <div className="task-buttons">
+                    <button className="removeTask" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
+                </div>
             </li>
         )
     }

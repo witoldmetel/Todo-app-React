@@ -29,16 +29,21 @@ ul.ui.list li:before {
     content: '';
 }
 
-button.removeTask {
-    border: none;
-    background-color: transparent;
-    transition: 0.5s all;
-    cursor: pointer;
+.task-buttons {
     position: absolute;
     right: 0;
     top: 25%;
 }
 
+button.editTask,
+button.removeTask {
+    border: none;
+    background-color: transparent;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+
+button.editTask:hover,
 button.removeTask:hover {
     transform: scale(1.1);
 }

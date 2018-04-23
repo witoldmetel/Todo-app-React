@@ -44,11 +44,6 @@ class AppHeader extends React.Component {
                             <input type="search" placeholder="Search task... " disabled></input>
                             <i className="search icon"></i>
                         </div>
-                        <div className="ui filter buttons">
-                            <FilterButton name="All" onClick={() => this.props.setFilter(filters.SHOW_ALL)}></FilterButton>
-                            <FilterButton name="Incompleted" onClick={() => this.props.setFilter(filters.SHOW_INCOMPLETED)}></FilterButton>
-                            <FilterButton name="Completed" onClick={() => this.props.setFilter(filters.SHOW_COMPLETED)}></FilterButton>
-                        </div>
                 </nav>
             </header>
         );

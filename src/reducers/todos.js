@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
                 ...state,
                 {
                     randomFace: Math.random(),
-                    taskNumber: Math.round(Math.random()*100),
+                    taskNumber: action.id,
                     taskDescription: action.payload,
                     completed: false
                 }

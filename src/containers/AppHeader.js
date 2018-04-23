@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTask, showAll, showIncompleted, showCompleted } from '../actions/index';
+import { addTask, setFilter, filters } from '../actions/index';
 import { bindActionCreators } from 'redux';
+
+import FilterButton from '../components/FilterButton';
 
 class AppHeader extends React.Component {
     constructor(props) {
@@ -43,9 +45,9 @@ class AppHeader extends React.Component {
                             <i className="search icon"></i>
                         </div>
                         <div className="ui filter buttons">
-                            <button className="ui active button" onClick={() => this.props.showAll}>All</button>
-                            <button className="ui button" onClick={() => this.props.showIncompleted}>Incompleted</button>
-                            <button className="ui button">Completed</button>
+                            <FilterButton name="All" onClick={() => this.props.setFilter(filters.SHOW_ALL)}></FilterButton>
+                            <FilterButton name="Incompleted" onClick={() => this.props.setFilter(filters.SHOW_INCOMPLETED)}></FilterButton>
+                            <FilterButton name="Completed" onClick={() => this.props.setFilter(filters.SHOW_COMPLETED)}></FilterButton>
                         </div>
                 </nav>
             </header>
@@ -62,9 +64,7 @@ class AppHeader extends React.Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         addTask: addTask,
-        showAll: showAll,
-        showIncompleted: showIncompleted,
-        showCompleted: showCompleted
+        setFilter: setFilter
     }, dispatch)
 }
 

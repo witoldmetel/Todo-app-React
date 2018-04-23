@@ -2,7 +2,7 @@ import React from 'react';
 
 import TodoRandomImg from './TodoRandomImg';
 
-class TodoTask extends React.Component {
+export default class TodoTask extends React.Component {
     render() {
         const { randomFace, taskNumber, taskDescription, completed, deleteTask, toggleTask } = this.props;
         return (
@@ -17,5 +17,3 @@ class TodoTask extends React.Component {
         )
     }
 }
-
-export default TodoTask;

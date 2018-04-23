@@ -16,15 +16,11 @@ export default function(state = initialState, action) {
                     completed: false
                 }
             ]
-        case 'EDIT_TASK':
-            return state.map(todo =>
-                (todo.taskNumber === action.id)
-                    ? {
-                        taskNumber: todo.taskNumber,
-                        taskDescription: action.payload,
-                        completed: !todo.completed
-                    } : todo
-            )
+        case 'SEARCH_TASK':
+            // state.map(todo => {
+            //     return todo.taskDescription.toLowerCase().indexOf(action.payload.toLowerCase()) !== -1;
+            // });
+            return state.filter(todo => todo.taskDescription.startsWith(action.payload));
         case 'DELETE_TASK':
             return state.filter(todo => todo.taskNumber !== action.payload);
         case 'TOGGLE_TASK':

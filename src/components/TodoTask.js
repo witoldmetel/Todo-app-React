@@ -12,6 +12,7 @@ export default class TodoTask extends React.Component {
                     <div className="task-number">Task: {taskNumber}</div>
                     <div className="task-description">{taskDescription}</div>
                 </div>
+                <button className="editTask" onClick={deleteTask}><i className="far fa-edit"></i></button>
                 <button className="removeTask" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
             </li>
         )

@@ -5,7 +5,7 @@ export default class FilterButton extends React.Component {
         const { name, onClick } = this.props;
 
         return (
-            <button className="ui button" onClick={onClick}>{name}</button>
+            <button className="ui button" onClick={onClick} disabled>{name}</button>
         )
     }
 }

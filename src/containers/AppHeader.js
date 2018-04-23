@@ -41,7 +41,7 @@ class AppHeader extends React.Component {
                             <button className="ui button" type="submit">Add Task</button>
                         </form>
                         <div className="ui icon input">
-                            <input type="search" placeholder="Search task... "></input>
+                            <input type="search" placeholder="Search task... " disabled></input>
                             <i className="search icon"></i>
                         </div>
                         <div className="ui filter buttons">

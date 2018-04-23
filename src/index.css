@@ -15,7 +15,8 @@
     padding: 0 0.5rem;
 }
 
-.ui.input {
+.ui.input,
+.ui.filter.buttons {
     margin: 1rem;
 }
 
@@ -26,10 +27,6 @@
 ul.ui.list li:before {
     display: none;
     content: '';
-}
-
-.ui.filter.buttons {
-    margin-bottom: 1rem;
 }
 
 button.removeTask {

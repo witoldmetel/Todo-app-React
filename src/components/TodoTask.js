@@ -13,6 +13,7 @@ export default class TodoTask extends React.Component {
                     <div className="task-description">{taskDescription}</div>
                 </div>
                 <div className="task-buttons">
+                    <button className="editTask" hidden><i className="far fa-edit"></i></button>
                     <button className="removeTask" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
                 </div>
             </li>

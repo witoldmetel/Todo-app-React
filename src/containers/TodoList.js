@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { editTask, deleteTask, toggleTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { createSelector } from 'reselect'
 
 import TodoTask from '../components/TodoTask';
 
@@ -33,8 +34,17 @@ class TodoList extends React.Component {
     }
 }
 
+const getTodos = state => state.todos;
+const getKeyword = state => state.keyword;
+
+const getVisibleTodos = createSelector(
+    [getTodos, getKeyword],
+    (todos, keyword) =>
+         todos.filter(todo => todo.taskDescription.toLowerCase().indexOf(keyword) !== -1)
+)
+
 function mapStateToProps(state) {
-    return { todos: state.todos };
+    return { todos: getVisibleTodos(state) };
 }
 
 function mapDispatchToProps(dispatch) {

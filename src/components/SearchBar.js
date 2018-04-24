@@ -24,7 +24,7 @@ export default class SearchBar extends Component {
                     placeholder="Search task... "
                     value={this.state.search}
                     onChange={this.onSearcherChange}
-                    disabled>
+                    >
                 </input>
                 <i className="search icon"></i>
             </div>

@@ -4,7 +4,7 @@ const initialState = [
     { randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk", completed: false }
 ]
 
-export default function(state = initialState, action) {
+export default function todos(state = initialState, action) {
     switch (action.type) {
         case 'ADD_TASK':
             return [
@@ -16,11 +16,6 @@ export default function(state = initialState, action) {
                     completed: false
                 }
             ]
-        case 'SEARCH_TASK':
-            // state.map(todo => {
-            //     return todo.taskDescription.toLowerCase().indexOf(action.payload.toLowerCase()) !== -1;
-            // });
-            return state.filter(todo => todo.taskDescription.startsWith(action.payload));
         case 'DELETE_TASK':
             return state.filter(todo => todo.taskNumber !== action.payload);
         case 'TOGGLE_TASK':

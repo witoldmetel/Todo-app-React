@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import todosReducer from './todos';
-import filtersReducer from './filters'
+import keywordReducer from './keyword'
 
 const rootReducer = combineReducers({
     todos: todosReducer,
-    filters: filtersReducer
+    keyword: keywordReducer
 });
 
 export default rootReducer;

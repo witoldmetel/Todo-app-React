@@ -13,7 +13,7 @@ class AppHeader extends React.Component {
                 <nav className="ui container">
                     <a href="#" className="header item"><img className="logo" src="https://api.adorable.io/avatars/55/TodoApp.png"/> Funny Todo App</a>
                     <InputBar addTask={this.props.addTask}/>
-                    <SearchBar addTask={this.props.searchTask} />
+                    <SearchBar searchTask={this.props.searchTask} />
                 </nav>
             </header>
         );

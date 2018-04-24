@@ -8,13 +8,6 @@ export const addTask = (inputText) => {
     }
 };
 
-export const searchTask = (inputText) => {
-    return {
-        type: 'SEARCH_TASK',
-        payload: inputText
-    };
-}
-
 export const deleteTask = (todo) => {
     return {
         type: 'DELETE_TASK',
@@ -29,15 +22,10 @@ export const toggleTask = (todo) => {
     };
 }
 
-export const setFilter = (filter) => {
+export const searchTask = (keyword) => {
+    console.log(keyword);
     return {
-        type: "SET_FILTER",
-        payload: filter
-    }
-}
-
-export const filters = {
-    SHOW_ALL: 'SHOW_ALL',
-    SHOW_INCOMPLETED: 'SHOW_INCOMPLETED',
-    SHOW_COMPLETED: 'SHOW_COMPLETED'
+        type: 'SEARCH_TASK',
+        payload: keyword
+    };
 }

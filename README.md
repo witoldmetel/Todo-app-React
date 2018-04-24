@@ -22,7 +22,7 @@ Done:
 1) User can add task
 2) User can delete task
 3) User can mark task which is done
-4) User can find tasks by searcher (To fix: Searcher recognize case sensitive)
+4) User can find tasks by searcher
 
 To Do:
 

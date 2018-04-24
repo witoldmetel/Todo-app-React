@@ -1,4 +1,4 @@
-const keyword = (state = [], action) => {
+export default function keyword(state = [], action) {
     switch (action.type) {
         case 'SEARCH_TASK':
             return action.payload
@@ -6,5 +6,3 @@ const keyword = (state = [], action) => {
 
     return state
 }
-
-export default keyword

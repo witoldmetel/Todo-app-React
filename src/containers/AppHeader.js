@@ -16,9 +16,9 @@ class AppHeader extends React.Component {
                     <InputBar addTask={this.props.addTask}/>
                     <SearchBar searchTask={this.props.searchTask} />
                     <div className="ui filter buttons">
-                        <InputFilter name="All"/>
-                        <InputFilter name="Incompleted"/>
-                        <InputFilter name="Completed"/>
+                        <InputFilter name="All" id={1} isActive={true} />
+                        <InputFilter name="Incompleted" id={2} isActive={false} />
+                        <InputFilter name="Completed" id={3} isActive={false} />
                     </div>
                 </nav>
             </header>

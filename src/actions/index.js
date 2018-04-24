@@ -23,7 +23,6 @@ export const toggleTask = (todo) => {
 }
 
 export function searchTask(keyword) {
-    console.log("typing:", keyword);
     return {
         type: 'SEARCH_TASK',
         payload: keyword

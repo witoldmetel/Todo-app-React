@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
 
     onSearcherChange(e) {
         this.setState({ search: e.target.value });
-        this.props.searchTask(e.target.value);
+        this.props.searchTask(e.target.value.toLowerCase());
     }
 
     render() {

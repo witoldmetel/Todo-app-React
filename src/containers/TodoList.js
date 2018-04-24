@@ -39,7 +39,7 @@ const getKeyword = (state) => state.keyword;
 
 const getVisibleTodos = createSelector(
     [ getTodos, getKeyword ],
-    (todos, keyword) => todos.filter(todo => todo.taskDescription.indexOf(keyword) !== -1)
+    (todos, keyword) => todos.filter(todo => todo.taskDescription.toLowerCase().indexOf(keyword) !== -1)
 )
 
 function mapStateToProps(state) {

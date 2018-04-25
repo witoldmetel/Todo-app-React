@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTask, searchTask } from '../actions/index';
+import { addTask, searchTask, setFilter } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import InputBar from '../components/InputBar';
@@ -13,18 +13,19 @@ class AppHeader extends React.Component {
 
         this.state = { activeFilter: 1 }
 
-        this.setFilter = this.setFilter.bind(this);
+        this.setActiveFilter = this.setActiveFilter.bind(this);
     }
 
-    setFilter(id) {
+    setActiveFilter(id, filterName) {
         this.setState({ activeFilter: id })
+        this.props.setFilter(filterName);
     }
 
     render() {
         const filters = [
-            { name: "All", id: 1 },
-            { name: "Incompleted", id: 2 },
-            { name: "Completed", id: 3 }
+            { name: "All", id: 1, filterName: "SHOW_ALL" },
+            { name: "Incompleted", id: 2, filterName: "SHOW_INCOMPLETED" },
+            { name: "Completed", id: 3, filterName: "SHOW_COMPLETED" }
         ]
         return (
             <header className="ui fixed menu">
@@ -42,7 +43,8 @@ class AppHeader extends React.Component {
                                             id={filter.id}
                                             name={filter.name}
                                             isActive={this.state.activeFilter === filter.id}
-                                            onClick={() => this.setFilter(filter.id)}
+                                            onClick={() => this.setActiveFilter(filter.id, filter.filterName)}
+                                            filter={filter.filterName}
                                         />
                                     );
                                 })
@@ -58,7 +60,8 @@ class AppHeader extends React.Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         addTask: addTask,
-        searchTask: searchTask
+        searchTask: searchTask,
+        setFilter: setFilter
     }, dispatch)
 }
 

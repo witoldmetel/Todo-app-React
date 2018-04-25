@@ -28,3 +28,10 @@ export function searchTask(keyword) {
         payload: keyword
     };
 }
+
+export const setFilter = (filter) => {
+    return {
+        type: 'SET_FILTER',
+        payload: filter
+    }
+}

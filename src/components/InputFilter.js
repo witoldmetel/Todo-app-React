@@ -7,6 +7,7 @@ export default class InputFilter extends Component {
                 type='button'
                 onClick={this.props.onClick}
                 className={this.props.isActive ? "ui active button" : "ui button"}
+                filter={this.props.filter}
                 >
                 {this.props.name}
             </button>

@@ -8,7 +8,24 @@ import SearchBar from '../components/SearchBar';
 import InputFilter from '../components/InputFilter';
 
 class AppHeader extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { activeFilter: 1 }
+
+        this.setFilter = this.setFilter.bind(this);
+    }
+
+    setFilter(id) {
+        this.setState({ activeFilter: id })
+    }
+
     render() {
+        const filters = [
+            { name: "All", id: 1 },
+            { name: "Incompleted", id: 2 },
+            { name: "Completed", id: 3 }
+        ]
         return (
             <header className="ui fixed menu">
                 <nav className="ui container">
@@ -16,9 +33,21 @@ class AppHeader extends React.Component {
                     <InputBar addTask={this.props.addTask}/>
                     <SearchBar searchTask={this.props.searchTask} />
                     <div className="ui filter buttons">
-                        <InputFilter name="All" id={1} isActive={true} />
-                        <InputFilter name="Incompleted" id={2} isActive={false} />
-                        <InputFilter name="Completed" id={3} isActive={false} />
+                        return (
+                            {
+                                filters.map(filter => {
+                                    return (
+                                        <InputFilter
+                                            key={filter.id}
+                                            id={filter.id}
+                                            name={filter.name}
+                                            isActive={this.state.activeFilter === filter.id}
+                                            onClick={() => this.setFilter(filter.id)}
+                                        />
+                                    );
+                                })
+                            }
+                        )
                     </div>
                 </nav>
             </header>

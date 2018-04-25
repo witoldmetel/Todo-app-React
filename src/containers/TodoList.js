@@ -18,7 +18,8 @@ class TodoList extends React.Component {
                     completed={todo.completed}
                     editTask={() => this.props.editTask(todo)}
                     deleteTask={() => this.props.deleteTask(todo)}
-                    toggleTask={() => this.props.toggleTask(todo)}/>
+                    toggleTask={() => this.props.toggleTask(todo)}
+                />
             );
         });
     }

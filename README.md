@@ -23,8 +23,9 @@ Done:
 2) User can delete task
 3) User can mark task which is done
 4) User can find tasks by searcher
+5) User can filter which task is done or not
 
 To Do:
 
 1) Add edit button (user can edit tasks)
-2) Add filters (user can filter which task is done or not)
+2) Connect app with Firebase

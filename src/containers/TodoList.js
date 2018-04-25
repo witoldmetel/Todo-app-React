@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteTask, toggleTask } from '../actions/index';
+import { editTask, deleteTask, toggleTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect'
 
@@ -8,21 +8,21 @@ import TodoTask from '../components/TodoTask';
 
 class TodoList extends React.Component {
     renderList() {
-        return this.props.todos.map((todo) => {
-            return (
-                <TodoTask
-                    key={todo.taskNumber}
-                    randomFace={todo.taskNumber}
-                    taskNumber={todo.taskNumber}
-                    taskDescription={todo.taskDescription}
-                    completed={todo.completed}
-                    editTask={() => this.props.editTask(todo)}
-                    deleteTask={() => this.props.deleteTask(todo)}
-                    toggleTask={() => this.props.toggleTask(todo)}
-                />
-            );
-        });
-    }
+            return this.props.todos.map((todo) => {
+                return (
+                    <TodoTask
+                        key={todo.taskNumber}
+                        randomFace={todo.taskNumber}
+                        taskNumber={todo.taskNumber}
+                        taskDescription={todo.taskDescription}
+                        completed={todo.completed}
+                        editTask={() => this.props.editTask(todo)}
+                        deleteTask={() => this.props.deleteTask(todo)}
+                        toggleTask={() => this.props.toggleTask(todo)}
+                    />
+                );
+            });
+        }
 
     render() {
         return (
@@ -59,6 +59,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        editTask: editTask,
         deleteTask: deleteTask,
         toggleTask: toggleTask
     }, dispatch)

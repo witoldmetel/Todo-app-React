@@ -8,7 +8,7 @@ export default class TodoTask extends React.Component {
 
         this.state = {
             activeEdit: false,
-            editText: ''
+            editText: this.props.taskDescription
         }
 
         this.onEditClick = this.onEditClick.bind(this);
@@ -26,8 +26,13 @@ export default class TodoTask extends React.Component {
 
     updateTextTask(e) {
         e.preventDefault();
-        this.props.editTask(this.state.editText.trim(), this.props.taskNumber);
-        this.setState({ activeEdit: false })
+        console.log(this.state.editText);
+        if (this.state.editText === '') {
+            this.props.deleteTask(this.props.taskNumber);
+        } else {
+            this.props.editTask(this.state.editText, this.props.taskNumber);
+            this.setState({ activeEdit: false })
+        }
     }
 
     render() {

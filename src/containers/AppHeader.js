@@ -28,7 +28,7 @@ class AppHeader extends React.Component {
             { name: "Completed", id: 3, filterName: "SHOW_COMPLETED" }
         ]
         return (
-            <header className="ui fixed menu">
+            <header className="ui menu">
                 <nav className="ui container">
                     <a href="#" className="header item"><img className="logo" src="https://api.adorable.io/avatars/55/TodoApp.png"/> Funny Todo App</a>
                     <InputBar addTask={this.props.addTask}/>

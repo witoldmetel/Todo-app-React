@@ -58,8 +58,8 @@ export default class TodoTask extends React.Component {
                         </input>
                     </div>
                     <div className="edit-task-buttons">
-                        <button className="ui button" type="submit"><i class="fas fa-check"></i></button>
-                        <button className="ui button" onClick={this.onCancelClick}><i class="fas fa-times"></i></button>
+                        <button className="ui button inverted green" title="accept edit" type="submit"><i className="fas fa-check"></i></button>
+                        <button className="ui button inverted red" title="cancel edit" onClick={this.onCancelClick}><i className="fas fa-times"></i></button>
                     </div>
                 </form>
             )
@@ -67,15 +67,15 @@ export default class TodoTask extends React.Component {
             return (
                 <div className="item">
                     <li className="task" completed={completed} onClick={toggleTask}>
-                        <TodoRandomImg randomFace={randomFace} />
+                        <TodoRandomImg randomFace={randomFace} title={completed ? "I'm proud of you!" : "Just finish that task!"} />
                         <div className="content" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
                             <div className="task-number">Task: {taskNumber}</div>
                             <div className="task-description">{taskDescription}</div>
                         </div>
                     </li>
                     <div className="task-buttons">
-                        <button className="editTask" onClick={this.onEditClick}><i className="far fa-edit"></i></button>
-                        <button className="removeTask" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
+                        <button className="editTask" title="edit task" onClick={this.onEditClick}><i className="far fa-edit"></i></button>
+                        <button className="removeTask" title="delete task" onClick={deleteTask}><i className="far fa-trash-alt"></i></button>
                     </div>
                 </div>
             )

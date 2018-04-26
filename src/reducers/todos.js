@@ -21,14 +21,7 @@ export default function todos(state = initialState, action) {
         case 'DELETE_TASK':
             return state.filter(todo => todo.taskNumber !== action.payload);
         case 'TOGGLE_TASK':
-            return state.map(todo =>
-                (todo.taskNumber === action.payload)
-                    ? {
-                        taskNumber: todo.taskNumber,
-                        taskDescription: todo.taskDescription,
-                        completed: !todo.completed
-                    } : todo
-            )
+            return state.map(todo => todo.taskNumber === action.payload ? Object.assign({}, todo, { completed: !todo.completed }) : todo);
     }
 
     return state

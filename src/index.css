@@ -7,7 +7,7 @@
 
 .ui.menu .item {
     padding-left: 0;
-    position: relative;
+    /* position: relative; */
 }
 
 .ui.menu .item img.logo {
@@ -29,10 +29,34 @@ ul.ui.list li:before {
     content: '';
 }
 
+ul.ui.list li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.item {
+    position: relative;
+}
+
+.ui.item.input {
+    display: flex;
+    align-items: center;
+}
+
+.task .content {
+    margin-left: 1rem;
+}
+
+.edit-task-buttons {
+    position: absolute;
+    right: 0;
+}
+
 .task-buttons {
     position: absolute;
     right: 0;
-    top: 25%;
+    top: 30%;
 }
 
 button.editTask,

@@ -8,11 +8,11 @@ export const addTask = (inputText) => {
     }
 };
 
-export const editTask = (todo) => {
+export const editTask = (inputText, id) => {
     return {
         type: 'EDIT_TASK',
-        payload: todo.taskDescription,
-        id: todo.taskNumber
+        payload: inputText,
+        id: id
     };
 }
 

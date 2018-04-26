@@ -16,7 +16,7 @@ class TodoList extends React.Component {
                         taskNumber={todo.taskNumber}
                         taskDescription={todo.taskDescription}
                         completed={todo.completed}
-                        editTask={() => this.props.editTask(todo)}
+                        editTask={() => this.props.editTask((todo))}
                         deleteTask={() => this.props.deleteTask(todo)}
                         toggleTask={() => this.props.toggleTask(todo)}
                     />

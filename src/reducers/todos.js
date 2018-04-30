@@ -4,9 +4,9 @@ const initialState = [
     { id: 3, randomFace: "todoapp3", taskNumber: 3, taskDescription: "Buy milk", completed: false }
 ]
 
-export default function todos(state = initialState, action) {
+export default function todos(state = [], action) {
     switch (action.type) {
-        case 'FETCH_TODOS':
+        case 'GET_TASKS':
             return action.payload
         case 'ADD_TASK':
             return [
@@ -24,7 +24,7 @@ export default function todos(state = initialState, action) {
         case 'DELETE_TASK':
             return state.filter(todo => todo.id !== action.payload);
         case 'TOGGLE_TASK':
-            return state.map(todo => todo.taskNumber === action.payload ? Object.assign({}, todo, { completed: !todo.completed }) : todo);
+            return state.map(todo => todo.id === action.payload ? Object.assign({}, todo, { completed: !todo.completed }) : todo);
     }
 
     return state

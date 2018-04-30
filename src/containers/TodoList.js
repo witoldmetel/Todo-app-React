@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { editTask, deleteTask, toggleTask } from '../actions/index';
+import { getTasksThunk, editTask, deleteTask, toggleTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect'
 
@@ -24,6 +24,9 @@ class TodoList extends React.Component {
                 );
             });
         }
+    componentDidMount() {
+        this.props.getTasksThunk();
+    }
 
     render() {
         return (
@@ -60,6 +63,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        getTasksThunk: getTasksThunk,
         editTask: editTask,
         deleteTask: deleteTask,
         toggleTask: toggleTask

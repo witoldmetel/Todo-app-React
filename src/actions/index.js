@@ -1,14 +1,25 @@
 import { database } from '../config/config';
 import uuid from 'uuid';
 
-export const fetchTodos = (todo) => dispatch => {
-    todosRef.on("value", snapshot => {
-        dispatch({
-            type: 'FETCH_TODOS',
-            payload: snapshot.val()
-        });
-    });
+export const getTasks = (todos) => {
+    return {
+        type: 'GET_TASKS',
+        payload: todos
+    }
 };
+
+export function getTasksThunk() {
+    return dispatch => {
+        const todos = [];
+        database.ref(`/`).once('value', snap => {
+            snap.forEach(data => {
+                let todo = data.val();
+                todos.push(todo)
+            })
+        })
+            .then(() => dispatch(getTasks(todos)))
+    }
+}
 
 let nextTaskNumber = 4;
 export const addTask = (taskDescription) => {
@@ -47,7 +58,7 @@ export const deleteTask = (todo) => {
 export const toggleTask = (todo) => {
     return {
         type: 'TOGGLE_TASK',
-        payload: todo.taskNumber
+        payload: todo.id
     };
 }
 

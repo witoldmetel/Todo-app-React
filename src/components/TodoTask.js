@@ -35,15 +35,15 @@ export default class TodoTask extends React.Component {
     updateTextTask(e) {
         e.preventDefault();
         if (this.state.editText === '') {
-            this.props.deleteTask(this.props.taskNumber);
+            this.props.deleteTask(this.props.id);
         } else {
-            this.props.editTask(this.state.editText, this.props.taskNumber);
+            this.props.editTask(this.state.editText, this.props.id);
             this.setState({ activeEdit: false })
         }
     }
 
     render() {
-        const { randomFace, taskNumber, taskDescription, completed, editTask, deleteTask, toggleTask } = this.props;
+        const { id, randomFace, taskNumber, taskDescription, completed, editTask, deleteTask, toggleTask } = this.props;
         if (this.state.activeEdit) {
             return (
                 <form className="ui item input" onSubmit={this.updateTextTask}>

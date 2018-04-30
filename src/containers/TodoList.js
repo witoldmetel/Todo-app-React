@@ -11,7 +11,8 @@ class TodoList extends React.Component {
             return this.props.todos.map((todo) => {
                 return (
                     <TodoTask
-                        key={todo.taskNumber}
+                        key={todo.id}
+                        id={todo.id}
                         randomFace={todo.taskNumber}
                         taskNumber={todo.taskNumber}
                         taskDescription={todo.taskDescription}

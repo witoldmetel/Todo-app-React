@@ -25,10 +25,13 @@ export const addTask = (taskDescription) => {
     }
 };
 
-export const editTask = (inputText, id) => {
+export const editTask = (taskDescription, id) => {
+    database.ref(`/${id}`).update({
+        taskDescription
+    })
     return {
         type: 'EDIT_TASK',
-        payload: inputText,
+        payload: taskDescription,
         id: id
     };
 }

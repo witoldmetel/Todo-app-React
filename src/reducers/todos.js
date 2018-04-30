@@ -20,7 +20,7 @@ export default function todos(state = initialState, action) {
                 }
             ]
         case 'EDIT_TASK':
-            return state.map(todo => todo.taskNumber === action.id ? Object.assign({}, todo, { taskDescription: action.payload }) : todo);
+            return state.map(todo => todo.id === action.id ? Object.assign({}, todo, { taskDescription: action.payload }) : todo);
         case 'DELETE_TASK':
             return state.filter(todo => todo.id !== action.payload);
         case 'TOGGLE_TASK':

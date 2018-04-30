@@ -6,6 +6,8 @@ const initialState = [
 
 export default function todos(state = initialState, action) {
     switch (action.type) {
+        case 'FETCH_TODOS':
+            return action.payload
         case 'ADD_TASK':
             return [
                 ...state,

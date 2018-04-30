@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTask, searchTask, setFilter } from '../actions/index';
+import { addTask, addTaskToFirebase, searchTask, setFilter } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import InputBar from '../components/InputBar';
@@ -31,7 +31,7 @@ class AppHeader extends React.Component {
             <header className="ui menu">
                 <nav className="ui container">
                     <a href="#" className="header item"><img className="logo" src="https://api.adorable.io/avatars/55/TodoApp.png"/> Funny Todo App</a>
-                    <InputBar addTask={this.props.addTask}/>
+                    <InputBar addTask={this.props.addTask} addTaskToFirebase={this.props.addTaskToFirebase}/>
                     <SearchBar searchTask={this.props.searchTask} />
                     <div className="ui filter buttons">
                         return (
@@ -60,6 +60,7 @@ class AppHeader extends React.Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         addTask: addTask,
+        addTaskToFirebase: addTaskToFirebase,
         searchTask: searchTask,
         setFilter: setFilter
     }, dispatch)

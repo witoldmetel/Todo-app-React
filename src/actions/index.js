@@ -12,19 +12,16 @@ export const fetchTodos = (todo) => dispatch => {
 
 let nextTaskNumber = 4;
 export const addTask = (inputText) => {
+    const id = uuid();
+    database.ref(`/${id}`).set({
+        id, inputText
+    })
     return  {
         type: 'ADD_TASK',
         payload: inputText,
         id: nextTaskNumber++,
     }
 };
-
-export const addTaskToFirebase = (inputText) => {
-    const id = uuid();
-    database.ref(`/${id}`).set({
-        id, inputText
-    })
-}
 
 export const editTask = (inputText, id) => {
     return {
@@ -35,6 +32,7 @@ export const editTask = (inputText, id) => {
 }
 
 export const deleteTask = (todo) => {
+    database.ref(`/${todo.taskNumber}`).remove();
     return {
         type: 'DELETE_TASK',
         payload: todo.taskNumber

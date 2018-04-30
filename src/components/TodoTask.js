@@ -66,7 +66,7 @@ export default class TodoTask extends React.Component {
         } else {
             return (
                 <div className="item">
-                    <li className="task" completed={completed} onClick={toggleTask}>
+                    <li className="task" completed={this.props.completed} onClick={toggleTask}>
                         <TodoRandomImg randomFace={randomFace} title={completed ? "I'm proud of you!" : "Just finish that task!"} />
                         <div className="content" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
                             <div className="task-number">Task: {taskNumber}</div>

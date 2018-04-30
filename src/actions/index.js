@@ -21,12 +21,13 @@ export function getTasksThunk() {
     }
 }
 
-let nextTaskNumber = 4;
+let nextTaskNumber = 1;
 export const addTask = (taskDescription) => {
     const id = uuid();
     const taskNumber = nextTaskNumber;
+    const taskCompleted = false;
     database.ref(`/${id}`).set({
-        id, taskNumber, taskDescription
+        id, taskNumber, taskDescription, taskCompleted
     })
     return  {
         type: 'ADD_TASK',
@@ -56,6 +57,10 @@ export const deleteTask = (todo) => {
 }
 
 export const toggleTask = (todo) => {
+    const taskCompleted = !todo.completed;
+    database.ref(`/${todo.id}`).update({
+        taskCompleted
+    })
     return {
         type: 'TOGGLE_TASK',
         payload: todo.id

@@ -9,7 +9,13 @@ import App from './components/App';
 import reducers from './reducers';
 import './index.css';
 
-const store = createStore(reducers, applyMiddleware(reduxThunk));
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+
+const store = createStore(reducers, persistedState, applyMiddleware(reduxThunk));
+
+store.subscribe(() => {
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
 
 // const store = createStore(reducers);
 

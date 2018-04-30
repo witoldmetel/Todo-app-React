@@ -11,15 +11,17 @@ export const fetchTodos = (todo) => dispatch => {
 };
 
 let nextTaskNumber = 4;
-export const addTask = (inputText) => {
+export const addTask = (taskDescription) => {
     const id = uuid();
+    const taskNumber = nextTaskNumber;
     database.ref(`/${id}`).set({
-        id, inputText
+        id, taskNumber, taskDescription
     })
     return  {
         type: 'ADD_TASK',
-        payload: inputText,
-        id: nextTaskNumber++,
+        payload: taskDescription,
+        taskNumber: nextTaskNumber++,
+        id: id
     }
 };
 
@@ -32,10 +34,10 @@ export const editTask = (inputText, id) => {
 }
 
 export const deleteTask = (todo) => {
-    database.ref(`/${todo.taskNumber}`).remove();
+    database.ref(`/${todo.id}`).remove();
     return {
         type: 'DELETE_TASK',
-        payload: todo.taskNumber
+        payload: todo.id
     };
 }
 

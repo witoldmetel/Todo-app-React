@@ -4,7 +4,7 @@
 
 Simple Todo App (First App in Webpack / React / Redux / Firebase / Semantic UI)
 
-![How app works?]("./how app works.gif")
+![How-app-works](https://media.giphy.com/media/5ndmImlAKP0PKzSPov/giphy.gif)
 
 Done:
 

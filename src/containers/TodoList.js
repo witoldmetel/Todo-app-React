@@ -46,15 +46,16 @@ const getFilters = (state) => state.filters;
 const getVisibleTodos = createSelector(
     [ getTodos, getKeyword, getFilters ],
     (todos, keyword, filters) => {
-        switch (filters) {
-            case 'SHOW_ALL':
-                return todos.filter(todo => todo.taskDescription.toLowerCase().indexOf(keyword) !== -1)
-            case 'SHOW_COMPLETED':
-                return todos.filter(todo => todo.completed)
-            case 'SHOW_INCOMPLETED':
-                return todos.filter(todo => !todo.completed)
+            switch (filters) {
+                case 'SHOW_ALL':
+                    return todos.filter(todo => todo.taskDescription.toLowerCase().indexOf(keyword) !== -1)
+                case 'SHOW_COMPLETED':
+                    return todos.filter(todo => todo.completed)
+                case 'SHOW_INCOMPLETED':
+                    return todos.filter(todo => !todo.completed)
+            }
+            return todos;
         }
-    }
 )
 
 function mapStateToProps(state) {

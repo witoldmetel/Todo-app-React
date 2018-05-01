@@ -4,7 +4,7 @@
 
 Simple Todo App (First App in Webpack / React / Redux / Firebase / Semantic UI)
 
-<img src="how app works.gif" width="250" height="250" />
+![How app works?]("./how app works.gif")
 
 Done:
 

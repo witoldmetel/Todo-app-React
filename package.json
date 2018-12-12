@@ -4,13 +4,12 @@
   "description": "Boilerplate for React apps",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "start": "parcel src/index.html"
   },
   "author": "Witold Metel",
   "license": "MIT",
   "dependencies": {
-    "firebase": "^4.13.1",
+    "firebase": "^5.7.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

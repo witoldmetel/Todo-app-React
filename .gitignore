@@ -3,3 +3,4 @@ dist
 package-lock.json
 firebaseConfig.js
 *.gif
+.cache

@@ -9,19 +9,19 @@ import App from './components/App';
 import reducers from './reducers';
 import './index.css';
 
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
 
 const store = createStore(reducers, persistedState, applyMiddleware(reduxThunk));
 
 store.subscribe(() => {
-    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+});
 
 // const store = createStore(reducers);
 
 ReactDOM.render(
-    <Provider store={store}>
+  <Provider store={store}>
     <App />
-    </Provider>,
-    document.getElementById('app')
+  </Provider>,
+  document.getElementById('app'),
 );

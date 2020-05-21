@@ -4,10 +4,10 @@
   "description": "Simple todo app write in React.js",
   "main": "index.js",
   "scripts": {
-    "start": "yarn clean && parcel public/index.html --out-dir development -p 8080",
+    "start": "yarn clean && parcel public/index.html -p 8080",
     "build": "yarn lint && yarn test && parcel build public/index.html --no-cache --out-dir dist --public-url ./",
     "deploy": "gh-pages -b master -d dist",
-    "clean": "rimraf ./development && rimraf -rf ./.cache",
+    "clean": "rimraf -rf ./.cache",
     "lint": "eslint --fix src/*",
     "test": "jest"
   },

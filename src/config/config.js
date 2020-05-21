@@ -3,10 +3,10 @@ import * as firebase from 'firebase';
 // import { config } from './firebaseConfig';
 
 const config = {
-  apiKey: 'Your API KEY',
-  authDomain: 'your auth domain',
-  databaseURL: 'your database url',
-  projectId: 'your project id',
+  apiKey: 'AIzaSyBUqV3J9xxxQql6ofFiuc42oLEx6KsKCxA',
+  authDomain: 'todo-react-app.firebaseapp.com',
+  databaseURL: 'https://todo-react-app.firebaseio.com',
+  projectId: 'todo-react-app-3f051',
 };
 
 firebase.initializeApp(config);

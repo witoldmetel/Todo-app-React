@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
 
 export default class SearchBar extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            search: ''
-        };
+    this.state = {
+      search: '',
+    };
 
-        this.onSearcherChange = this.onSearcherChange.bind(this);
-    }
+    this.onSearcherChange = this.onSearcherChange.bind(this);
+  }
 
-    onSearcherChange(e) {
-        this.setState({ search: e.target.value });
-        this.props.searchTask(e.target.value.toLowerCase());
-    }
+  onSearcherChange(e) {
+    this.setState({ search: e.target.value });
+    this.props.searchTask(e.target.value.toLowerCase());
+  }
 
-    render() {
-        return (
-            <div className="ui icon input">
-                <input
-                    type="text"
-                    placeholder="Search task... "
-                    value={this.state.search}
-                    onChange={this.onSearcherChange}
-                    >
-                </input>
-                <i className="search icon"></i>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="ui icon input">
+        <input
+          type="text"
+          placeholder="Search task... "
+          value={this.state.search}
+          onChange={this.onSearcherChange}
+        ></input>
+        <i className="search icon"></i>
+      </div>
+    );
+  }
 }

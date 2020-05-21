@@ -1,5 +1,6 @@
-import { database } from '../config/config';
 import uuid from 'uuid';
+
+import { database } from '../config/config';
 
 export const getTasks = (tasks) => {
   return {
@@ -15,7 +16,8 @@ export function getTasksThunk() {
       .ref(`/`)
       .once('value', (snap) => {
         snap.forEach((data) => {
-          let task = data.val();
+          const task = data.val();
+
           tasks.push(task);
         });
       })

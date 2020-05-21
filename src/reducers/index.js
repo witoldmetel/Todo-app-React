@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import tasksReducer from './tasks';
 import keywordReducer from './keyword';
 import filtersReducer from './filters';

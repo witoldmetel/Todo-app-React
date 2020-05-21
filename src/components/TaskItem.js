@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import RandomImg from './RandomImg';
 
@@ -43,7 +44,8 @@ export default class TaskItem extends React.Component {
   }
 
   render() {
-    const { id, randomFace, taskNumber, taskDescription, completed, editTask, deleteTask, toggleTask } = this.props;
+    const { randomFace, taskNumber, taskDescription, completed, deleteTask, toggleTask } = this.props;
+
     if (this.state.activeEdit) {
       return (
         <form className="ui item input" onSubmit={this.updateTextTask}>
@@ -90,3 +92,14 @@ export default class TaskItem extends React.Component {
     }
   }
 }
+
+TaskItem.propTypes = {
+  id: PropTypes.string,
+  randomFace: PropTypes.number,
+  taskNumber: PropTypes.number,
+  taskDescription: PropTypes.string,
+  completed: PropTypes.bool,
+  editTask: PropTypes.func,
+  deleteTask: PropTypes.func,
+  toggleTask: PropTypes.func,
+};

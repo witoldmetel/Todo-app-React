@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk'; // middleware to dispatch functions instea
 
 import App from './components/App';
 import reducers from './reducers';
-import './index.css';
+import './index.scss';
 
 const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
 

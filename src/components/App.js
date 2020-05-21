@@ -6,10 +6,10 @@ import TaskList from '../containers/TaskList';
 export default class App extends React.Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <AppHeader />
         <TaskList />
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class FilterButton extends React.Component {
+export default class FilterButton extends Component {
   render() {
     const { name, onClick } = this.props;
 
@@ -11,3 +12,8 @@ export default class FilterButton extends React.Component {
     );
   }
 }
+
+FilterButton.propTypes = {
+  name: PropTypes.string,
+  onClick: PropTypes.func,
+};

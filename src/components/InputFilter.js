@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class InputFilter extends Component {
   render() {
@@ -14,3 +15,10 @@ export default class InputFilter extends Component {
     );
   }
 }
+
+InputFilter.propTypes = {
+  name: PropTypes.string,
+  isActive: PropTypes.bool,
+  filter: PropTypes.any,
+  onClick: PropTypes.func,
+};

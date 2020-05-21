@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTask, searchTask, setFilter } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
+import { addTask, searchTask, setFilter } from '../actions';
 import InputBar from '../components/InputBar';
 import SearchBar from '../components/SearchBar';
 import InputFilter from '../components/InputFilter';
@@ -68,5 +69,11 @@ function mapDispatchToProps(dispatch) {
     dispatch,
   );
 }
+
+AppHeader.propTypes = {
+  addTask: PropTypes.func,
+  searchTask: PropTypes.func,
+  setFilter: PropTypes.func,
+};
 
 export default connect(null, mapDispatchToProps)(AppHeader);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class InputBar extends Component {
   constructor(props) {
@@ -34,3 +35,7 @@ export default class InputBar extends Component {
     );
   }
 }
+
+InputBar.propTypes = {
+  addTask: PropTypes.func,
+};

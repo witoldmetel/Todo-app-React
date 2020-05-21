@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getTasksThunk, editTask, deleteTask, toggleTask } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
+import PropTypes from 'prop-types';
 
+import { getTasksThunk, editTask, deleteTask, toggleTask } from '../actions';
 import TaskItem from '../components/TaskItem';
 
 class TaskList extends React.Component {
   renderList() {
-    return this.props.tasks.map((task) => {
+    return this.props.tasks.map((task, index) => {
       return (
         <TaskItem
-          key={task.id}
+          key={index}
           id={task.id}
           randomFace={task.taskNumber}
           taskNumber={task.taskNumber}
@@ -68,5 +69,13 @@ function mapDispatchToProps(dispatch) {
     dispatch,
   );
 }
+
+TaskList.propTypes = {
+  tasks: PropTypes.array,
+  getTasksThunk: PropTypes.func,
+  editTask: PropTypes.func,
+  deleteTask: PropTypes.func,
+  toggleTask: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

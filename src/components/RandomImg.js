@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class RandomImg extends React.Component {
   render() {
@@ -6,3 +7,8 @@ export default class RandomImg extends React.Component {
     return <img src={imgUrl} className="ui mini rounded image" title={this.props.title} />;
   }
 }
+
+RandomImg.propTypes = {
+  randomFace: PropTypes.number,
+  title: PropTypes.string,
+};

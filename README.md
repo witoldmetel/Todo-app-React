@@ -4,8 +4,6 @@
 
 Simple Todo App (First App in Webpack / React / Redux / Firebase / Semantic UI)
 
-![How-app-works](https://media.giphy.com/media/5ndmImlAKP0PKzSPov/giphy.gif)
-
 Done:
 
 1. User can add task
@@ -17,38 +15,7 @@ Done:
 7. Connect app with Firebase
 8. Add todos to local storage
 
-To do:
-
-1. Checking task numbers if the numbers are not the same
-2. After refresh, status of completed task disappears
-
-## Quick Start
-
-```bash
-# Install dependencies
-npm install
-
-# Serve on localhost:8080
-npm start
-
-# Build for production
-npm run build
-```
-
-In config folder you need to add your firebase configuration:
-
-```bash
-export const config = {
-    apiKey: "Your API KEY",
-    authDomain: "your auth domain",
-    databaseURL: "your database url",
-    projectId: "your project id",
-};
-```
-
-//@todo: Update documentation
-
-# Usage
+## Usage
 
 Install dependencies
 
@@ -90,4 +57,15 @@ Deploy page on GH-Pages
 
 ```
 yarn deploy
+```
+
+In config folder you need to add your firebase configuration:
+
+```bash
+export const config = {
+    apiKey: "Your API KEY",
+    authDomain: "your auth domain",
+    databaseURL: "your database url",
+    projectId: "your project id",
+};
 ```

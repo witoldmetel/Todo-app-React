@@ -1,6 +1,14 @@
-node_modules
-dist
-package-lock.json
 firebaseConfig.js
 *.gif
-.cache
+/node_modules
+bundle.js
+npm-debug.log
+.DS_Store
+.cache/
+development
+dist
+yarn-error.log
+
+# IntelliJ
+*.iml
+/.idea

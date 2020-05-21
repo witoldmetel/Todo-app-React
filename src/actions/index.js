@@ -1,25 +1,25 @@
 import { database } from '../config/config';
 import uuid from 'uuid';
 
-export const getTasks = (todos) => {
+export const getTasks = (tasks) => {
   return {
     type: 'GET_TASKS',
-    payload: todos,
+    payload: tasks,
   };
 };
 
 export function getTasksThunk() {
   return (dispatch) => {
-    const todos = [];
+    const tasks = [];
     database
       .ref(`/`)
       .once('value', (snap) => {
         snap.forEach((data) => {
-          let todo = data.val();
-          todos.push(todo);
+          let task = data.val();
+          tasks.push(task);
         });
       })
-      .then(() => dispatch(getTasks(todos)));
+      .then(() => dispatch(getTasks(tasks)));
   };
 }
 
@@ -53,22 +53,22 @@ export const editTask = (taskDescription, id) => {
   };
 };
 
-export const deleteTask = (todo) => {
-  database.ref(`/${todo.id}`).remove();
+export const deleteTask = (task) => {
+  database.ref(`/${task.id}`).remove();
   return {
     type: 'DELETE_TASK',
-    payload: todo.id,
+    payload: task.id,
   };
 };
 
-export const toggleTask = (todo) => {
-  const taskCompleted = !todo.completed;
-  database.ref(`/${todo.id}`).update({
+export const toggleTask = (task) => {
+  const taskCompleted = !task.completed;
+  database.ref(`/${task.id}`).update({
     taskCompleted,
   });
   return {
     type: 'TOGGLE_TASK',
-    payload: todo.id,
+    payload: task.id,
   };
 };
 

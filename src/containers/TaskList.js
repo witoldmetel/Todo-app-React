@@ -4,22 +4,22 @@ import { getTasksThunk, editTask, deleteTask, toggleTask } from '../actions/inde
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
 
-import TodoTask from '../components/TodoTask';
+import TaskItem from '../components/TaskItem';
 
-class TodoList extends React.Component {
+class TaskList extends React.Component {
   renderList() {
-    return this.props.todos.map((todo) => {
+    return this.props.tasks.map((task) => {
       return (
-        <TodoTask
-          key={todo.id}
-          id={todo.id}
-          randomFace={todo.taskNumber}
-          taskNumber={todo.taskNumber}
-          taskDescription={todo.taskDescription}
-          completed={todo.completed}
+        <TaskItem
+          key={task.id}
+          id={task.id}
+          randomFace={task.taskNumber}
+          taskNumber={task.taskNumber}
+          taskDescription={task.taskDescription}
+          completed={task.completed}
           editTask={this.props.editTask}
-          deleteTask={() => this.props.deleteTask(todo)}
-          toggleTask={() => this.props.toggleTask(todo)}
+          deleteTask={() => this.props.deleteTask(task)}
+          toggleTask={() => this.props.toggleTask(task)}
         />
       );
     });
@@ -37,24 +37,24 @@ class TodoList extends React.Component {
   }
 }
 
-const getTodos = (state) => state.todos;
+const getTasks = (state) => state.tasks;
 const getKeyword = (state) => state.keyword;
 const getFilters = (state) => state.filters;
 
-const getVisibleTodos = createSelector([getTodos, getKeyword, getFilters], (todos, keyword, filters) => {
+const getVisibleTasks = createSelector([getTasks, getKeyword, getFilters], (tasks, keyword, filters) => {
   switch (filters) {
     case 'SHOW_ALL':
-      return todos.filter((todo) => todo.taskDescription?.toLowerCase().indexOf(keyword) !== -1);
+      return tasks.filter((task) => task.taskDescription?.toLowerCase().indexOf(keyword) !== -1);
     case 'SHOW_COMPLETED':
-      return todos.filter((todo) => todo.completed);
+      return tasks.filter((task) => task.completed);
     case 'SHOW_INCOMPLETED':
-      return todos.filter((todo) => !todo.completed);
+      return tasks.filter((task) => !task.completed);
   }
-  return todos;
+  return tasks;
 });
 
 function mapStateToProps(state) {
-  return { todos: getVisibleTodos(state) };
+  return { tasks: getVisibleTasks(state) };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -69,4 +69,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

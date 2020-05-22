@@ -1,14 +1,19 @@
-// Initialize Firebase
 import * as firebase from 'firebase';
-// import { config } from './firebaseConfig';
+import 'firebase/firestore';
 
-const config = {
-  apiKey: 'AIzaSyBUqV3J9xxxQql6ofFiuc42oLEx6KsKCxA',
-  authDomain: 'todo-react-app.firebaseapp.com',
-  databaseURL: 'https://todo-react-app.firebaseio.com',
-  projectId: 'todo-react-app-3f051',
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: 'AIzaSyB6VZe0Bq4uuYkRwtz-Fi50KUdRum7BFPY',
+  authDomain: 'react-todo-app-2940e.firebaseapp.com',
+  databaseURL: 'https://react-todo-app-2940e.firebaseio.com',
+  projectId: 'react-todo-app-2940e',
+  storageBucket: 'react-todo-app-2940e.appspot.com',
+  messagingSenderId: '849165386693',
+  appId: '1:849165386693:web:40b2c8bae92ca10bd3c1ac',
+  measurementId: 'G-84QYSS1Q5F',
 };
 
-firebase.initializeApp(config);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-export const database = firebase.database();
+export const database = firebase.firestore();

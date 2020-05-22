@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AppHeader from '../containers/AppHeader';
-import TaskList from '../containers/TaskList';
+import { AppHeader, TaskList } from './containers';
+
+import './App.scss';
 
 export default class App extends React.Component {
   render() {

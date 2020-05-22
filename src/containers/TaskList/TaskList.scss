@@ -1,0 +1,33 @@
+.content {
+  background: #fff;
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 20px 30px;
+  border-radius: 10px 120px 10px 10px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+
+  ul.list {
+    list-style-type: none;
+    padding: 0;
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      height: 50px;
+      padding: 5px;
+      background: #f6f6f6;
+      font-size: 20px;
+      color: #555;
+      position: relative;
+      border-bottom: 1px solid #e6e6e6;
+
+      &:first-child {
+        width: 90%;
+      }
+
+      &__content {
+        display: flex;
+      }
+    }
+  }
+}

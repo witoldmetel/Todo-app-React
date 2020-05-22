@@ -12,16 +12,15 @@ export const getTasks = (tasks) => {
 export function getTasksThunk() {
   return (dispatch) => {
     const tasks = [];
-    database
-      .ref(`/`)
-      .once('value', (snap) => {
-        snap.forEach((data) => {
-          const task = data.val();
 
-          tasks.push(task);
-        });
-      })
-      .then(() => dispatch(getTasks(tasks)));
+    database
+      .collection('tasks')
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => tasks.push(doc.data()));
+
+        dispatch(getTasks(tasks));
+      });
   };
 }
 

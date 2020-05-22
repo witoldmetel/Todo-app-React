@@ -49,8 +49,8 @@ export default class TaskItem extends React.Component {
     if (this.state.activeEdit) {
       return (
         <form className="ui item input" onSubmit={this.updateTextTask}>
-          <RandomImg randomFace={randomFace} />
-          <div className="content">
+          <div className="task-content">
+            <RandomImg randomFace={randomFace} />
             <input
               type="text"
               className="edit-task-description"
@@ -71,23 +71,21 @@ export default class TaskItem extends React.Component {
       );
     } else {
       return (
-        <div className="item">
-          <li className="task" completed={completed} onClick={toggleTask}>
-            <RandomImg randomFace={randomFace} title={completed ? "I'm proud of you!" : 'Just finish that task!'} />
-            <div className="content" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
-              <div className="task-number">Task: {taskNumber}</div>
-              <div className="task-description">{taskDescription}</div>
-            </div>
-          </li>
-          <div className="task-buttons">
+        <li className="task-item" completed={completed} onClick={toggleTask}>
+          <div className="task-item__content" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+            <RandomImg randomFace={randomFace} title={completed ? "I'm proud of you!" : 'Just do it!'} />
+            <div className="task-item__number">Task: {taskNumber}</div>
+            <div className="task-item__description">{taskDescription}</div>
+          </div>
+          <div className="action-buttons">
             <button className="editTask" title="edit task" onClick={this.onEditClick}>
-              <i className="far fa-edit"></i>
+              <i className="edit outline icon"></i>
             </button>
             <button className="removeTask" title="delete task" onClick={deleteTask}>
-              <i className="far fa-trash-alt"></i>
+              <i className="trash alternate outline icon"></i>
             </button>
           </div>
-        </div>
+        </li>
       );
     }
   }

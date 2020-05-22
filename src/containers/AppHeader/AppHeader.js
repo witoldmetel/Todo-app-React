@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { addTask, searchTask, setFilter } from '../actions';
-import InputBar from '../components/InputBar';
-import SearchBar from '../components/SearchBar';
-import InputFilter from '../components/InputFilter';
+import { addTask, searchTask, setFilter } from '../../actions';
+import InputBar from '../../components/InputBar';
+import SearchBar from '../../components/SearchBar';
+import InputFilter from '../../components/InputFilter';
 
 class AppHeader extends React.Component {
   constructor(props) {
@@ -33,7 +33,8 @@ class AppHeader extends React.Component {
         <nav className="ui container">
           <a href="#" className="header item">
             {/* todo: Generate random logo */}
-            <img className="logo" src="https://api.adorable.io/avatars/55/TaApp.png" /> Task List App
+            <img className="logo" src="https://api.adorable.io/avatars/55/TaApp.png" />
+            Task List App
           </a>
           <InputBar addTask={this.props.addTask} />
           <SearchBar searchTask={this.props.searchTask} />

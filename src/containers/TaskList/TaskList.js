@@ -4,20 +4,26 @@ import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
-import { getTasksThunk, editTask, deleteTask, toggleTask } from '../actions';
-import TaskItem from '../components/TaskItem';
+import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../actions';
+import TaskItem from '../../components/TaskItem';
+
+import './TaskList.scss';
 
 class TaskList extends React.Component {
-  renderList() {
+  componentDidMount() {
+    this.props.getTasksThunk();
+  }
+
+  get renderList() {
     return this.props.tasks.map((task, index) => {
       return (
         <TaskItem
           key={index}
           id={task.id}
-          randomFace={task.taskNumber}
-          taskNumber={task.taskNumber}
-          taskDescription={task.taskDescription}
-          completed={task.completed}
+          randomFace={task.number}
+          taskNumber={task.number}
+          taskDescription={task.description}
+          completed={task.status}
           editTask={this.props.editTask}
           deleteTask={() => this.props.deleteTask(task)}
           toggleTask={() => this.props.toggleTask(task)}
@@ -25,15 +31,15 @@ class TaskList extends React.Component {
       );
     });
   }
-  componentDidMount() {
-    this.props.getTasksThunk();
-  }
 
   render() {
     return (
-      <main className="ui main text container">
-        <ul className="ui relaxed divided list selection">{this.renderList()}</ul>
-      </main>
+      <React.Fragment>
+        <h1>Task List</h1>
+        <div className="content">
+          <ul className="list">{this.renderList}</ul>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -45,12 +51,13 @@ const getFilters = (state) => state.filters;
 const getVisibleTasks = createSelector([getTasks, getKeyword, getFilters], (tasks, keyword, filters) => {
   switch (filters) {
     case 'SHOW_ALL':
-      return tasks.filter((task) => task.taskDescription?.toLowerCase().indexOf(keyword) !== -1);
+      return tasks.filter((task) => task.description?.toLowerCase().indexOf(keyword) !== -1);
     case 'SHOW_COMPLETED':
-      return tasks.filter((task) => task.completed);
+      return tasks.filter((task) => task.status);
     case 'SHOW_INCOMPLETED':
-      return tasks.filter((task) => !task.completed);
+      return tasks.filter((task) => !task.status);
   }
+
   return tasks;
 });
 

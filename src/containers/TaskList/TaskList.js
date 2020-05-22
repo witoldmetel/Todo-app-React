@@ -25,7 +25,7 @@ class TaskList extends React.Component {
           status={task.status}
           editTask={this.props.editTask}
           deleteTask={() => this.props.deleteTask(task.id)}
-          toggleTask={() => this.props.toggleTask(task.id)}
+          toggleTask={() => this.props.toggleTask(task)}
         />
       );
     });

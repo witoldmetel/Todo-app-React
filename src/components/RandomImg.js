@@ -9,6 +9,6 @@ export default class RandomImg extends React.Component {
 }
 
 RandomImg.propTypes = {
-  randomFace: PropTypes.number,
+  randomFace: PropTypes.string,
   title: PropTypes.string,
 };

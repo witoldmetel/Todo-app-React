@@ -20,13 +20,12 @@ class TaskList extends React.Component {
         <TaskItem
           key={index}
           id={task.id}
-          randomFace={task.number}
-          taskNumber={task.number}
-          taskDescription={task.description}
-          completed={task.status}
+          randomFace={task.id}
+          title={task.title}
+          status={task.status}
           editTask={this.props.editTask}
-          deleteTask={() => this.props.deleteTask(task)}
-          toggleTask={() => this.props.toggleTask(task)}
+          deleteTask={() => this.props.deleteTask(task.id)}
+          toggleTask={() => this.props.toggleTask(task.id)}
         />
       );
     });

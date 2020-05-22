@@ -9,7 +9,7 @@ export default class TaskItem extends React.Component {
 
     this.state = {
       activeEdit: false,
-      editText: this.props.taskDescription,
+      editText: this.props.title,
     };
 
     this.onEditClick = this.onEditClick.bind(this);
@@ -24,7 +24,7 @@ export default class TaskItem extends React.Component {
 
   onCancelClick() {
     this.setState({
-      editText: this.props.taskDescription,
+      editText: this.props.title,
       activeEdit: false,
     });
   }
@@ -35,6 +35,7 @@ export default class TaskItem extends React.Component {
 
   updateTextTask(e) {
     e.preventDefault();
+
     if (this.state.editText === '') {
       this.props.deleteTask(this.props.id);
     } else {
@@ -44,7 +45,7 @@ export default class TaskItem extends React.Component {
   }
 
   render() {
-    const { randomFace, taskNumber, taskDescription, completed, deleteTask, toggleTask } = this.props;
+    const { randomFace, title, status, deleteTask, toggleTask } = this.props;
 
     if (this.state.activeEdit) {
       return (
@@ -54,7 +55,7 @@ export default class TaskItem extends React.Component {
             <input
               type="text"
               className="edit-task-description"
-              placeholder={taskDescription}
+              placeholder={title}
               value={this.state.editText}
               onChange={this.onInputChange}
             ></input>
@@ -71,11 +72,10 @@ export default class TaskItem extends React.Component {
       );
     } else {
       return (
-        <li className="task-item" completed={completed} onClick={toggleTask}>
-          <div className="task-item__content" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
-            <RandomImg randomFace={randomFace} title={completed ? "I'm proud of you!" : 'Just do it!'} />
-            <div className="task-item__number">Task: {taskNumber}</div>
-            <div className="task-item__description">{taskDescription}</div>
+        <li className="task-item" onClick={toggleTask}>
+          <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
+            <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
+            <div className="title">{title}</div>
           </div>
           <div className="action-buttons">
             <button className="editTask" title="edit task" onClick={this.onEditClick}>
@@ -93,10 +93,9 @@ export default class TaskItem extends React.Component {
 
 TaskItem.propTypes = {
   id: PropTypes.string,
-  randomFace: PropTypes.number,
-  taskNumber: PropTypes.number,
-  taskDescription: PropTypes.string,
-  completed: PropTypes.bool,
+  randomFace: PropTypes.string,
+  title: PropTypes.string,
+  status: PropTypes.bool,
   editTask: PropTypes.func,
   deleteTask: PropTypes.func,
   toggleTask: PropTypes.func,

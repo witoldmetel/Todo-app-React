@@ -15,6 +15,7 @@ export function getTasksThunk() {
 
     database
       .collection('tasks')
+      .orderBy('title')
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => tasks.push(doc.data()));
@@ -24,49 +25,46 @@ export function getTasksThunk() {
   };
 }
 
-let nextTaskNumber = 1;
-export const addTask = (taskDescription) => {
-  const id = uuid();
-  const taskNumber = nextTaskNumber;
-  const taskCompleted = false;
-  database.ref(`/${id}`).set({
-    id,
-    taskNumber,
-    taskDescription,
-    taskCompleted,
+export const addTask = (title) => {
+  const status = false;
+
+  database.collection('tasks').add({
+    title,
+    status,
+    id: uuid(),
   });
+
   return {
     type: 'ADD_TASK',
-    payload: taskDescription,
-    taskNumber: nextTaskNumber++,
-    id: id,
+    payload: title,
   };
 };
 
-export const editTask = (taskDescription, id) => {
-  database.ref(`/${id}`).update({
-    taskDescription,
-  });
+export const editTask = (title, id) => {
+  //@todo: Investigate why task is not updated in firestore
+  database.collection('tasks').doc(id).update({ title });
+
   return {
     type: 'EDIT_TASK',
-    payload: taskDescription,
+    payload: title,
     id: id,
   };
 };
 
-export const deleteTask = (task) => {
-  database.ref(`/${task.id}`).remove();
+export const deleteTask = (taskId) => {
+  //@todo: Investigate why task is not deleted from firestore
+  database.collection('tasks').doc(taskId).delete();
+
   return {
     type: 'DELETE_TASK',
-    payload: task.id,
+    payload: taskId,
   };
 };
 
 export const toggleTask = (task) => {
-  const taskCompleted = !task.completed;
-  database.ref(`/${task.id}`).update({
-    taskCompleted,
-  });
+  //@todo: Investigate why task is not updated in firestore
+  database.collection('tasks').doc(task.id).update({ status: !task.status });
+
   return {
     type: 'TOGGLE_TASK',
     payload: task.id,

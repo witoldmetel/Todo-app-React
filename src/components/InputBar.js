@@ -19,6 +19,7 @@ export default class InputBar extends Component {
 
   onFormSubmit(e) {
     e.preventDefault();
+
     if (this.state.text.trim() !== '') {
       this.props.addTask(this.state.text.trim());
       this.setState({ text: '' });

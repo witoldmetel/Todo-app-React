@@ -5,16 +5,15 @@ export default class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      search: '',
-    };
-
-    this.onSearcherChange = this.onSearcherChange.bind(this);
+    this.state = { search: '' };
   }
 
   onSearcherChange(e) {
-    this.setState({ search: e.target.value });
-    this.props.searchTask(e.target.value.toLowerCase());
+    const searchValue = e.target.value;
+
+    this.setState({ search: searchValue });
+
+    this.props.searchTask(searchValue.toLowerCase());
   }
 
   render() {
@@ -24,7 +23,7 @@ export default class SearchBar extends Component {
           type="text"
           placeholder="Search task... "
           value={this.state.search}
-          onChange={this.onSearcherChange}
+          onChange={(e) => this.onSearcherChange(e)}
         ></input>
         <i className="search icon"></i>
       </div>

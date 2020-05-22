@@ -15,10 +15,10 @@ class TaskList extends React.Component {
   }
 
   get renderList() {
-    return this.props.tasks.map((task, index) => {
+    return this.props.tasks.map((task) => {
       return (
         <TaskItem
-          key={index}
+          key={task.id}
           id={task.id}
           randomFace={task.id}
           title={task.title}
@@ -50,7 +50,7 @@ const getFilters = (state) => state.filters;
 const getVisibleTasks = createSelector([getTasks, getKeyword, getFilters], (tasks, keyword, filters) => {
   switch (filters) {
     case 'SHOW_ALL':
-      return tasks.filter((task) => task.description?.toLowerCase().indexOf(keyword) !== -1);
+      return tasks.filter((task) => task.title?.toLowerCase().indexOf(keyword) !== -1);
     case 'SHOW_COMPLETED':
       return tasks.filter((task) => task.status);
     case 'SHOW_INCOMPLETED':

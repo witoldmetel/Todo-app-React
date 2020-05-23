@@ -30,7 +30,7 @@
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-runtime": "7.9.0",
-    "@babel/runtime-corejs2": "7.9.2",
+    "@babel/runtime-corejs3": "^7.9.6",
     "@types/enzyme": "3.10.5",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "25.2.1",

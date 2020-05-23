@@ -1,39 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import RandomImg from './RandomImg';
 
-export default class TaskItem extends React.Component {
-  constructor(props) {
-    super(props);
+export interface Props {
+  id: string;
+  randomFace: string;
+  title: string;
+  status: boolean;
+  editTask: (text: string, id: string) => void;
+  deleteTask: (id: string) => void;
+  toggleTask: () => void;
+}
 
-    this.state = {
-      activeEdit: false,
-      editText: this.props.title,
-    };
+export interface State {
+  activeEdit: boolean;
+  editText: string;
+}
 
-    this.onEditClick = this.onEditClick.bind(this);
-    this.onCancelClick = this.onCancelClick.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.updateTextTask = this.updateTextTask.bind(this);
-  }
+export default class TaskItem extends React.Component<Props, State> {
+  state = {
+    activeEdit: false,
+    editText: this.props.title,
+  };
 
-  onEditClick() {
+  onEditClick = () => {
     this.setState({ activeEdit: true });
-  }
+  };
 
-  onCancelClick() {
+  onCancelClick = () => {
     this.setState({
       editText: this.props.title,
       activeEdit: false,
     });
-  }
+  };
 
-  onInputChange(e) {
+  onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ editText: e.target.value });
-  }
+  };
 
-  updateTextTask(e) {
+  onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (this.state.editText === '') {
@@ -42,14 +47,14 @@ export default class TaskItem extends React.Component {
       this.props.editTask(this.state.editText, this.props.id);
       this.setState({ activeEdit: false });
     }
-  }
+  };
 
   render() {
     const { randomFace, title, status, deleteTask, toggleTask } = this.props;
 
     if (this.state.activeEdit) {
       return (
-        <form className="ui item input" onSubmit={this.updateTextTask}>
+        <form className="ui item input" onSubmit={this.onSubmit}>
           <div className="task-content">
             <RandomImg randomFace={randomFace} />
             <input
@@ -90,13 +95,3 @@ export default class TaskItem extends React.Component {
     }
   }
 }
-
-TaskItem.propTypes = {
-  id: PropTypes.string,
-  randomFace: PropTypes.string,
-  title: PropTypes.string,
-  status: PropTypes.bool,
-  editTask: PropTypes.func,
-  deleteTask: PropTypes.func,
-  toggleTask: PropTypes.func,
-};

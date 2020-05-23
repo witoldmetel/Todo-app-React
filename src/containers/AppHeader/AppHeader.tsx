@@ -1,39 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 
 import { addTask, searchTask, setFilter } from '../../actions';
 import InputBar from '../../components/InputBar';
 import SearchBar from '../../components/SearchBar';
 import InputFilter from '../../components/InputFilter';
 
-class AppHeader extends React.Component {
-  constructor(props) {
-    super(props);
+export interface Props {
+  addTask: () => void;
+  searchTask: () => void;
+  setFilter: (filterName: string) => void;
+}
 
-    this.state = { activeFilter: 1 };
+class AppHeader extends React.Component<Props> {
+  state = { activeFilter: 1 };
 
-    this.setActiveFilter = this.setActiveFilter.bind(this);
-  }
-
-  setActiveFilter(id, filterName) {
+  private setActiveFilter = (id: number, filterName: string) => {
     this.setState({ activeFilter: id });
     this.props.setFilter(filterName);
-  }
+  };
 
-  render() {
+  public render() {
     const filters = [
       { name: 'All', id: 1, filterName: 'SHOW_ALL' },
       { name: 'Incompleted', id: 2, filterName: 'SHOW_INCOMPLETED' },
       { name: 'Completed', id: 3, filterName: 'SHOW_COMPLETED' },
     ];
+
     return (
       <header className="ui menu">
         <nav className="ui container">
           <a href="#" className="header item">
-            {/* todo: Generate random logo */}
-            <img className="logo" src="https://api.adorable.io/avatars/55/TaApp.png" />
+            <img className="logo" src={`https://api.adorable.io/avatars/${Math.random()}.png`} />
             Task List App
           </a>
           <InputBar addTask={this.props.addTask} />
@@ -44,11 +43,9 @@ class AppHeader extends React.Component {
               return (
                 <InputFilter
                   key={filter.id}
-                  id={filter.id}
                   name={filter.name}
                   isActive={this.state.activeFilter === filter.id}
                   onClick={() => this.setActiveFilter(filter.id, filter.filterName)}
-                  filter={filter.filterName}
                 />
               );
             })}
@@ -70,11 +67,5 @@ function mapDispatchToProps(dispatch) {
     dispatch,
   );
 }
-
-AppHeader.propTypes = {
-  addTask: PropTypes.func,
-  searchTask: PropTypes.func,
-  setFilter: PropTypes.func,
-};
 
 export default connect(null, mapDispatchToProps)(AppHeader);

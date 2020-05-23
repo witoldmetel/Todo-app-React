@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export default class RandomImg extends React.Component {
+export interface Props {
+  randomFace: string;
+  title?: string;
+}
+
+export default class RandomImg extends React.Component<Props> {
   render() {
     const imgUrl = `https://api.adorable.io/avatars/55/${this.props.randomFace}.png`;
+
     return <img src={imgUrl} className="ui mini rounded image" title={this.props.title} />;
   }
 }
-
-RandomImg.propTypes = {
-  randomFace: PropTypes.string,
-  title: PropTypes.string,
-};

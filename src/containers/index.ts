@@ -1,4 +1,4 @@
-import AppHeader from './AppHeader/AppHeader';
+import Navbar from './Navbar/Navbar';
 import TaskList from './TaskList/TaskList';
 
-export { AppHeader, TaskList };
+export { Navbar, TaskList };

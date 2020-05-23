@@ -14,7 +14,7 @@ export interface Props {
   setFilter: (filterName: string) => void;
 }
 
-class AppHeader extends React.Component<Props> {
+class Navbar extends React.Component<Props> {
   state = { activeFilter: 1 };
 
   private setActiveFilter = (id: number, filterName: string) => {
@@ -69,4 +69,4 @@ function mapDispatchToProps(dispatch: any) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(AppHeader as any);
+export default connect(null, mapDispatchToProps)(Navbar as any);

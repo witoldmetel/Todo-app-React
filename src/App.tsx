@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { Navbar } from './containers';
-import Dashboard from './components/Dashboard/Dashboard';
+import { Dashboard, TaskEdit } from './components';
 
 import './App.scss';
 
@@ -12,7 +12,8 @@ export default class App extends React.Component {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route path="/" component={Dashboard} />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/task/:id" component={TaskEdit} />
         </Switch>
       </BrowserRouter>
     );

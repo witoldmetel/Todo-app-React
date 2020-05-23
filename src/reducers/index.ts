@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import tasksReducer from './tasks';
+import { tasksReducer } from './tasksReducer';
 import { searchReducer } from './searchReducer';
 import { filtersReducer } from './filtersReducer';
 

@@ -7,7 +7,7 @@ export interface Props {
 }
 
 export default class InputFilter extends React.Component<Props> {
-  render() {
+  public render() {
     return (
       <button
         type="button"

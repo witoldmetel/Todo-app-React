@@ -23,26 +23,26 @@ export default class TaskItem extends React.Component<Props, State> {
     editText: this.props.title,
   };
 
-  onEditClick = () => {
+  private onEditClick = () => {
     this.setState({ activeEdit: true });
   };
 
-  onDeleteClick = () => {
+  private onDeleteClick = () => {
     this.props.deleteTask(this.props.id);
   };
 
-  onCancelClick = () => {
+  private onCancelClick = () => {
     this.setState({
       editText: this.props.title,
       activeEdit: false,
     });
   };
 
-  onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ editText: e.target.value });
   };
 
-  onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  private onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (this.state.editText === '') {
@@ -53,7 +53,7 @@ export default class TaskItem extends React.Component<Props, State> {
     }
   };
 
-  render() {
+  public render() {
     const { randomFace, title, status, toggleTask } = this.props;
 
     if (this.state.activeEdit) {

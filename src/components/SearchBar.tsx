@@ -7,7 +7,7 @@ export interface Props {
 export default class SearchBar extends React.Component<Props> {
   state = { search: '' };
 
-  onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
 
     this.setState({ search: searchValue });
@@ -15,7 +15,7 @@ export default class SearchBar extends React.Component<Props> {
     this.props.searchTask(searchValue.toLowerCase());
   };
 
-  render() {
+  public render() {
     return (
       <div className="ui icon input">
         <input

@@ -6,7 +6,7 @@ export interface Props {
 }
 
 export default class FilterButton extends React.Component<Props> {
-  render() {
+  public render() {
     const { name, onClick } = this.props;
 
     return (

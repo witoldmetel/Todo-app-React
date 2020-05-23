@@ -46,12 +46,9 @@ class TaskList extends React.Component<Props> {
 
   public render() {
     return (
-      <React.Fragment>
-        <h1>Task List</h1>
-        <div className="content">
-          <ul className="list">{this.renderList}</ul>
-        </div>
-      </React.Fragment>
+      <div className="tasks">
+        <ul className="list">{this.renderList}</ul>
+      </div>
     );
   }
 }

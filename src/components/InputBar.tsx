@@ -9,11 +9,11 @@ export default class InputBar extends React.Component<Props> {
     text: '',
   };
 
-  onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ text: e.target.value });
   };
 
-  onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (this.state.text.trim() !== '') {
@@ -22,7 +22,7 @@ export default class InputBar extends React.Component<Props> {
     }
   };
 
-  render() {
+  public render() {
     return (
       <form className="ui action input" onSubmit={this.onFormSubmit}>
         <input type="text" placeholder="Add new task" value={this.state.text} onChange={this.onInputChange}></input>

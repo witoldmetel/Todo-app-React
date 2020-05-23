@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-export default class SearchBar extends Component {
-  constructor(props) {
-    super(props);
+export interface Props {
+  searchTask: (searchValue: string) => void;
+}
 
-    this.state = { search: '' };
-  }
+export default class SearchBar extends React.Component<Props> {
+  state = { search: '' };
 
-  onSearcherChange(e) {
+  onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
 
     this.setState({ search: searchValue });
 
     this.props.searchTask(searchValue.toLowerCase());
-  }
+  };
 
   render() {
     return (
@@ -23,14 +22,10 @@ export default class SearchBar extends Component {
           type="text"
           placeholder="Search task... "
           value={this.state.search}
-          onChange={(e) => this.onSearcherChange(e)}
+          onChange={this.onSearcherChange}
         ></input>
         <i className="search icon"></i>
       </div>
     );
   }
 }
-
-SearchBar.propTypes = {
-  searchTask: PropTypes.func,
-};

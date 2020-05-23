@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-export default class InputBar extends Component {
-  constructor(props) {
-    super(props);
+export interface Props {
+  addTask: (text: string) => void;
+}
 
-    this.state = {
-      text: '',
-    };
+export default class InputBar extends React.Component<Props> {
+  state = {
+    text: '',
+  };
 
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
-
-  onInputChange(e) {
+  onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ text: e.target.value });
-  }
+  };
 
-  onFormSubmit(e) {
+  onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (this.state.text.trim() !== '') {
       this.props.addTask(this.state.text.trim());
       this.setState({ text: '' });
     }
-  }
+  };
+
   render() {
     return (
       <form className="ui action input" onSubmit={this.onFormSubmit}>
@@ -36,7 +33,3 @@ export default class InputBar extends Component {
     );
   }
 }
-
-InputBar.propTypes = {
-  addTask: PropTypes.func,
-};

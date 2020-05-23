@@ -56,22 +56,25 @@ class TaskList extends React.Component<Props> {
   }
 }
 
-const getTasks = (state: { tasks: Task[] }) => state.tasks;
-const getKeyword = (state: { keyword: string }) => state.keyword;
-const getFilters = (state: { filters: any }) => state.filters;
+const getTasks = (state: any) => state.tasks;
+const getSearchValue = (state: any) => state.searchValue;
+const getFilters = (state: any) => state.filters;
 
-const getVisibleTasks = createSelector([getTasks, getKeyword, getFilters], (tasks: any, keyword: any, filters: any) => {
-  switch (filters) {
-    case 'SHOW_ALL':
-      return tasks.filter((task: Task) => task.title?.toLowerCase().indexOf(keyword) !== -1);
-    case 'SHOW_COMPLETED':
-      return tasks.filter((task: Task) => task.status);
-    case 'SHOW_INCOMPLETED':
-      return tasks.filter((task: Task) => !task.status);
-  }
+const getVisibleTasks = createSelector(
+  [getTasks, getSearchValue, getFilters],
+  (tasks: any, searchValue: any, filters: any) => {
+    switch (filters) {
+      case 'SHOW_ALL':
+        return tasks.filter((task: Task) => task.title?.toLowerCase().indexOf(searchValue) !== -1);
+      case 'SHOW_COMPLETED':
+        return tasks.filter((task: Task) => task.status);
+      case 'SHOW_INCOMPLETED':
+        return tasks.filter((task: Task) => !task.status);
+    }
 
-  return tasks;
-});
+    return tasks;
+  },
+);
 
 function mapStateToProps(state: any) {
   return { tasks: getVisibleTasks(state) };

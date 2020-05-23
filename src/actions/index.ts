@@ -71,10 +71,10 @@ export const toggleTask = (task) => {
   };
 };
 
-export function searchTask(keyword) {
+export function searchTask(searchValue) {
   return {
     type: 'SEARCH_TASK',
-    payload: keyword,
+    payload: searchValue,
   };
 }
 

@@ -1,11 +1,11 @@
 interface State {
-  keyword: string;
+  searchValue: string;
 }
 
 type Action = { type: 'SEARCH_TASK'; payload?: string };
 
 const INITIAL_STATE = {
-  keyword: '',
+  searchValue: '',
 };
 
 export const searchReducer = (state: State = INITIAL_STATE, action: Action) => {

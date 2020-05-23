@@ -6,7 +6,7 @@ import { filtersReducer } from './filtersReducer';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
-  keyword: searchReducer,
+  searchValue: searchReducer,
   filters: filtersReducer,
 });
 

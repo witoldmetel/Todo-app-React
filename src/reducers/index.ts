@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
 import tasksReducer from './tasks';
-import keywordReducer from './keyword';
-import filtersReducer from './filters';
+import { searchReducer } from './searchReducer';
+import { filtersReducer } from './filtersReducer';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
-  keyword: keywordReducer,
+  keyword: searchReducer,
   filters: filtersReducer,
 });
 

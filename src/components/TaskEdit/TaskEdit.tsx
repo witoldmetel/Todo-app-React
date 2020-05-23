@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class TaskEdit extends Component {
-  render() {
+  public render() {
     const id = this.props.match.params.id;
 
     return (

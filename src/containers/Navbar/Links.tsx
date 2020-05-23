@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default class Links extends React.Component {
   private get renderLinks() {
     // todo: Add later proper state
-    return true ? (
+    return false ? (
       <React.Fragment>
         <NavLink to="/z" className="header item">
           Create New Task
@@ -18,11 +18,11 @@ export default class Links extends React.Component {
       </React.Fragment>
     ) : (
       <React.Fragment>
-        <NavLink to="/x" className="header item">
+        <NavLink to="/signup" className="header item">
           Signup
         </NavLink>
-        <NavLink to="/s" className="header item">
-          Login
+        <NavLink to="/signin" className="header item">
+          Signin
         </NavLink>
       </React.Fragment>
     );

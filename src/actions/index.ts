@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
+export interface Task {
+  id: string;
+  title: string;
+  status: boolean;
+}
+
 import {
   GET_TASKS,
   ADD_TASK,
@@ -11,28 +17,28 @@ import {
 } from '../fixtures/constants';
 import { database } from '../config/config';
 
-export const getTasks = (tasks) => {
+export const getTasks = (tasks: Task[]) => {
   return {
     type: GET_TASKS,
     payload: tasks,
   };
 };
 
-export function getTasksThunk() {
-  return (dispatch) => {
-    const tasks = [];
+export const getTasksThunk = () => {
+  return (dispatch: any) => {
+    const tasks: Task[] = [];
 
     database
       .collection('tasks')
       .orderBy('title')
       .get()
       .then((snapshot) => {
-        snapshot.docs.forEach((doc) => tasks.push(doc.data()));
+        snapshot.docs.forEach((doc) => tasks.push(doc.data() as Task));
 
         dispatch(getTasks(tasks));
       });
   };
-}
+};
 
 export const addTask = (title: string) => {
   const id = uuidv4();
@@ -72,7 +78,7 @@ export const deleteTask = (taskId: string) => {
   };
 };
 
-export const toggleTask = (task) => {
+export const toggleTask = (task: Task) => {
   //@todo: Investigate why task is not updated in firestore
   database.collection('tasks').doc(task.id).update({ status: !task.status });
 
@@ -82,12 +88,12 @@ export const toggleTask = (task) => {
   };
 };
 
-export function searchTask(searchValue: string) {
+export const searchTask = (searchValue: string) => {
   return {
     type: SEARCH_TASK,
     payload: searchValue,
   };
-}
+};
 
 export const setFilter = (filter: string) => {
   return {

@@ -66,13 +66,16 @@ const getVisibleTasks = createSelector(
     switch (filters) {
       case 'SHOW_ALL':
         return tasks.filter((task: Task) => task.title?.toLowerCase().indexOf(searchValue) !== -1);
+
       case 'SHOW_COMPLETED':
         return tasks.filter((task: Task) => task.status);
+
       case 'SHOW_INCOMPLETED':
         return tasks.filter((task: Task) => !task.status);
-    }
 
-    return tasks;
+      default:
+        return tasks;
+    }
   },
 );
 
@@ -92,4 +95,4 @@ function mapDispatchToProps(dispatch: any) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList as any);

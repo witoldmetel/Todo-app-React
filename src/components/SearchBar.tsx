@@ -12,7 +12,7 @@ export default class SearchBar extends React.Component<Props> {
 
     this.setState({ search: searchValue });
 
-    this.props.searchTask(searchValue?.toLowerCase());
+    this.props.searchTask(searchValue.toLowerCase());
   };
 
   render() {

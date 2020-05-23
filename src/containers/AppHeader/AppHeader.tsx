@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { addTask, searchTask, setFilter } from '../../actions';
+import { FILTERS } from '../../fixtures/constants';
 import InputBar from '../../components/InputBar';
 import SearchBar from '../../components/SearchBar';
 import InputFilter from '../../components/InputFilter';
@@ -23,9 +24,9 @@ class AppHeader extends React.Component<Props> {
 
   public render() {
     const filters = [
-      { name: 'All', id: 1, filterName: 'SHOW_ALL' },
-      { name: 'Incompleted', id: 2, filterName: 'SHOW_INCOMPLETED' },
-      { name: 'Completed', id: 3, filterName: 'SHOW_COMPLETED' },
+      { id: 1, name: 'All', filterName: FILTERS.SHOW_ALL },
+      { id: 2, name: 'Incompleted', filterName: FILTERS.SHOW_INCOMPLETED },
+      { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED },
     ];
 
     return (
@@ -57,7 +58,7 @@ class AppHeader extends React.Component<Props> {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators(
     {
       addTask: addTask,
@@ -68,4 +69,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(AppHeader);
+export default connect(null, mapDispatchToProps)(AppHeader as any);

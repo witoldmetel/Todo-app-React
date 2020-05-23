@@ -27,6 +27,10 @@ export default class TaskItem extends React.Component<Props, State> {
     this.setState({ activeEdit: true });
   };
 
+  onDeleteClick = () => {
+    this.props.deleteTask(this.props.id);
+  };
+
   onCancelClick = () => {
     this.setState({
       editText: this.props.title,
@@ -50,7 +54,7 @@ export default class TaskItem extends React.Component<Props, State> {
   };
 
   render() {
-    const { randomFace, title, status, deleteTask, toggleTask } = this.props;
+    const { randomFace, title, status, toggleTask } = this.props;
 
     if (this.state.activeEdit) {
       return (
@@ -86,7 +90,7 @@ export default class TaskItem extends React.Component<Props, State> {
             <button className="editTask" title="edit task" onClick={this.onEditClick}>
               <i className="edit outline icon"></i>
             </button>
-            <button className="removeTask" title="delete task" onClick={deleteTask}>
+            <button className="removeTask" title="delete task" onClick={this.onDeleteClick}>
               <i className="trash alternate outline icon"></i>
             </button>
           </div>

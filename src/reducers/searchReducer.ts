@@ -1,8 +1,10 @@
+import { SEARCH_TASK } from '../fixtures/constants';
+
 interface State {
   searchValue: string;
 }
 
-type Action = { type: 'SEARCH_TASK'; payload?: string };
+type Action = { type: string; payload?: string };
 
 const INITIAL_STATE = {
   searchValue: '',
@@ -10,7 +12,7 @@ const INITIAL_STATE = {
 
 export const searchReducer = (state: State = INITIAL_STATE, action: Action) => {
   switch (action.type) {
-    case 'SEARCH_TASK':
+    case SEARCH_TASK:
       return action.payload;
 
     default:

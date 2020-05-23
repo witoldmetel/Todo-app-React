@@ -1,10 +1,19 @@
 import uuid from 'uuid';
 
+import {
+  GET_TASKS,
+  ADD_TASK,
+  EDIT_TASK,
+  DELETE_TASK,
+  TOGGLE_TASK,
+  SEARCH_TASK,
+  SET_FILTER,
+} from '../fixtures/constants';
 import { database } from '../config/config';
 
 export const getTasks = (tasks) => {
   return {
-    type: 'GET_TASKS',
+    type: GET_TASKS,
     payload: tasks,
   };
 };
@@ -35,7 +44,7 @@ export const addTask = (title) => {
   });
 
   return {
-    type: 'ADD_TASK',
+    type: ADD_TASK,
     payload: title,
   };
 };
@@ -45,7 +54,7 @@ export const editTask = (title, id) => {
   database.collection('tasks').doc(id).update({ title });
 
   return {
-    type: 'EDIT_TASK',
+    type: EDIT_TASK,
     payload: title,
     id: id,
   };
@@ -56,7 +65,7 @@ export const deleteTask = (taskId) => {
   database.collection('tasks').doc(taskId).delete();
 
   return {
-    type: 'DELETE_TASK',
+    type: DELETE_TASK,
     payload: taskId,
   };
 };
@@ -66,21 +75,21 @@ export const toggleTask = (task) => {
   database.collection('tasks').doc(task.id).update({ status: !task.status });
 
   return {
-    type: 'TOGGLE_TASK',
+    type: TOGGLE_TASK,
     payload: task.id,
   };
 };
 
 export function searchTask(searchValue) {
   return {
-    type: 'SEARCH_TASK',
+    type: SEARCH_TASK,
     payload: searchValue,
   };
 }
 
 export const setFilter = (filter) => {
   return {
-    type: 'SET_FILTER',
+    type: SET_FILTER,
     payload: filter,
   };
 };

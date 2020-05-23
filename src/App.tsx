@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import { Navbar } from './containers';
 import Dashboard from './components/Dashboard/Dashboard';
 
 import './App.scss';
@@ -9,7 +10,10 @@ export default class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Dashboard />
+        <Navbar />
+        <Switch>
+          <Route path="/" component={Dashboard} />
+        </Switch>
       </BrowserRouter>
     );
   }

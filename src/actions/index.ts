@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   GET_TASKS,
@@ -34,22 +34,24 @@ export function getTasksThunk() {
   };
 }
 
-export const addTask = (title) => {
+export const addTask = (title: string) => {
+  const id = uuidv4();
   const status = false;
 
   database.collection('tasks').add({
     title,
     status,
-    id: uuid(),
+    id,
   });
 
   return {
     type: ADD_TASK,
     payload: title,
+    id,
   };
 };
 
-export const editTask = (title, id) => {
+export const editTask = (title: string, id: string) => {
   //@todo: Investigate why task is not updated in firestore
   database.collection('tasks').doc(id).update({ title });
 
@@ -60,7 +62,7 @@ export const editTask = (title, id) => {
   };
 };
 
-export const deleteTask = (taskId) => {
+export const deleteTask = (taskId: string) => {
   //@todo: Investigate why task is not deleted from firestore
   database.collection('tasks').doc(taskId).delete();
 
@@ -80,14 +82,14 @@ export const toggleTask = (task) => {
   };
 };
 
-export function searchTask(searchValue) {
+export function searchTask(searchValue: string) {
   return {
     type: SEARCH_TASK,
     payload: searchValue,
   };
 }
 
-export const setFilter = (filter) => {
+export const setFilter = (filter: string) => {
   return {
     type: SET_FILTER,
     payload: filter,

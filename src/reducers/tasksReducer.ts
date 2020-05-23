@@ -22,9 +22,8 @@ export const tasksReducer = (state: State[] = [], action: Action) => {
         ...state,
         {
           id: action.id,
-          randomFace: Math.random(),
-          title: action.payload,
           status: false,
+          title: action.payload,
         },
       ];
 

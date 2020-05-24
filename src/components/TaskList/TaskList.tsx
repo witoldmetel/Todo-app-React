@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
 
 import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../actions';
-import { TaskItem } from '../index';
+import { TaskItem, FilterBar, SearchBar } from '../index';
 
 import './TaskList.scss';
 
@@ -46,7 +46,11 @@ class TaskList extends React.Component<Props> {
 
   public render() {
     return (
-      <div className="tasks">
+      <div className="tasks-container">
+        <div className="action-panel">
+          <FilterBar />
+          <SearchBar />
+        </div>
         <ul className="list">{this.renderList}</ul>
       </div>
     );

@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { searchTask } from '../../actions';
 
 export interface Props {
   searchTask: (searchValue: string) => void;
 }
 
-export default class SearchBar extends React.Component<Props> {
+class SearchBar extends React.Component<Props> {
   state = { search: '' };
 
   private onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,3 +33,14 @@ export default class SearchBar extends React.Component<Props> {
     );
   }
 }
+
+function mapDispatchToProps(dispatch: any) {
+  return bindActionCreators(
+    {
+      searchTask: searchTask,
+    },
+    dispatch,
+  );
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar as any);

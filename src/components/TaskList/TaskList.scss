@@ -1,9 +1,14 @@
-.tasks {
+.tasks-container {
   width: 70%;
   background-color: #fff;
   padding: 20px 30px;
   border-radius: 10px 120px 10px 10px;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+
+  .action-panel {
+    display: flex;
+    justify-content: space-around;
+  }
 
   ul.list {
     list-style-type: none;

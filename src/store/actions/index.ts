@@ -15,7 +15,7 @@ import {
   SEARCH_TASK,
   SET_FILTER,
 } from '../../fixtures/constants';
-import { database } from '../../config/config';
+import database from '../../config/config';
 
 export const getTasks = (tasks: Task[]) => {
   return {

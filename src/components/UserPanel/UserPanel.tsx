@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { addTask, searchTask, setFilter } from '../../actions';
 import { FILTERS } from '../../fixtures/constants';
-import InputBar from '../../components/InputBar';
-import SearchBar from '../../components/SearchBar';
-import InputFilter from '../../components/InputFilter';
+import { InputBar, SearchBar, InputFilter } from '../index';
 
 import './UserPanel.scss';
 

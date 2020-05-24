@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RandomImg from './RandomImg';
+import { RandomImg } from '../index';
 
 export interface Props {
   id: string;

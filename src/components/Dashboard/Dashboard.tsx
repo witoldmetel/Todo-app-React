@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TaskList, UserPanel } from '../../containers';
+import { TaskList, UserPanel } from '../index';
 
 import './Dashboard.scss';
 

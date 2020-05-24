@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Navbar } from './containers';
-import { Dashboard, TaskEdit, SignInComponent, SignUpComponent, TaskCreate } from './components';
+import { Navbar, Dashboard, TaskEdit, SignInComponent, SignUpComponent, TaskCreate } from './components';
 
 import './App.scss';
 

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
 
 import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../actions';
-import TaskItem from '../../components/TaskItem';
+import { TaskItem } from '../index';
 
 import './TaskList.scss';
 

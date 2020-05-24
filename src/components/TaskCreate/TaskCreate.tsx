@@ -1,34 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { addTask } from '../../store/actions';
+import { createTask } from '../../store/actions';
 
 export interface Props {
-  addTask: (text: string) => void;
+  createTask: (task: any) => void;
 }
 class TaskCreate extends React.Component<Props> {
   state = {
-    text: '',
+    title: '',
+    description: '',
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ text: e.target.value });
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (this.state.text.trim() !== '') {
-      this.props.addTask(this.state.text.trim());
-      this.setState({ text: '' });
+    // @todo: Update condition
+    if (this.state.title.trim() !== '') {
+      this.props.createTask(this.state);
+      this.setState({ title: '' });
     }
   };
 
   public render() {
     return (
       <form className="ui action input" onSubmit={this.onFormSubmit}>
-        <input type="text" placeholder="Add new task" value={this.state.text} onChange={this.onInputChange}></input>
+        <input
+          type="text"
+          id="title"
+          placeholder="task title"
+          value={this.state.title}
+          onChange={this.onInputChange}
+        ></input>
+        <input
+          type="text"
+          id="description"
+          placeholder="description"
+          value={this.state.description}
+          onChange={this.onInputChange}
+        ></input>
         <button className="ui button" type="submit">
           Add Task
         </button>
@@ -38,12 +52,9 @@ class TaskCreate extends React.Component<Props> {
 }
 
 function mapDispatchToProps(dispatch: any) {
-  return bindActionCreators(
-    {
-      addTask: addTask,
-    },
-    dispatch,
-  );
+  return {
+    createTask: (task: any) => dispatch(createTask(task)),
+  };
 }
 
 export default connect(null, mapDispatchToProps)(TaskCreate as any);

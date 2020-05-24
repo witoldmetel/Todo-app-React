@@ -8,7 +8,8 @@ export interface Task {
 
 import {
   GET_TASKS,
-  ADD_TASK,
+  CREATE_TASK,
+  CREATE_TASK_ERROR,
   EDIT_TASK,
   DELETE_TASK,
   TOGGLE_TASK,
@@ -40,20 +41,30 @@ export const getTasksThunk = () => {
   };
 };
 
-export const addTask = (title: string) => {
+export const createTask = (task: any) => {
   const id = uuidv4();
   const status = false;
+  const createdAt = new Date();
 
-  database.collection('tasks').add({
-    title,
-    status,
-    id,
-  });
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
 
-  return {
-    type: ADD_TASK,
-    payload: title,
-    id,
+    firestore
+      .collection('tasks')
+      .add({
+        ...task,
+        status,
+        id,
+        author: 'Admin',
+        authorId: 12345,
+        createdAt,
+      })
+      .then(() => {
+        dispatch({ type: CREATE_TASK, payload: task, id });
+      })
+      .catch((error: any) => {
+        dispatch({ type: CREATE_TASK_ERROR, payload: error });
+      });
   };
 };
 

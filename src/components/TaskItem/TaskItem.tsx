@@ -7,6 +7,7 @@ export interface Props {
   id: string;
   randomFace: string;
   title: string;
+  description: string;
   status: boolean;
   editTask: (text: string, id: string) => void;
   deleteTask: (id: string) => void;
@@ -29,13 +30,14 @@ export default class TaskItem extends React.Component<Props, State> {
   };
 
   public render() {
-    const { id, randomFace, title, status, toggleTask } = this.props;
+    const { id, randomFace, title, description, status, toggleTask } = this.props;
 
     return (
       <li className="task-item" onClick={toggleTask}>
         <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
           <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
           <div className="title">{title}</div>
+          <div className="description">{description}</div>
         </div>
         <div className="action-buttons">
           <Link className="editTask" to={`/task/${id}`}>

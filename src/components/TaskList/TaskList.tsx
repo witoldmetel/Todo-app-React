@@ -11,6 +11,7 @@ import './TaskList.scss';
 export interface Task {
   id: string;
   title: string;
+  description: string;
   status: boolean;
 }
 
@@ -35,6 +36,7 @@ class TaskList extends React.Component<Props> {
           id={task.id}
           randomFace={task.id}
           title={task.title}
+          description={task.description}
           status={task.status}
           editTask={this.props.editTask}
           deleteTask={() => this.props.deleteTask(task.id)}

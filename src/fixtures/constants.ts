@@ -2,7 +2,8 @@
  * ACTIONS TYPE
  */
 export const GET_TASKS = 'GET_TASKS';
-export const ADD_TASK = 'ADD_TASK';
+export const CREATE_TASK = 'CREATE_TASK';
+export const CREATE_TASK_ERROR = 'CREATE_TASK_ERROR';
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const TOGGLE_TASK = 'TOGGLE_TASK';

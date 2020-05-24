@@ -9,10 +9,10 @@ export default class Links extends React.Component {
         <NavLink to="/task/new" className="header item">
           Create New Task
         </NavLink>
-        <NavLink to="/x" className="header item">
+        <NavLink to="/logout" className="header item">
           Logout
         </NavLink>
-        <NavLink to="/x" className="header item">
+        <NavLink to="/profile" className="header item">
           <img src="https://api.adorable.io/avatars/profile.png" className="ui mini circular image" />
         </NavLink>
       </React.Fragment>

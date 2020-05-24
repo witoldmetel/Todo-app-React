@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { RandomImg } from '../index';
 
@@ -23,79 +24,28 @@ export default class TaskItem extends React.Component<Props, State> {
     editText: this.props.title,
   };
 
-  private onEditClick = () => {
-    this.setState({ activeEdit: true });
-  };
-
   private onDeleteClick = () => {
     this.props.deleteTask(this.props.id);
   };
 
-  private onCancelClick = () => {
-    this.setState({
-      editText: this.props.title,
-      activeEdit: false,
-    });
-  };
-
-  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ editText: e.target.value });
-  };
-
-  private onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (this.state.editText === '') {
-      this.props.deleteTask(this.props.id);
-    } else {
-      this.props.editTask(this.state.editText, this.props.id);
-      this.setState({ activeEdit: false });
-    }
-  };
-
   public render() {
-    const { randomFace, title, status, toggleTask } = this.props;
+    const { id, randomFace, title, status, toggleTask } = this.props;
 
-    if (this.state.activeEdit) {
-      return (
-        <form className="ui item input" onSubmit={this.onSubmit}>
-          <div className="task-content">
-            <RandomImg randomFace={randomFace} />
-            <input
-              type="text"
-              className="edit-task-description"
-              placeholder={title}
-              value={this.state.editText}
-              onChange={this.onInputChange}
-            ></input>
-          </div>
-          <div className="edit-task-buttons">
-            <button className="ui button inverted green" title="accept edit" type="submit">
-              <i className="fas fa-check"></i>
-            </button>
-            <button className="ui button inverted red" title="cancel edit" onClick={this.onCancelClick}>
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
-        </form>
-      );
-    } else {
-      return (
-        <li className="task-item" onClick={toggleTask}>
-          <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
-            <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
-            <div className="title">{title}</div>
-          </div>
-          <div className="action-buttons">
-            <button className="editTask" title="edit task" onClick={this.onEditClick}>
-              <i className="edit outline icon"></i>
-            </button>
-            <button className="removeTask" title="delete task" onClick={this.onDeleteClick}>
-              <i className="trash alternate outline icon"></i>
-            </button>
-          </div>
-        </li>
-      );
-    }
+    return (
+      <li className="task-item" onClick={toggleTask}>
+        <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
+          <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
+          <div className="title">{title}</div>
+        </div>
+        <div className="action-buttons">
+          <Link className="editTask" to={`/task/${id}`}>
+            <i className="edit outline icon"></i>
+          </Link>
+          <button className="removeTask" onClick={this.onDeleteClick}>
+            <i className="trash alternate outline icon"></i>
+          </button>
+        </div>
+      </li>
+    );
   }
 }

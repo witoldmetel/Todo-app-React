@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { editTask } from '../../actions';
+import { editTask } from '../../store/actions';
 import {RandomImg} from '../index'
 
 export interface Props {

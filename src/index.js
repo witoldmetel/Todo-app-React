@@ -6,7 +6,7 @@ import reduxThunk from 'redux-thunk'; // middleware to dispatch functions instea
 import { createLogger } from 'redux-logger';
 
 import App from './App';
-import reducers from './reducers';
+import reducers from './store/reducers';
 
 const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
 

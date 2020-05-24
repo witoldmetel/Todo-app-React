@@ -1,4 +1,4 @@
-import { GET_TASKS, ADD_TASK, EDIT_TASK, DELETE_TASK, TOGGLE_TASK } from '../fixtures/constants';
+import { GET_TASKS, ADD_TASK, EDIT_TASK, DELETE_TASK, TOGGLE_TASK } from '../../fixtures/constants';
 
 interface State {
   id: string;

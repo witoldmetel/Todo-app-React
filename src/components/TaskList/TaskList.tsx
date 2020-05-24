@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect';
 
-import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../actions';
+import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../store/actions';
 import { TaskItem, FilterBar, SearchBar } from '../index';
 
 import './TaskList.scss';

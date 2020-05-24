@@ -1,4 +1,4 @@
-import { SEARCH_TASK } from '../fixtures/constants';
+import { SEARCH_TASK } from '../../fixtures/constants';
 
 interface State {
   searchValue: string;

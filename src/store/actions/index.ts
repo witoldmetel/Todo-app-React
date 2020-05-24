@@ -14,8 +14,8 @@ import {
   TOGGLE_TASK,
   SEARCH_TASK,
   SET_FILTER,
-} from '../fixtures/constants';
-import { database } from '../config/config';
+} from '../../fixtures/constants';
+import { database } from '../../config/config';
 
 export const getTasks = (tasks: Task[]) => {
   return {

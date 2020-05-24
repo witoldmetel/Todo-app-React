@@ -1,4 +1,4 @@
-import { SET_FILTER, FILTERS } from '../fixtures/constants';
+import { SET_FILTER, FILTERS } from '../../fixtures/constants';
 
 interface State {
   type: string;

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { searchTask } from '../../actions';
+import { searchTask } from '../../store/actions';
 
 export interface Props {
   searchTask: (searchValue: string) => void;

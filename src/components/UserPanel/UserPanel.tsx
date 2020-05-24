@@ -2,14 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addTask, searchTask, setFilter } from '../../actions';
+import { searchTask, setFilter } from '../../actions';
 import { FILTERS } from '../../fixtures/constants';
-import { InputBar, SearchBar, InputFilter } from '../index';
+import { SearchBar, InputFilter } from '../index';
 
 import './UserPanel.scss';
 
 export interface Props {
-  addTask: () => void;
   searchTask: () => void;
   setFilter: (filterName: string) => void;
 }
@@ -31,7 +30,6 @@ class UserPanel extends React.Component<Props> {
 
     return (
       <div className="user-panel">
-        <InputBar addTask={this.props.addTask} />
         <SearchBar searchTask={this.props.searchTask} />
         <div className="ui filter buttons">
           return (
@@ -55,7 +53,6 @@ class UserPanel extends React.Component<Props> {
 function mapDispatchToProps(dispatch: any) {
   return bindActionCreators(
     {
-      addTask: addTask,
       searchTask: searchTask,
       setFilter: setFilter,
     },

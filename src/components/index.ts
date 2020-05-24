@@ -1,6 +1,5 @@
 import Dashboard from './Dashboard/Dashboard';
 import FilterButton from './FilterButton/FilterButton';
-import InputBar from './InputBar/InputBar';
 import InputFilter from './InputFilter/InputFilter';
 import Navbar from './Navbar/Navbar';
 import RandomImg from './RandomImg/RandomImg';
@@ -16,7 +15,6 @@ import UserPanel from './UserPanel/UserPanel';
 export {
   Dashboard,
   FilterButton,
-  InputBar,
   InputFilter,
   Navbar,
   RandomImg,

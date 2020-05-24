@@ -1,44 +1,49 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class TaskCreate extends React.Component {
+import { addTask } from '../../actions';
+
+export interface Props {
+  addTask: (text: string) => void;
+}
+class TaskCreate extends React.Component<Props> {
   state = {
-    title: '',
-    description: '',
+    text: '',
   };
 
-  private onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
+  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ text: e.target.value });
   };
 
-  private onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(this.state);
+    if (this.state.text.trim() !== '') {
+      this.props.addTask(this.state.text.trim());
+      this.setState({ text: '' });
+    }
   };
 
   public render() {
     return (
-      <form className="ui form" onSubmit={this.onSubmit}>
-        <div className="field">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" placeholder="Title" onChange={this.onChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            placeholder="Task description"
-            onChange={this.onChange}
-          />
-        </div>
+      <form className="ui action input" onSubmit={this.onFormSubmit}>
+        <input type="text" placeholder="Add new task" value={this.state.text} onChange={this.onInputChange}></input>
         <button className="ui button" type="submit">
-          Create
+          Add Task
         </button>
       </form>
     );
   }
 }
+
+function mapDispatchToProps(dispatch: any) {
+  return bindActionCreators(
+    {
+      addTask: addTask,
+    },
+    dispatch,
+  );
+}
+
+export default connect(null, mapDispatchToProps)(TaskCreate as any);

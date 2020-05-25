@@ -18,15 +18,8 @@ import {
 } from '../../fixtures/constants';
 import database from '../../config/config';
 
-export const getTasks = (tasks: Task[]) => {
-  return {
-    type: GET_TASKS,
-    payload: tasks,
-  };
-};
-
-export const getTasksThunk = () => {
-  return (dispatch: any) => {
+export const getTasks = () => {
+  return (dispatch) => {
     const tasks: Task[] = [];
 
     database
@@ -36,17 +29,18 @@ export const getTasksThunk = () => {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => tasks.push(doc.data() as Task));
 
-        dispatch(getTasks(tasks));
-      });
+        dispatch({ type: GET_TASKS, payload: tasks });
+      })
+      .catch((error) => console.error(error));
   };
 };
 
-export const createTask = (task: any) => {
+export const createTask = (task) => {
   const id = uuidv4();
   const status = false;
   const createdAt = new Date();
 
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
     firestore
@@ -62,7 +56,7 @@ export const createTask = (task: any) => {
       .then(() => {
         dispatch({ type: CREATE_TASK, payload: task, id });
       })
-      .catch((error: any) => {
+      .catch((error) => {
         dispatch({ type: CREATE_TASK_ERROR, payload: error });
       });
   };
@@ -100,15 +94,17 @@ export const toggleTask = (task: Task) => {
 };
 
 export const searchTask = (searchValue: string) => {
-  return {
-    type: SEARCH_TASK,
-    payload: searchValue,
-  };
+  return (dispatch) =>
+    dispatch({
+      type: SEARCH_TASK,
+      payload: searchValue,
+    });
 };
 
 export const setFilter = (filter: string) => {
-  return {
-    type: SET_FILTER,
-    payload: filter,
-  };
+  return (dispatch) =>
+    dispatch({
+      type: SET_FILTER,
+      payload: filter,
+    });
 };

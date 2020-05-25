@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { createSelector } from 'reselect';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
-import { getTasksThunk, editTask, deleteTask, toggleTask } from '../../store/actions';
+import { getTasks, editTask, deleteTask, toggleTask } from '../../store/actions';
+import { getTasksSelector } from '../../store/selectors';
+
 import { TaskItem, FilterBar, SearchBar } from '../index';
 
 import './TaskList.scss';
@@ -16,7 +18,7 @@ export interface Task {
 }
 
 export interface Props {
-  getTasksThunk: () => void;
+  getTasks: () => void;
   editTask: () => void;
   deleteTask: (id: string) => void;
   toggleTask: (task: Task) => void;
@@ -25,25 +27,31 @@ export interface Props {
 
 class TaskList extends React.Component<Props> {
   public componentDidMount() {
-    this.props.getTasksThunk();
+    this.props.getTasks();
   }
 
   private get renderList() {
-    return this.props.tasks.map((task: Task) => {
-      return (
-        <TaskItem
-          key={task.id}
-          id={task.id}
-          randomFace={task.id}
-          title={task.title}
-          description={task.description}
-          status={task.status}
-          editTask={this.props.editTask}
-          deleteTask={() => this.props.deleteTask(task.id)}
-          toggleTask={() => this.props.toggleTask(task)}
-        />
-      );
-    });
+    return !this.props.tasks ? (
+      <div className="ui active inverted dimmer">
+        <div className="ui text loader">Loading tasks</div>
+      </div>
+    ) : (
+      this.props.tasks.map((task: Task) => {
+        return (
+          <TaskItem
+            key={task.id}
+            id={task.id}
+            randomFace={task.id}
+            title={task.title}
+            description={task.description}
+            status={task.status}
+            editTask={this.props.editTask}
+            deleteTask={() => this.props.deleteTask(task.id)}
+            toggleTask={() => this.props.toggleTask(task)}
+          />
+        );
+      })
+    );
   }
 
   public render() {
@@ -59,43 +67,13 @@ class TaskList extends React.Component<Props> {
   }
 }
 
-const getTasks = (state: any) => state.tasks;
-const getSearchValue = (state: any) => state.searchValue;
-const getFilters = (state: any) => state.filters;
+const mapStateToProps = (state) => {
+  return {
+    tasks: getTasksSelector(state),
+  };
+};
 
-const getVisibleTasks = createSelector(
-  [getTasks, getSearchValue, getFilters],
-  (tasks: any, searchValue: any, filters: any) => {
-    switch (filters) {
-      case 'SHOW_ALL':
-        return tasks.filter((task: Task) => task.title?.toLowerCase().indexOf(searchValue) !== -1);
-
-      case 'SHOW_COMPLETED':
-        return tasks.filter((task: Task) => task.status);
-
-      case 'SHOW_INCOMPLETED':
-        return tasks.filter((task: Task) => !task.status);
-
-      default:
-        return tasks;
-    }
-  },
-);
-
-function mapStateToProps(state: any) {
-  return { tasks: getVisibleTasks(state) };
-}
-
-function mapDispatchToProps(dispatch: any) {
-  return bindActionCreators(
-    {
-      getTasksThunk: getTasksThunk,
-      editTask: editTask,
-      deleteTask: deleteTask,
-      toggleTask: toggleTask,
-    },
-    dispatch,
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList as any);
+export default compose(
+  connect(mapStateToProps, { getTasks, editTask, deleteTask, toggleTask }),
+  firestoreConnect([{ collection: 'tasks' }]),
+)(TaskList);

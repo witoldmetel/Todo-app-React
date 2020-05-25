@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { setFilter } from '../../store/actions';
 import { FILTERS } from '../../fixtures/constants';
@@ -45,13 +44,4 @@ class FilterBar extends React.Component<Props> {
   }
 }
 
-function mapDispatchToProps(dispatch: any) {
-  return bindActionCreators(
-    {
-      setFilter: setFilter,
-    },
-    dispatch,
-  );
-}
-
-export default connect(null, mapDispatchToProps)(FilterBar as any);
+export default connect(null, { setFilter })(FilterBar as any);

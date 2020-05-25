@@ -1,12 +1,4 @@
-import {
-  GET_TASKS,
-  GET_TASK,
-  CREATE_TASK,
-  CREATE_TASK_ERROR,
-  EDIT_TASK,
-  DELETE_TASK,
-  TOGGLE_TASK,
-} from '../../fixtures/constants';
+import { GET_TASKS, CREATE_TASK, GET_TASK_ERROR, EDIT_TASK, DELETE_TASK, TOGGLE_TASK } from '../../fixtures/constants';
 
 interface State {
   id: string;
@@ -26,9 +18,6 @@ export const tasksReducer = (state: State[] = [], action: Action) => {
     case GET_TASKS:
       return action.payload;
 
-    case GET_TASK:
-      return action.payload;
-
     case CREATE_TASK:
       return [
         ...state,
@@ -39,8 +28,8 @@ export const tasksReducer = (state: State[] = [], action: Action) => {
         },
       ];
 
-    case CREATE_TASK_ERROR:
-      console.log('Create task error:', action.error);
+    case GET_TASK_ERROR:
+      console.log('Task error:', action.error);
       return state;
 
     case EDIT_TASK:

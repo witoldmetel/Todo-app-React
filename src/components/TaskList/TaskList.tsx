@@ -44,7 +44,7 @@ class TaskList extends React.Component<Props> {
             title={task.title}
             description={task.description}
             status={task.status}
-            deleteTask={() => this.props.deleteTask(task.id)}
+            deleteTask={this.props.deleteTask}
             toggleTask={() => this.props.toggleTask(task)}
           />
         );

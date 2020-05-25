@@ -9,7 +9,7 @@ export interface Task {
 import {
   GET_TASKS,
   CREATE_TASK,
-  CREATE_TASK_ERROR,
+  GET_TASK_ERROR,
   EDIT_TASK,
   DELETE_TASK,
   TOGGLE_TASK,
@@ -31,7 +31,7 @@ export const getTasks = () => {
 
         dispatch({ type: GET_TASKS, payload: tasks });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
 };
 
@@ -56,16 +56,14 @@ export const createTask = (task) => {
       .then(() => {
         dispatch({ type: CREATE_TASK, payload: task, id });
       })
-      .catch((error) => {
-        dispatch({ type: CREATE_TASK_ERROR, payload: error });
-      });
+      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
 };
 
 export const editTask = (task: Task, id: string) => {
   return (dispatch) => {
     //@todo: Investigate why task is not updated in firestore
-    database.collection('tasks').doc(id).update({ task });
+    database.collection('tasks').doc(id).set({ task });
 
     return dispatch({
       type: EDIT_TASK,
@@ -76,12 +74,18 @@ export const editTask = (task: Task, id: string) => {
 };
 
 export const deleteTask = (taskId: string) => {
-  //@todo: Investigate why task is not deleted from firestore
-  database.collection('tasks').doc(taskId).delete();
+  (dispatch, getState, { getFirestore }) => {
+    //@todo: Investigate why task is not deleted from firestore
+    const firestore = getFirestore();
 
-  return {
-    type: DELETE_TASK,
-    payload: taskId,
+    firestore
+      .collection('tasks')
+      .doc(taskId)
+      .delete()
+      .then(() => {
+        dispatch({ type: DELETE_TASK, payload: taskId });
+      })
+      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
 };
 

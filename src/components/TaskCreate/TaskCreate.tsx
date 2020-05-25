@@ -6,6 +6,7 @@ import { createTask } from '../../store/actions';
 export interface Props {
   createTask: (task: any) => void;
 }
+
 class TaskCreate extends React.Component<Props> {
   state = {
     title: '',
@@ -19,10 +20,9 @@ class TaskCreate extends React.Component<Props> {
   private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // @todo: Update condition
-    if (this.state.title.trim() !== '') {
+    if (this.state.title.trim() !== '' || this.state.description.trim()) {
       this.props.createTask(this.state);
-      this.setState({ title: '' });
+      this.setState({ title: '', description: '' });
     }
   };
 

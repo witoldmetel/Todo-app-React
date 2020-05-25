@@ -9,7 +9,6 @@ export interface Props {
   title: string;
   description: string;
   status: boolean;
-  editTask: (text: string, id: string) => void;
   deleteTask: (id: string) => void;
   toggleTask: () => void;
 }

@@ -1,5 +1,6 @@
 import {
   GET_TASKS,
+  GET_TASK,
   CREATE_TASK,
   CREATE_TASK_ERROR,
   EDIT_TASK,
@@ -23,6 +24,9 @@ type Action = {
 export const tasksReducer = (state: State[] = [], action: Action) => {
   switch (action.type) {
     case GET_TASKS:
+      return action.payload;
+
+    case GET_TASK:
       return action.payload;
 
     case CREATE_TASK:

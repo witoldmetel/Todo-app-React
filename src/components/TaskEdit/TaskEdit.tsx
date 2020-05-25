@@ -1,90 +1,87 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
-import { editTask } from '../../store/actions';
-import {RandomImg} from '../index'
+import { getTasks, editTask } from '../../store/actions';
+import { RandomImg } from '../index';
 
 export interface Props {
-  id: string;
-  title: string;
-  status: boolean;
-  editTask: () => void;
+  task: any;
+  history: any;
+  getTasks: () => void;
+  editTask: (task: any) => void;
 }
 
 class TaskEdit extends React.Component<Props> {
   state = {
-    editText: this.props.title,
-    activeEdit: true,
+    title: '',
+    description: '',
   };
 
-  private onFormSubmit = (title) => {
-    this.props.editTask(title, this.props.task.id);
-  };
+  public componentDidMount() {
+    this.props.getTasks();
+  }
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ editText: e.target.value });
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+  private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (this.state.title.trim() !== '' || this.state.description.trim()) {
+      this.props.editTask(this.state);
+      this.setState({ title: '', description: '' });
+    }
   };
 
   private onCancelClick = () => {
-    this.setState({
-      editText: this.props.title,
-    });
+    this.setState({ title: '', description: '' });
 
-    this.props.history.push('/')
+    this.props.history.push('/');
   };
 
-  // private onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   if (this.state.editText === '') {
-  //     this.props.deleteTask(this.props.id);
-  //   } else {
-  //     this.props.editTask(this.state.editText, this.props.id);
-  //     this.setState({ activeEdit: false });
-  //   }
-  // };
-
   public render() {
-    const id = this.props.match.params.id;
-    console.log('TaskEdit -> render -> this.props', this.props);
-
-    return (
-      <form className="ui action input" onSubmit={this.onFormSubmit}>
-        <div className="task-content">
-          <RandomImg randomFace={this.props.id} />
+    return !this.props.task ? (
+      <div className="ui active inverted dimmer">
+        <div className="ui text loader">Loading tasks</div>
+      </div>
+    ) : (
+      <div className="task-content">
+        <RandomImg randomFace={this.props.task.id} />
+        <form className="ui action input" onSubmit={this.onFormSubmit}>
           <input
             type="text"
-            className="edit-task-description"
-            placeholder={this.props.title}
-            value={this.state.editText}
+            id="title"
+            placeholder="task title"
+            value={this.props.task.title}
             onChange={this.onInputChange}
-          />
-        </div>
-        <div className="edit-task-buttons">
-          <button className="ui button inverted green" title="accept edit" type="submit">
-            <i className="fas fa-check"></i>
+          ></input>
+          <input
+            type="text"
+            id="description"
+            placeholder="description"
+            value={this.props.task.description}
+            onChange={this.onInputChange}
+          ></input>
+          <button className="ui positive button " type="submit">
+            <i className="check icon"></i>
           </button>
-          <button className="ui button inverted red" title="cancel edit" onClick={this.onCancelClick}>
-            <i className="fas fa-times"></i>
+          <button className="ui negative button" onClick={this.onCancelClick}>
+            <i className="times icon"></i>
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { task: state.tasks.find(task => task.id === ownProps.match.params.id };
+  return { task: state.tasks.find((task) => task.id === ownProps.match.params.id) };
 };
 
-function mapDispatchToProps(dispatch: any) {
-  return bindActionCreators(
-    {
-      editTask: editTask,
-    },
-    dispatch,
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskEdit);
+export default compose(
+  connect(mapStateToProps, { getTasks, editTask }),
+  firestoreConnect([{ collection: 'tasks' }]),
+)(TaskEdit as any);

@@ -62,14 +62,16 @@ export const createTask = (task) => {
   };
 };
 
-export const editTask = (title: string, id: string) => {
-  //@todo: Investigate why task is not updated in firestore
-  database.collection('tasks').doc(id).update({ title });
+export const editTask = (task: Task, id: string) => {
+  return (dispatch) => {
+    //@todo: Investigate why task is not updated in firestore
+    database.collection('tasks').doc(id).update({ task });
 
-  return {
-    type: EDIT_TASK,
-    payload: title,
-    id: id,
+    return dispatch({
+      type: EDIT_TASK,
+      payload: task,
+      id: id,
+    });
   };
 };
 

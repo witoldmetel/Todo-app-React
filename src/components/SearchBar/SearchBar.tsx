@@ -15,6 +15,7 @@ class SearchBar extends React.Component<Props> {
 
     this.setState({ search: searchValue });
 
+    console.log('SearchBar -> privateonSearcherChange -> searchValue', searchValue);
     this.props.searchTask(searchValue.toLowerCase());
   };
 

@@ -19,6 +19,7 @@
       justify-content: space-between;
       height: 50px;
       padding: 5px;
+      margin-bottom: 5px;
       background-color: #f6f6f6;
       font-size: 20px;
       color: #555;
@@ -31,6 +32,10 @@
 
       &:first-child {
         border-radius: 10px 120px 10px 10px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
 
       .task-content {

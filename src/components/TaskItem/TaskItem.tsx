@@ -14,19 +14,14 @@ export interface Props {
 }
 
 class TaskItem extends React.Component<Props> {
-  private onToggleClick = () => {
-    this.props.toggleTask();
-  };
-
   public render() {
     const { id, randomFace, title, description, status } = this.props;
 
     return (
-      <li className="task-item" onClick={this.props.toggleTask}>
+      <li className="task-item">
         <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
-          <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
+          <RandomImg randomFace={randomFace} />
           <div className="title">{title}</div>
-          <div className="description">{description}</div>
         </div>
         <div className="action-buttons">
           <Link className="editTask" to={`/task/${id}`}>

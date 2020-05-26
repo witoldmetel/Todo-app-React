@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'; // middleware to dispatch functions instead of 
 import { createLogger } from 'redux-logger';
 import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
 import config from './config/config';
 import reducers from './store/reducers';

@@ -28,7 +28,8 @@ export const getTasks = () => {
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => tasks.push(doc.data() as Task));
-
+      })
+      .then(() => {
         dispatch({ type: GET_TASKS, payload: tasks });
       })
       .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
@@ -60,15 +61,14 @@ export const createTask = (task) => {
   };
 };
 
-export const editTask = (task: Task, id: string) => {
+export const editTask = (task: Task) => {
   return (dispatch) => {
     //@todo: Investigate why task is not updated in firestore
-    database.collection('tasks').doc(id).set({ task });
+    database.collection('tasks').doc(task.id).set({ task });
 
     return dispatch({
       type: EDIT_TASK,
       payload: task,
-      id: id,
     });
   };
 };

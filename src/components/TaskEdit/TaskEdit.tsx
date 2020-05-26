@@ -15,8 +15,8 @@ export interface Props {
 
 class TaskEdit extends React.Component<Props> {
   state = {
-    title: '',
-    description: '',
+    title: this.props.task.title,
+    description: this.props.task.description,
   };
 
   public componentDidMount() {
@@ -81,7 +81,11 @@ const mapStateToProps = (state, ownProps) => {
   return { task: state.tasks.find((task) => task.id === ownProps.match.params.id) };
 };
 
-export default compose(
-  connect(mapStateToProps, { getTasks, editTask }),
-  // firestoreConnect([{ collection: 'tasks' }]),
-)(TaskEdit as any);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getTasks: () => dispatch(getTasks()),
+    editTask: (task: any) => dispatch(editTask(task)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEdit as any);

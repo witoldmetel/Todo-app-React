@@ -1,11 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export interface Task {
-  id: string;
-  title: string;
-  status: boolean;
-}
-
 import {
   GET_TASKS,
   CREATE_TASK,
@@ -17,6 +11,12 @@ import {
   SET_FILTER,
 } from '../../fixtures/constants';
 import database from '../../config/config';
+
+export interface Task {
+  id: string;
+  title: string;
+  status: boolean;
+}
 
 export const getTasks = () => {
   return (dispatch) => {
@@ -54,7 +54,7 @@ export const createTask = (task) => {
         createdAt,
       })
       .then(() => {
-        dispatch({ type: CREATE_TASK, payload: task, id });
+        dispatch({ type: CREATE_TASK, payload: task });
       })
       .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
@@ -73,29 +73,39 @@ export const editTask = (task: Task, id: string) => {
   };
 };
 
-export const deleteTask = (taskId: string) => {
-  (dispatch, getState, { getFirestore }) => {
+export const deleteTask = (id: string) => {
+  return (dispatch, getState, { getFirestore }) => {
     //@todo: Investigate why task is not deleted from firestore
     const firestore = getFirestore();
 
     firestore
       .collection('tasks')
-      .doc(taskId)
+      .doc(id)
       .delete()
       .then(() => {
-        dispatch({ type: DELETE_TASK, payload: taskId });
+        dispatch({ type: DELETE_TASK, id });
       })
       .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
 };
 
 export const toggleTask = (task: Task) => {
-  //@todo: Investigate why task is not updated in firestore
-  database.collection('tasks').doc(task.id).update({ status: !task.status });
+  console.log('toggleTask -> task', task);
+  return (dispatch, getState, { getFirestore }) => {
+    ///@todo: Investigate why task is not updated in firestore
+    const firestore = getFirestore();
 
-  return {
-    type: TOGGLE_TASK,
-    payload: task.id,
+    firestore
+      .collection('tasks')
+      .doc(task.id)
+      .update(task)
+      .then(() => {
+        dispatch({
+          type: TOGGLE_TASK,
+          payload: task.id,
+        });
+      })
+      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
   };
 };
 

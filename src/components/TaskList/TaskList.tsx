@@ -71,7 +71,15 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTask: (id) => {
+      dispatch(deleteTask(id));
+    },
+  };
+};
+
 export default compose(
-  connect(mapStateToProps, { getTasks, deleteTask, toggleTask }),
   firestoreConnect([{ collection: 'tasks' }]),
+  connect(mapStateToProps, { ...mapDispatchToProps, getTasks, toggleTask }),
 )(TaskList);

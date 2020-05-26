@@ -51,10 +51,10 @@ class TaskCreate extends React.Component<Props> {
   }
 }
 
-function mapDispatchToProps(dispatch: any) {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     createTask: (task: any) => dispatch(createTask(task)),
   };
-}
+};
 
 export default connect(null, mapDispatchToProps)(TaskCreate as any);

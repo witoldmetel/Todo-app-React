@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import logo from '../../../public/assets/logo.png';
 import Links from './Links';
 
 export default class Navbar extends React.Component {
@@ -9,7 +10,7 @@ export default class Navbar extends React.Component {
       <header className="ui menu">
         <nav className="ui container">
           <Link to="/" className="header item">
-            <img className="logo" src={`https://api.adorable.io/avatars/${Math.random()}.png`} />
+            <img className="logo" src={logo} />
             Task List App
           </Link>
           <Links />

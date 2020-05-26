@@ -13,26 +13,16 @@ export interface Props {
   toggleTask: () => void;
 }
 
-export interface State {
-  activeEdit: boolean;
-  editText: string;
-}
-
-export default class TaskItem extends React.Component<Props, State> {
-  state = {
-    activeEdit: false,
-    editText: this.props.title,
-  };
-
-  private onDeleteClick = () => {
-    this.props.deleteTask(this.props.id);
+class TaskItem extends React.Component<Props> {
+  private onToggleClick = () => {
+    this.props.toggleTask();
   };
 
   public render() {
-    const { id, randomFace, title, description, status, toggleTask } = this.props;
+    const { id, randomFace, title, description, status } = this.props;
 
     return (
-      <li className="task-item" onClick={toggleTask}>
+      <li className="task-item" onClick={this.props.toggleTask}>
         <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
           <RandomImg randomFace={randomFace} title={status ? "I'm proud of you!" : 'Just do it!'} />
           <div className="title">{title}</div>
@@ -42,7 +32,7 @@ export default class TaskItem extends React.Component<Props, State> {
           <Link className="editTask" to={`/task/${id}`}>
             <i className="edit outline icon"></i>
           </Link>
-          <button className="removeTask" onClick={this.onDeleteClick}>
+          <button className="removeTask" disabled onClick={() => this.props.deleteTask(this.props.id)}>
             <i className="trash alternate outline icon"></i>
           </button>
         </div>
@@ -50,3 +40,5 @@ export default class TaskItem extends React.Component<Props, State> {
     );
   }
 }
+
+export default TaskItem;

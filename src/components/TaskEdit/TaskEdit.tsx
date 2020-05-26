@@ -83,5 +83,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps, { getTasks, editTask }),
-  firestoreConnect([{ collection: 'tasks' }]),
+  // firestoreConnect([{ collection: 'tasks' }]),
 )(TaskEdit as any);

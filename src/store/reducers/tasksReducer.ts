@@ -19,24 +19,19 @@ export const tasksReducer = (state: State[] = [], action: Action) => {
       return action.payload;
 
     case CREATE_TASK:
-      return [
-        ...state,
-        {
-          id: action.id,
-          status: false,
-          title: action.payload,
-        },
-      ];
+      return state;
 
     case GET_TASK_ERROR:
       console.log('Task error:', action.error);
       return state;
 
+    //@todo: update
     case EDIT_TASK:
       return state.map((task) => (task.id === action.id ? { ...task, title: action.payload } : task));
 
+    //@todo: Fix it
     case DELETE_TASK:
-      return state.filter((task) => task.id !== action.payload);
+      return state.filter((task) => task.id !== action.id);
 
     case TOGGLE_TASK:
       return state.map((task) => (task.id === action.payload ? { ...task, status: !task.status } : task));

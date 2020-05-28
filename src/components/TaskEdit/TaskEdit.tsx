@@ -56,21 +56,27 @@ class TaskEdit extends React.Component<Props> {
           <div className="header">Edit Task</div>
           <div className="content">
             <RandomImg randomFace={this.props.id} />
-            <form className="ui action input">
-              <input
-                type="text"
-                id="title"
-                placeholder="task title"
-                value={this.state.title}
-                onChange={this.onInputChange}
-              />
-              <input
-                type="text"
-                id="description"
-                placeholder="description"
-                value={this.state.description}
-                onChange={this.onInputChange}
-              />
+            <form className="ui form">
+              <div className="field">
+                <label>Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="task title"
+                  value={this.state.title}
+                  onChange={this.onInputChange}
+                />
+              </div>
+              <div className="field">
+                <label>Label</label>
+                <input
+                  type="text"
+                  id="description"
+                  placeholder="description"
+                  value={this.state.description}
+                  onChange={this.onInputChange}
+                />
+              </div>
             </form>
           </div>
           <div className="actions">

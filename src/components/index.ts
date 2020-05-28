@@ -1,4 +1,5 @@
 import Dashboard from './Dashboard/Dashboard';
+import Dialog from './Dialog/Dialog';
 import FilterBar from './FilterBar/FilterBar';
 import Navbar from './Navbar/Navbar';
 import RandomImg from './RandomImg/RandomImg';
@@ -9,10 +10,12 @@ import TaskCreate from './TaskCreate/TaskCreate';
 import TaskEdit from './TaskEdit/TaskEdit';
 import TaskItem from './TaskItem/TaskItem';
 import TaskList from './TaskList/TaskList';
+import TaskRemove from './TaskRemove/TaskRemove';
 import UserPanel from './UserPanel/UserPanel';
 
 export {
   Dashboard,
+  Dialog,
   FilterBar,
   Navbar,
   RandomImg,
@@ -23,5 +26,6 @@ export {
   TaskEdit,
   TaskItem,
   TaskList,
+  TaskRemove,
   UserPanel,
 };

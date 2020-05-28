@@ -17,7 +17,7 @@ const reduxLogger = createLogger();
 
 const store = createStore(
   reducers,
-  compose(applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }), reduxLogger)),
+  compose(applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }))),
   reduxFirestore(firebase, config),
 );
 

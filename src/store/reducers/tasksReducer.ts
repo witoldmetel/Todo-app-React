@@ -15,12 +15,12 @@ export const tasksReducer = (state = INITIAL_STATE, action: Action) => {
       action.payload.forEach((doc: Task) => {
         tasks.push({
           id: doc.id,
-          author: doc.data().author,
-          authorId: doc.data().authorId,
-          title: doc.data().title,
-          description: doc.data().description,
-          status: doc.data().status,
-          createdAt: doc.data().createdAt,
+          author: doc.author,
+          authorId: doc.authorId,
+          title: doc.title,
+          description: doc.description,
+          status: doc.status,
+          createdAt: doc.createdAt,
         });
       });
 

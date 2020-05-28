@@ -73,7 +73,11 @@ class TaskEdit extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { task: state.firestore.data.tasks.find((task) => task.id === ownProps.match.params.id) };
+  const id = ownProps.match.params.id;
+  const tasks = state.firestore.data.tasks;
+  const task = tasks ? tasks[id] : null;
+
+  return { task };
 };
 
 export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { updateTask }))(TaskEdit);

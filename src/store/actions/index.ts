@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import {
   GET_TASKS,
   CREATE_TASK,
@@ -39,7 +37,6 @@ export const createTask = (task: Task) => {
       .add({
         ...task,
         status: false,
-        id: uuidv4(),
         author: 'Admin',
         authorId: 12345,
         createdAt: Date.now(),

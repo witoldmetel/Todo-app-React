@@ -1,16 +1,17 @@
 import React from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
-import { getTasks, editTask } from '../../store/actions';
+import { Task } from '../../fixtures/types';
+import { updateTask } from '../../store/actions';
 import { RandomImg } from '../index';
 
 export interface Props {
-  task: any;
+  id: string;
+  task: Task;
   history: any;
-  getTasks: () => void;
-  editTask: (task: any) => void;
+  updateTask: (task: Task, id: string) => void;
 }
 
 class TaskEdit extends React.Component<Props> {
@@ -19,10 +20,6 @@ class TaskEdit extends React.Component<Props> {
     description: this.props.task.description,
   };
 
-  public componentDidMount() {
-    this.props.getTasks();
-  }
-
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -30,17 +27,15 @@ class TaskEdit extends React.Component<Props> {
   private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (this.state.title.trim() !== '' || this.state.description.trim()) {
-      this.props.editTask(this.state);
+    if (this.state.title.trim() !== '' && this.state.description.trim()) {
+      this.props.updateTask(this.state, this.props.id);
       this.setState({ title: '', description: '' });
     }
-  };
-
-  private onCancelClick = () => {
-    this.setState({ title: '', description: '' });
 
     this.props.history.push('/');
   };
+
+  private onCancelClick = () => this.props.history.push('/');
 
   public render() {
     return !this.props.task ? (
@@ -49,7 +44,7 @@ class TaskEdit extends React.Component<Props> {
       </div>
     ) : (
       <div className="task-content">
-        <RandomImg randomFace={this.props.task.id} />
+        <RandomImg randomFace={this.props.id} />
         <form className="ui action input" onSubmit={this.onFormSubmit}>
           <input
             type="text"
@@ -78,14 +73,7 @@ class TaskEdit extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { task: state.tasks.find((task) => task.id === ownProps.match.params.id) };
+  return { task: state.firestore.data.tasks.find((task) => task.id === ownProps.match.params.id) };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    getTasks: () => dispatch(getTasks()),
-    editTask: (task: any) => dispatch(editTask(task)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskEdit as any);
+export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { updateTask }))(TaskEdit);

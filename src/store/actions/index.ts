@@ -9,12 +9,7 @@ import {
   SEARCH_TASK,
   SET_FILTER,
 } from '../../fixtures/constants';
-
-export interface Task {
-  id: string;
-  title: string;
-  status: boolean;
-}
+import { Task } from '../../fixtures/types';
 
 export const getTasks = () => {
   return (dispatch, getState, { getFirestore }) => {
@@ -35,7 +30,7 @@ export const getTasks = () => {
   };
 };
 
-export const createTask = (task) => {
+export const createTask = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 

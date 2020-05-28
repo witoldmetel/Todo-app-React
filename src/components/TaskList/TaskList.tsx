@@ -3,19 +3,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
-import { getTasks, deleteTask, toggleTask } from '../../store/actions';
+import { getTasks, deleteTask } from '../../store/actions';
 import { getTasksSelector } from '../../store/selectors';
-
+import { Task } from '../../fixtures/types';
 import { TaskItem, FilterBar, SearchBar } from '../index';
 
 import './TaskList.scss';
-
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: boolean;
-}
 
 export interface Props {
   getTasks: () => void;
@@ -36,18 +29,7 @@ class TaskList extends React.Component<Props> {
       </div>
     ) : (
       this.props.tasks.map((task: Task) => {
-        return (
-          <TaskItem
-            key={task.id}
-            id={task.id}
-            randomFace={task.id}
-            title={task.title}
-            description={task.description}
-            status={task.status}
-            deleteTask={this.props.deleteTask}
-            toggleTask={() => this.props.toggleTask(task)}
-          />
-        );
+        return <TaskItem key={task.id} task={task} />;
       })
     );
   }
@@ -71,15 +53,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteTask: (id) => {
-      dispatch(deleteTask(id));
-    },
-  };
-};
-
 export default compose(
   firestoreConnect([{ collection: 'tasks' }]),
-  connect(mapStateToProps, { ...mapDispatchToProps, getTasks, toggleTask }),
+  connect(mapStateToProps, { getTasks, deleteTask }),
 )(TaskList);

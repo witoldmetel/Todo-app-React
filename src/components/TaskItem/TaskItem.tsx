@@ -1,33 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { Task } from '../../fixtures/types';
 import { RandomImg } from '../index';
 
+import './TaskItem.scss';
+
 export interface Props {
-  id: string;
-  randomFace: string;
-  title: string;
-  description: string;
-  status: boolean;
-  deleteTask: (id: string) => void;
-  toggleTask: () => void;
+  task: Task;
 }
 
 class TaskItem extends React.Component<Props> {
   public render() {
-    const { id, randomFace, title, description, status } = this.props;
+    const { id, title, status } = this.props.task;
 
     return (
       <li className="task-item">
         <div className="task-content" style={{ textDecoration: status ? 'line-through' : 'none' }}>
-          <RandomImg randomFace={randomFace} />
+          <RandomImg randomFace={id} />
           <div className="title">{title}</div>
         </div>
         <div className="action-buttons">
           <Link className="editTask" to={`/task/${id}`}>
             <i className="edit outline icon"></i>
           </Link>
-          <button className="removeTask" disabled onClick={() => this.props.deleteTask(this.props.id)}>
+          <button className="removeTask">
             <i className="trash alternate outline icon"></i>
           </button>
         </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { Task } from '../../fixtures/types';
 import { createTask } from '../../store/actions';
 
 export interface Props {
-  createTask: (task: any) => void;
+  history: any;
+  createTask: (task: Task) => void;
 }
 
 class TaskCreate extends React.Component<Props> {
@@ -20,10 +22,12 @@ class TaskCreate extends React.Component<Props> {
   private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (this.state.title.trim() !== '' || this.state.description.trim()) {
+    if (this.state.title.trim() !== '' && this.state.description.trim()) {
       this.props.createTask(this.state);
       this.setState({ title: '', description: '' });
     }
+
+    this.props.history.push('/');
   };
 
   public render() {
@@ -51,10 +55,4 @@ class TaskCreate extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    createTask: (task: any) => dispatch(createTask(task)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(TaskCreate as any);
+export default connect(null, { createTask })(TaskCreate);

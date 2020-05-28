@@ -4,21 +4,35 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 import { Task } from '../../fixtures/types';
-import { updateTask } from '../../store/actions';
+import { getTask, updateTask } from '../../store/actions';
 import { RandomImg } from '../index';
 
 export interface Props {
   id: string;
   task: Task;
   history: any;
+  getTask: (id: string) => void;
   updateTask: (task: Task, id: string) => void;
 }
 
 class TaskEdit extends React.Component<Props> {
   state = {
-    title: this.props.task.title,
-    description: this.props.task.description,
+    title: this.props.task?.title || '',
+    description: this.props.task?.description || '',
   };
+
+  public componentDidMount() {
+    this.props.getTask(this.props.id);
+  }
+
+  public componentDidUpdate(prevProps) {
+    if (prevProps.task !== this.props.task && prevProps.task === null) {
+      this.setState({
+        title: this.props.task.title,
+        description: this.props.task.description,
+      });
+    }
+  }
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -80,4 +94,7 @@ const mapStateToProps = (state, ownProps) => {
   return { task, id };
 };
 
-export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { updateTask }))(TaskEdit);
+export default compose(
+  firestoreConnect([{ collection: 'tasks' }]),
+  connect(mapStateToProps, { getTask, updateTask }),
+)(TaskEdit);

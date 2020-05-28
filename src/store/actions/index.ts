@@ -1,5 +1,6 @@
 import {
   GET_TASKS,
+  GET_TASK,
   CREATE_TASK,
   TASK_ERROR,
   UPDATE_TASK,
@@ -28,6 +29,22 @@ export const getTasks = () => {
   };
 };
 
+export const getTask = (id: string) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('tasks')
+      .get()
+      .then((snapshot) => {
+        const task = snapshot.docs.find((doc) => doc.data().id === id);
+
+        dispatch({ type: GET_TASK, payload: task });
+      })
+      .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
+  };
+};
+
 export const createTask = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -50,16 +67,13 @@ export const createTask = (task: Task) => {
 
 export const updateTask = (task: Task, id: string) => {
   return (dispatch, getState, { getFirestore }) => {
-    //@todo: Investigate why task is not updated in firestore
     const firestore = getFirestore();
-    console.log('updateTask -> firestore', firestore, id, task);
 
     firestore
       .collection('tasks')
       .doc(id)
       .update(task)
       .then(() => {
-        console.log('test');
         dispatch({ type: UPDATE_TASK });
       });
   };

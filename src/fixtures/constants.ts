@@ -18,10 +18,3 @@ export enum FILTERS {
   SHOW_INCOMPLETED = 'SHOW_INCOMPLETED',
   SHOW_COMPLETED = 'SHOW_COMPLETED',
 }
-
-export enum MODAL_SIZES {
-  MINI = 'mini',
-  TINY = 'tiny',
-  SMALL = 'small',
-  LARGE = 'large',
-}

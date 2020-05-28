@@ -93,7 +93,7 @@ class TaskEdit extends React.Component<Props> {
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      ReactDOM.createPortal(this.content, document.getElementById('modal') as HTMLElement)
+      this.content
     );
   }
 }

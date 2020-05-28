@@ -4,9 +4,7 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 import { Task } from '../../fixtures/types';
-import { MODAL_SIZES } from '../../fixtures/constants';
 import { getTask, deleteTask } from '../../store/actions';
-import { Dialog } from '../index';
 
 export interface Props {
   id: string;
@@ -27,19 +25,28 @@ class TaskRemove extends React.Component<Props> {
     this.props.history.push('/');
   };
 
+  private onCancelClick = () => this.props.history.push('/');
+
   public render() {
     return !this.props.task ? (
       <div className="ui active inverted dimmer">
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      <Dialog
-        title="Delete Task"
-        content="Are you sure you want to delete this task?"
-        modalSize={MODAL_SIZES.TINY}
-        history={this.props.history}
-        onConfirmClick={this.onConfirmClick}
-      />
+      <div className="ui dimmer modals visible active">
+        <div onClick={(e) => e.stopPropagation()} className="ui tiny modal visible active">
+          <div className="header">Delete Task</div>
+          <div className="content">Are you sure you want to delete this task?</div>
+          <div className="actions">
+            <button className="ui negative button" onClick={this.onConfirmClick}>
+              Ok
+            </button>
+            <button className="ui button" onClick={this.onCancelClick}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 }

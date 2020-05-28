@@ -1,5 +1,4 @@
 import Dashboard from './Dashboard/Dashboard';
-import Dialog from './Dialog/Dialog';
 import FilterBar from './FilterBar/FilterBar';
 import Navbar from './Navbar/Navbar';
 import RandomImg from './RandomImg/RandomImg';
@@ -15,7 +14,6 @@ import UserPanel from './UserPanel/UserPanel';
 
 export {
   Dashboard,
-  Dialog,
   FilterBar,
   Navbar,
   RandomImg,

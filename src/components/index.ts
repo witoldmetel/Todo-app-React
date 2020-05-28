@@ -9,6 +9,7 @@ import TaskCreate from './TaskCreate/TaskCreate';
 import TaskEdit from './TaskEdit/TaskEdit';
 import TaskItem from './TaskItem/TaskItem';
 import TaskList from './TaskList/TaskList';
+import TaskRemove from './TaskRemove/TaskRemove';
 import UserPanel from './UserPanel/UserPanel';
 
 export {
@@ -23,5 +24,6 @@ export {
   TaskEdit,
   TaskItem,
   TaskList,
+  TaskRemove,
   UserPanel,
 };

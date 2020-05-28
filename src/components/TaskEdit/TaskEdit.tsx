@@ -38,9 +38,7 @@ class TaskEdit extends React.Component<Props> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
       this.props.updateTask(this.state, this.props.id);
       this.setState({ title: '', description: '' });
@@ -51,37 +49,56 @@ class TaskEdit extends React.Component<Props> {
 
   private onCancelClick = () => this.props.history.push('/');
 
+  private get content() {
+    return (
+      <div className="ui dimmer modals visible active">
+        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
+          <div className="header">Edit Task</div>
+          <div className="content">
+            <RandomImg randomFace={this.props.id} />
+            <form className="ui form">
+              <div className="field">
+                <label>Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="task title"
+                  value={this.state.title}
+                  onChange={this.onInputChange}
+                />
+              </div>
+              <div className="field">
+                <label>Label</label>
+                <input
+                  type="text"
+                  id="description"
+                  placeholder="description"
+                  value={this.state.description}
+                  onChange={this.onInputChange}
+                />
+              </div>
+            </form>
+          </div>
+          <div className="actions">
+            <button className="ui positive button" type="submit" onClick={this.onConfirmClick}>
+              Ok
+            </button>
+            <button className="ui button" onClick={this.onCancelClick}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   public render() {
     return !this.props.task ? (
       <div className="ui active inverted dimmer">
-        <div className="ui text loader">Loading tasks</div>
+        <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      <div className="task-content">
-        <RandomImg randomFace={this.props.id} />
-        <form className="ui action input" onSubmit={this.onFormSubmit}>
-          <input
-            type="text"
-            id="title"
-            placeholder="task title"
-            value={this.state.title}
-            onChange={this.onInputChange}
-          />
-          <input
-            type="text"
-            id="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.onInputChange}
-          />
-          <button className="ui positive button " type="submit">
-            <i className="check icon"></i>
-          </button>
-          <button className="ui negative button" onClick={this.onCancelClick}>
-            <i className="times icon"></i>
-          </button>
-        </form>
-      </div>
+      this.content
     );
   }
 }

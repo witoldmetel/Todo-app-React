@@ -28,14 +28,14 @@ class TaskItem extends React.Component<Props> {
           <div className="title">{title}</div>
         </div>
         <div className="action-buttons">
-          <Link className="ui image label yellow" to={`/task/${id}`}>
+          <Link className="ui image label yellow" to={`/task/edit/${id}`}>
             <i className="edit outline icon" />
             Edit
           </Link>
-          <button className="ui inverted button red" onClick={this.onDeleteClick}>
+          <Link className="ui inverted label red" to={`/task/delete/${id}`}>
             <i className="trash alternate outline icon" />
             Remove
-          </button>
+          </Link>
         </div>
       </li>
     );

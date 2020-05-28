@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
-import { getTasks, deleteTask } from '../../store/actions';
+import { getTasks } from '../../store/actions';
 import { getTasksSelector } from '../../store/selectors';
 import { Task } from '../../fixtures/types';
 import { TaskItem, FilterBar, SearchBar } from '../index';
@@ -11,10 +11,8 @@ import { TaskItem, FilterBar, SearchBar } from '../index';
 import './TaskList.scss';
 
 export interface Props {
-  getTasks: () => void;
-  deleteTask: (id: string) => void;
-  toggleTask: (task: Task) => void;
   tasks: Task[];
+  getTasks: () => void;
 }
 
 class TaskList extends React.Component<Props> {
@@ -53,7 +51,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default compose(
-  firestoreConnect([{ collection: 'tasks' }]),
-  connect(mapStateToProps, { getTasks, deleteTask }),
-)(TaskList);
+export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { getTasks }))(TaskList);

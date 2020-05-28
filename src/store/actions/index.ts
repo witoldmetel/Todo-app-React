@@ -3,14 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   GET_TASKS,
   CREATE_TASK,
-  GET_TASK_ERROR,
-  EDIT_TASK,
+  TASK_ERROR,
+  UPDATE_TASK,
   DELETE_TASK,
-  TOGGLE_TASK,
   SEARCH_TASK,
   SET_FILTER,
 } from '../../fixtures/constants';
-import database from '../../config/config';
 
 export interface Task {
   id: string;
@@ -19,28 +17,25 @@ export interface Task {
 }
 
 export const getTasks = () => {
-  return (dispatch) => {
-    const tasks: Task[] = [];
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
 
-    database
+    firestore
       .collection('tasks')
       .orderBy('title')
       .get()
       .then((snapshot) => {
+        const tasks: Task[] = [];
+
         snapshot.docs.forEach((doc) => tasks.push(doc.data() as Task));
-      })
-      .then(() => {
+
         dispatch({ type: GET_TASKS, payload: tasks });
       })
-      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
+      .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };
 };
 
 export const createTask = (task) => {
-  const id = uuidv4();
-  const status = false;
-  const createdAt = new Date();
-
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -48,28 +43,31 @@ export const createTask = (task) => {
       .collection('tasks')
       .add({
         ...task,
-        status,
-        id,
+        status: false,
+        id: uuidv4(),
         author: 'Admin',
         authorId: 12345,
-        createdAt,
+        createdAt: Date.now(),
       })
       .then(() => {
-        dispatch({ type: CREATE_TASK, payload: task });
+        dispatch({ type: CREATE_TASK });
       })
-      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
+      .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };
 };
 
-export const editTask = (task: Task) => {
-  return (dispatch) => {
+export const updateTask = (task: Task, id: string) => {
+  return (dispatch, getState, { getFirestore }) => {
     //@todo: Investigate why task is not updated in firestore
-    database.collection('tasks').doc(task.id).set({ task });
+    const firestore = getFirestore();
 
-    return dispatch({
-      type: EDIT_TASK,
-      payload: task,
-    });
+    firestore
+      .collection('tasks')
+      .doc(id)
+      .update(task)
+      .then(() => {
+        dispatch({ type: UPDATE_TASK });
+      });
   };
 };
 
@@ -85,27 +83,7 @@ export const deleteTask = (id: string) => {
       .then(() => {
         dispatch({ type: DELETE_TASK, id });
       })
-      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
-  };
-};
-
-export const toggleTask = (task: Task) => {
-  console.log('toggleTask -> task', task);
-  return (dispatch, getState, { getFirestore }) => {
-    ///@todo: Investigate why task is not updated in firestore
-    const firestore = getFirestore();
-
-    firestore
-      .collection('tasks')
-      .doc(task.id)
-      .update(task)
-      .then(() => {
-        dispatch({
-          type: TOGGLE_TASK,
-          payload: task.id,
-        });
-      })
-      .catch((error) => dispatch({ type: GET_TASK_ERROR, payload: error }));
+      .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };
 };
 

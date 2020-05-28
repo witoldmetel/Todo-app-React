@@ -1,13 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { FILTERS } from '../../fixtures/constants';
-
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: boolean;
-}
+import { Task } from '../../fixtures/types';
 
 const fetchTasks = (state) => state.firestore.ordered.tasks;
 const getSearchValue = (state) => state.searchValue;

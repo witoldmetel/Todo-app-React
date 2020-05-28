@@ -50,16 +50,16 @@ class TaskEdit extends React.Component<Props> {
             type="text"
             id="title"
             placeholder="task title"
-            value={this.props.task.title}
+            value={this.state.title}
             onChange={this.onInputChange}
-          ></input>
+          />
           <input
             type="text"
             id="description"
             placeholder="description"
-            value={this.props.task.description}
+            value={this.state.description}
             onChange={this.onInputChange}
-          ></input>
+          />
           <button className="ui positive button " type="submit">
             <i className="check icon"></i>
           </button>
@@ -77,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   const tasks = state.firestore.data.tasks;
   const task = tasks ? tasks[id] : null;
 
-  return { task };
+  return { task, id };
 };
 
 export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { updateTask }))(TaskEdit);

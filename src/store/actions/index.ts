@@ -52,12 +52,14 @@ export const updateTask = (task: Task, id: string) => {
   return (dispatch, getState, { getFirestore }) => {
     //@todo: Investigate why task is not updated in firestore
     const firestore = getFirestore();
+    console.log('updateTask -> firestore', firestore, id, task);
 
     firestore
       .collection('tasks')
       .doc(id)
       .update(task)
       .then(() => {
+        console.log('test');
         dispatch({ type: UPDATE_TASK });
       });
   };

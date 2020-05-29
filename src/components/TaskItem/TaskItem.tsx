@@ -36,6 +36,7 @@ class TaskItem extends React.Component<Props> {
             {title}
           </h3>
           <RandomImg randomFace={id} />
+          <div className="title">{title}</div>
         </div>
         <Spring
           native

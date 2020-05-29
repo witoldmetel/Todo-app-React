@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Spring, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
@@ -13,15 +14,15 @@ export interface Props {
 }
 
 class TaskItem extends React.Component<Props> {
-  state = { isCollapsed: false };
+  state = { isOpen: false };
 
   private onTaskClick = () => {
-    this.setState({ isCollapsed: !this.state.isCollapsed });
+    this.setState({ isOpen: !this.state.isOpen });
   };
 
   private get className() {
     return classnames('task-content', {
-      isCollapsed: this.state.isCollapsed,
+      isOpen: this.state.isOpen,
     });
   }
 
@@ -36,19 +37,29 @@ class TaskItem extends React.Component<Props> {
           </h3>
           <RandomImg randomFace={id} />
         </div>
-        <div className={this.className}>
-          <div className="description">{description}</div>
-          <div className="action-buttons">
-            <Link className="ui image label yellow" to={`/task/edit/${id}`}>
-              <i className="edit outline icon" />
-              Edit
-            </Link>
-            <Link className="ui inverted label red" to={`/task/delete/${id}`}>
-              <i className="trash alternate outline icon" />
-              Remove
-            </Link>
-          </div>
-        </div>
+        <Spring
+          native
+          force
+          config={{ tension: 1000, friction: 100, precision: 1 }}
+          from={{ height: this.state.isOpen ? 0 : 'auto' }}
+          to={{ height: this.state.isOpen ? 'auto' : 0 }}
+        >
+          {(props) => (
+            <animated.div className={this.className} style={props}>
+              <div className="description">{description}</div>
+              <div className="action-buttons">
+                <Link className="ui image label yellow" to={`/task/edit/${id}`}>
+                  <i className="edit outline icon" />
+                  Edit
+                </Link>
+                <Link className="ui inverted label red" to={`/task/delete/${id}`}>
+                  <i className="trash alternate outline icon" />
+                  Remove
+                </Link>
+              </div>
+            </animated.div>
+          )}
+        </Spring>
       </li>
     );
   }

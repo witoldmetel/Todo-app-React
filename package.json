@@ -59,6 +59,7 @@
     "react-redux": "^5.0.7",
     "react-redux-firebase": "^3.4.0",
     "react-router-dom": "^5.2.0",
+    "react-spring": "^8.0.27",
     "redux": "^3.7.2",
     "redux-firestore": "^0.13.0",
     "redux-logger": "^3.0.6",

@@ -4,7 +4,7 @@ import { Transition, Trail, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
-import { RandomImg } from '../index';
+import { RandomAvatar } from '../index';
 
 import './TaskItem.scss';
 
@@ -21,7 +21,7 @@ class TaskItem extends React.Component<Props> {
   };
 
   private get taskIcon() {
-    return <RandomImg randomFace={this.props.task.id} className="task-icon" />;
+    return <RandomAvatar randomFace={this.props.task.id} className="task-icon" />;
   }
 
   private get taskContent() {

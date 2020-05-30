@@ -6,7 +6,7 @@ export interface Props {
   className?: string;
 }
 
-export default class RandomImg extends React.Component<Props> {
+export default class RandomAvatar extends React.Component<Props> {
   private get className() {
     return classnames('ui mini rounded image', this.props.className);
   }

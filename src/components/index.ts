@@ -1,7 +1,7 @@
 import Dashboard from './Dashboard/Dashboard';
 import FilterBar from './FilterBar/FilterBar';
 import Navbar from './Navbar/Navbar';
-import RandomImg from './RandomImg/RandomImg';
+import RandomAvatar from './RandomAvatar/RandomAvatar';
 import SearchBar from './SearchBar/SearchBar';
 import SignInComponent from './SignInComponent/SignInComponent';
 import SignUpComponent from './SignUpComponent/SignUpComponent';
@@ -16,7 +16,7 @@ export {
   Dashboard,
   FilterBar,
   Navbar,
-  RandomImg,
+  RandomAvatar,
   SearchBar,
   SignInComponent,
   SignUpComponent,

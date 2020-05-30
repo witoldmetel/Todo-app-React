@@ -10,7 +10,7 @@ export interface Props {
 
 export default class RandomAvatar extends React.Component<Props> {
   private get className() {
-    return classnames('ui mini rounded image', this.props.className);
+    return classnames('ui mini circular image', this.props.className);
   }
 
   public render() {

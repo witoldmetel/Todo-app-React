@@ -3,8 +3,7 @@
   justify-content: space-between;
   flex-direction: column;
   position: relative;
-  min-height: 50px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   background-color: #f6f6f6;
   font-size: 20px;
   color: #555;
@@ -20,10 +19,6 @@
       background-color: #f6f6f6;
       border-radius: 10px 120px 10px 10px;
       margin: 0;
-
-      .task-icon {
-        margin-right: 30px;
-      }
     }
   }
 
@@ -43,13 +38,32 @@
       margin-left: 15px;
     }
 
-    .task-icon {
-      margin-right: 15px;
-      transition: all 1s;
+    .context-menu {
+      position: relative;
 
-      &:hover {
-        transform: scale(1.2, 1.2);
-        transition: all 1s;
+      .task-icon {
+        margin-right: 30px;
+      }
+
+      .menu-option {
+        position: absolute;
+
+        .button {
+          font-size: 8px;
+        }
+
+        // @todo: Nasty hack for stylling each of menu option. Find different way to style it
+        &.option-0 {
+          top: -23px;
+        }
+
+        &.option-1 {
+          top: 0px;
+        }
+
+        &.option-2 {
+          top: 23px;
+        }
       }
     }
   }

@@ -14,16 +14,18 @@ export interface Props {
 }
 
 // Creates a keyframed trail
-const MenuTrail = Keyframes.Trail({
-  open: { x: 0, opacity: 1, delay: 100 },
-  close: { x: -100, opacity: 0, delay: 0 },
+const ContextMenu = Keyframes.Trail({
+  open: { right: 65, opacity: 1, delay: 100 },
+  close: { right: 30, opacity: 0, delay: 0 },
 });
 
 class TaskItem extends React.Component<Props> {
   state = { isContentOpen: false, isMenuOpen: false };
 
   private openMenu = () => {
-    this.setState({ isMenuOpen: true });
+    if (!this.state.isContentOpen) {
+      this.setState({ isMenuOpen: true });
+    }
   };
 
   private closeMenu = () => {
@@ -34,28 +36,35 @@ class TaskItem extends React.Component<Props> {
     return this.state.isMenuOpen ? 'open' : 'close';
   }
 
+  private get contextMenuOptions() {
+    const options = ['check', 'pencil', 'trash'];
+
+    return options.map((option: string) => (
+      <button key={option} className="ui icon circular button">
+        <i className={`${option} icon`}></i>
+      </button>
+    ));
+  }
+
   private get taskIcon() {
     return (
-      <React.Fragment>
-        <RandomAvatar
-          randomFace={this.props.task.id}
-          className="task-icon"
-          onMouseEnter={this.openMenu}
-          onMouseLeave={this.closeMenu}
-        />
-        <MenuTrail items={['Item1', 'Item2', 'Item3']} reverse={!this.state.isMenuOpen} state={this.menuState}>
-          {(item) => (props) => (
-            <animated.div className="menu-option" style={props}>
-              <div>{item}</div>
+      <div className="context-menu" onMouseEnter={this.openMenu} onMouseLeave={this.closeMenu}>
+        <RandomAvatar randomFace={this.props.task.id} className="task-icon" />
+        <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
+          {(option, index: number) => (props) => (
+            <animated.div key={`${option}-${index}`} className={`menu-option option-${index}`} style={props}>
+              {option}
             </animated.div>
           )}
-        </MenuTrail>
-      </React.Fragment>
+        </ContextMenu>
+      </div>
     );
   }
 
   private onTaskClick = () => {
-    this.setState({ isOpen: !this.state.isContentOpen });
+    if (!this.state.isMenuOpen) {
+      this.setState({ isContentOpen: !this.state.isContentOpen });
+    }
   };
 
   private get taskContent() {
@@ -66,11 +75,11 @@ class TaskItem extends React.Component<Props> {
         <div className="description">{description}</div>
         <div className="action-buttons">
           <Link className="ui image label yellow" to={`/task/edit/${id}`}>
-            <i className="pencil alternate icon" />
+            <i className="pencil icon" />
             Edit
           </Link>
           <Link className="ui inverted label red" to={`/task/delete/${id}`}>
-            <i className="trash alternate outline icon" />
+            <i className="trash icon" />
             Remove
           </Link>
         </div>
@@ -80,7 +89,7 @@ class TaskItem extends React.Component<Props> {
 
   private get contentClassName() {
     return classnames('task-content', {
-      isOpen: this.state.isContentOpen,
+      isContentOpen: this.state.isContentOpen,
     });
   }
 
@@ -96,8 +105,8 @@ class TaskItem extends React.Component<Props> {
         enter={{ height: 'auto' }}
         leave={{ height: 0 }}
       >
-        {(isOpen: boolean) =>
-          isOpen &&
+        {(isContentOpen: boolean) =>
+          isContentOpen &&
           ((props) => (
             <animated.div className={this.contentClassName} style={props}>
               {this.taskContent}

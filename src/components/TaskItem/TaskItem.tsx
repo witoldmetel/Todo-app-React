@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Transition, Trail, animated } from 'react-spring/renderprops';
+import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
@@ -13,16 +13,50 @@ export interface Props {
   deleteTask?: (id: string) => void;
 }
 
-class TaskItem extends React.Component<Props> {
-  state = { isOpen: false };
+// Creates a keyframed trail
+const MenuTrail = Keyframes.Trail({
+  open: { x: 0, opacity: 1, delay: 100 },
+  close: { x: -100, opacity: 0, delay: 0 },
+});
 
-  private onTaskClick = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+class TaskItem extends React.Component<Props> {
+  state = { isContentOpen: false, isMenuOpen: false };
+
+  private openMenu = () => {
+    this.setState({ isMenuOpen: true });
   };
 
-  private get taskIcon() {
-    return <RandomAvatar randomFace={this.props.task.id} className="task-icon" />;
+  private closeMenu = () => {
+    this.setState({ isMenuOpen: false });
+  };
+
+  private get menuState() {
+    return this.state.isMenuOpen ? 'open' : 'close';
   }
+
+  private get taskIcon() {
+    return (
+      <React.Fragment>
+        <RandomAvatar
+          randomFace={this.props.task.id}
+          className="task-icon"
+          onMouseEnter={this.openMenu}
+          onMouseLeave={this.closeMenu}
+        />
+        <MenuTrail items={['Item1', 'Item2', 'Item3']} reverse={!this.state.isMenuOpen} state={this.menuState}>
+          {(item) => (props) => (
+            <animated.div className="menu-option" style={props}>
+              <div>{item}</div>
+            </animated.div>
+          )}
+        </MenuTrail>
+      </React.Fragment>
+    );
+  }
+
+  private onTaskClick = () => {
+    this.setState({ isOpen: !this.state.isContentOpen });
+  };
 
   private get taskContent() {
     const { id, description } = this.props.task;
@@ -46,7 +80,7 @@ class TaskItem extends React.Component<Props> {
 
   private get contentClassName() {
     return classnames('task-content', {
-      isOpen: this.state.isOpen,
+      isOpen: this.state.isContentOpen,
     });
   }
 
@@ -56,7 +90,12 @@ class TaskItem extends React.Component<Props> {
    */
   private get transitionContent() {
     return (
-      <Transition items={this.state.isOpen} from={{ height: 0 }} enter={{ height: 'auto' }} leave={{ height: 0 }}>
+      <Transition
+        items={this.state.isContentOpen}
+        from={{ height: 0 }}
+        enter={{ height: 'auto' }}
+        leave={{ height: 0 }}
+      >
         {(isOpen: boolean) =>
           isOpen &&
           ((props) => (

@@ -37,13 +37,21 @@ class TaskItem extends React.Component<Props> {
   }
 
   private get contextMenuOptions() {
-    const options = ['check', 'pencil', 'trash'];
+    const { id } = this.props.task;
 
-    return options.map((option: string) => (
-      <button key={option} className="ui icon circular button">
-        <i className={`${option} icon`}></i>
-      </button>
-    ));
+    return (
+      <React.Fragment>
+        <Link className="ui icon circular button" to={`/`}>
+          <i className="check icon" />
+        </Link>
+        <Link className="ui icon circular button" to={`/task/edit/${id}`}>
+          <i className="pencil icon" />
+        </Link>
+        <Link className="ui icon circular button" to={`/task/delete/${id}`}>
+          <i className="trash icon" />
+        </Link>
+      </React.Fragment>
+    );
   }
 
   private get taskIcon() {

@@ -13,5 +13,21 @@
   ul.list {
     list-style-type: none;
     padding: 0;
+
+    &.empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 35px auto;
+
+      .info {
+        margin: 0;
+      }
+
+      .add-icon {
+        margin-left: 5px;
+        font-size: 20px;
+      }
+    }
   }
 }

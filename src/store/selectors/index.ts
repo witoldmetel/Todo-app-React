@@ -13,7 +13,7 @@ export const getTasksSelector = createSelector(
     if (tasks) {
       switch (filters) {
         case FILTERS.SHOW_ALL:
-          return tasks.filter((task: Task) => task.title.includes(searchValue));
+          return tasks.filter((task: Task) => task.title?.toLowerCase().includes(searchValue?.toLowerCase()));
 
         case FILTERS.SHOW_COMPLETED:
           return tasks.filter((task: Task) => task.status).filter((task: Task) => task.title.includes(searchValue));

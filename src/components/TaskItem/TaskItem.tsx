@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Transition, animated } from 'react-spring/renderprops';
+import { Transition, Trail, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
@@ -10,7 +10,7 @@ import './TaskItem.scss';
 
 export interface Props {
   task: Task;
-  deleteTask: (id: string) => void;
+  deleteTask?: (id: string) => void;
 }
 
 class TaskItem extends React.Component<Props> {
@@ -20,10 +20,8 @@ class TaskItem extends React.Component<Props> {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  private get className() {
-    return classnames('task-content', {
-      isOpen: this.state.isOpen,
-    });
+  private get taskIcon() {
+    return <RandomImg randomFace={this.props.task.id} className="task-icon" />;
   }
 
   private get taskContent() {
@@ -34,7 +32,7 @@ class TaskItem extends React.Component<Props> {
         <div className="description">{description}</div>
         <div className="action-buttons">
           <Link className="ui image label yellow" to={`/task/edit/${id}`}>
-            <i className="edit outline icon" />
+            <i className="pencil alternate icon" />
             Edit
           </Link>
           <Link className="ui inverted label red" to={`/task/delete/${id}`}>
@@ -44,6 +42,12 @@ class TaskItem extends React.Component<Props> {
         </div>
       </React.Fragment>
     );
+  }
+
+  private get contentClassName() {
+    return classnames('task-content', {
+      isOpen: this.state.isOpen,
+    });
   }
 
   /**
@@ -56,7 +60,7 @@ class TaskItem extends React.Component<Props> {
         {(isOpen: boolean) =>
           isOpen &&
           ((props) => (
-            <animated.div className={this.className} style={props}>
+            <animated.div className={this.contentClassName} style={props}>
               {this.taskContent}
             </animated.div>
           ))
@@ -74,7 +78,7 @@ class TaskItem extends React.Component<Props> {
           <h3 className="title" title={`task nr ${id}`}>
             {title}
           </h3>
-          <RandomImg randomFace={id} />
+          {this.taskIcon}
         </div>
         {this.transitionContent}
       </li>

@@ -20,6 +20,14 @@
       background-color: #f6f6f6;
       border-radius: 10px 120px 10px 10px;
       margin: 0;
+
+      .title {
+        margin-left: 15px;
+      }
+
+      .task-icon {
+        margin-right: 30px;
+      }
     }
   }
 
@@ -33,6 +41,20 @@
     justify-content: space-between;
     padding: 5px;
     cursor: pointer;
+
+    .title {
+      margin: 0;
+    }
+
+    .task-icon {
+      margin-right: 15px;
+      transition: all 1s;
+
+      &:hover {
+        transform: scale(1.2, 1.2);
+        transition: all 1s;
+      }
+    }
   }
 
   .task-content {

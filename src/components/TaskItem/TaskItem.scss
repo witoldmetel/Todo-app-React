@@ -1,34 +1,90 @@
 .task-item {
   display: flex;
   justify-content: space-between;
-  height: 50px;
-  padding: 5px;
-  margin-bottom: 5px;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 10px;
   background-color: #f6f6f6;
   font-size: 20px;
   color: #555;
-  position: relative;
-  border-bottom: 1px solid #e6e6e6;
 
   &:nth-child(even) {
     background-color: #f2f2f2;
   }
 
   &:first-child {
-    border-radius: 10px 120px 10px 10px;
+    background-color: #fff;
+
+    .task-header {
+      background-color: #f6f6f6;
+      border-radius: 10px 120px 10px 10px;
+      margin: 0;
+    }
   }
 
   &:last-child {
     margin-bottom: 0;
   }
 
+  .task-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+
+    .title {
+      margin: 0;
+      margin-left: 15px;
+    }
+
+    .context-menu {
+      position: relative;
+
+      .task-icon {
+        margin-right: 30px;
+      }
+
+      .menu-option {
+        position: absolute;
+
+        .button {
+          font-size: 8px;
+        }
+
+        // @todo: Nasty hack for stylling each of menu option. Find different way to style it
+        &.option-0 {
+          top: -23px;
+        }
+
+        &.option-1 {
+          top: 0px;
+        }
+
+        &.option-2 {
+          top: 23px;
+        }
+      }
+    }
+  }
+
   .task-content {
     display: flex;
     align-items: center;
-  }
+    justify-content: space-between;
+    overflow: hidden;
+    margin: 0;
+    background-color: #fff;
 
-  .action-buttons {
-    display: flex;
-    align-items: center;
+    &.isOpen {
+      border: 1px solid #e6e6e6;
+      border-top: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      min-height: 50px;
+    }
   }
 }

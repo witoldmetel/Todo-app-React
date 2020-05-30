@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 
 import { Task } from '../../fixtures/types';
 import { getTask, updateTask } from '../../store/actions';
-import { RandomImg } from '../index';
+import { RandomAvatar } from '../index';
 
 export interface Props {
   id: string;
@@ -55,7 +55,7 @@ class TaskEdit extends React.Component<Props> {
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
           <div className="header">Edit Task</div>
           <div className="content">
-            <RandomImg randomFace={this.props.id} />
+            <RandomAvatar randomFace={this.props.id} />
             <form className="ui form">
               <div className="field">
                 <label>Title</label>

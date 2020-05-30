@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import classnames from 'classnames';
 
 import { getTasks } from '../../store/actions';
 import { getTasksSelector } from '../../store/selectors';
@@ -20,16 +22,37 @@ class TaskList extends React.Component<Props> {
     this.props.getTasks();
   }
 
-  private get renderList() {
-    return !this.props.tasks ? (
-      <div className="ui active inverted dimmer">
-        <div className="ui text loader">Loading tasks</div>
-      </div>
-    ) : (
-      this.props.tasks.map((task: Task) => {
-        return <TaskItem key={task.id} task={task} />;
-      })
+  private get className() {
+    return classnames('list', {
+      empty: !this.props.tasks?.length,
+    });
+  }
+
+  private get emptyList() {
+    return (
+      <React.Fragment>
+        <h3 className="info">You have no task to do! Add first here:</h3>
+        <Link className="add-icon" to="/task/new">
+          <i className="plus circle icon green" />
+        </Link>
+      </React.Fragment>
     );
+  }
+
+  private get renderList() {
+    if (!this.props.tasks) {
+      return (
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader">Loading tasks</div>
+        </div>
+      );
+    }
+
+    return !this.props.tasks.length
+      ? this.emptyList
+      : this.props.tasks.map((task: Task) => {
+          return <TaskItem key={task.id} task={task} />;
+        });
   }
 
   public render() {
@@ -39,7 +62,7 @@ class TaskList extends React.Component<Props> {
           <FilterBar />
           <SearchBar />
         </div>
-        <ul className="list">{this.renderList}</ul>
+        <ul className={this.className}>{this.renderList}</ul>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Spring, animated } from 'react-spring/renderprops';
+import { Transition, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
@@ -26,8 +26,47 @@ class TaskItem extends React.Component<Props> {
     });
   }
 
+  private get taskContent() {
+    const { id, description } = this.props.task;
+
+    return (
+      <React.Fragment>
+        <div className="description">{description}</div>
+        <div className="action-buttons">
+          <Link className="ui image label yellow" to={`/task/edit/${id}`}>
+            <i className="edit outline icon" />
+            Edit
+          </Link>
+          <Link className="ui inverted label red" to={`/task/delete/${id}`}>
+            <i className="trash alternate outline icon" />
+            Remove
+          </Link>
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * An array of items to be displayed (or a single item of any type),
+   * this is used by Transition as the primary means of detecting changes.
+   */
+  private get transitionContent() {
+    return (
+      <Transition items={this.state.isOpen} from={{ height: 0 }} enter={{ height: 'auto' }} leave={{ height: 0 }}>
+        {(isOpen: boolean) =>
+          isOpen &&
+          ((props) => (
+            <animated.div className={this.className} style={props}>
+              {this.taskContent}
+            </animated.div>
+          ))
+        }
+      </Transition>
+    );
+  }
+
   public render() {
-    const { id, title, description } = this.props.task;
+    const { id, title } = this.props.task;
 
     return (
       <li className="task-item">
@@ -36,31 +75,8 @@ class TaskItem extends React.Component<Props> {
             {title}
           </h3>
           <RandomImg randomFace={id} />
-          <div className="title">{title}</div>
         </div>
-        <Spring
-          native
-          force
-          config={{ tension: 1000, friction: 100, precision: 1 }}
-          from={{ height: this.state.isOpen ? 0 : 'auto' }}
-          to={{ height: this.state.isOpen ? 'auto' : 0 }}
-        >
-          {(props) => (
-            <animated.div className={this.className} style={props}>
-              <div className="description">{description}</div>
-              <div className="action-buttons">
-                <Link className="ui image label yellow" to={`/task/edit/${id}`}>
-                  <i className="edit outline icon" />
-                  Edit
-                </Link>
-                <Link className="ui inverted label red" to={`/task/delete/${id}`}>
-                  <i className="trash alternate outline icon" />
-                  Remove
-                </Link>
-              </div>
-            </animated.div>
-          )}
-        </Spring>
+        {this.transitionContent}
       </li>
     );
   }

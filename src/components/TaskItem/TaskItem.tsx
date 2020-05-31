@@ -21,7 +21,7 @@ export interface Props {
 const ContextMenu = Keyframes.Trail({
   open: { right: 65, opacity: 1, delay: 100 },
   close: { right: 30, opacity: 0, delay: 0 },
-});
+} as any);
 
 class TaskItem extends React.Component<Props> {
   state = { isContentOpen: false, isMenuOpen: false };
@@ -90,12 +90,24 @@ class TaskItem extends React.Component<Props> {
     }
   };
 
+  private get taskStatus() {
+    const status = this.props.task.status ? 'completed' : 'incompleted';
+    const icon = this.props.task.status ? 'check' : 'close icon';
+
+    return (
+      <div className="ui label">
+        <i className={`${icon} icon`}></i> Task {status}
+      </div>
+    );
+  }
+
   private get taskContent() {
     const { id, description } = this.props.task;
 
     return (
       <React.Fragment>
         <div className="description">{description}</div>
+        {this.taskStatus}
         <div className="action-buttons">
           <Link className="ui image label yellow" to={`/task/edit/${id}`}>
             <i className="pencil icon" />

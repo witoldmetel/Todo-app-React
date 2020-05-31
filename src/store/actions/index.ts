@@ -5,6 +5,7 @@ import {
   TASK_ERROR,
   UPDATE_TASK,
   DELETE_TASK,
+  SET_TASK_STATUS,
   SEARCH_TASK,
   SET_FILTER,
 } from '../../fixtures/constants';
@@ -79,9 +80,22 @@ export const updateTask = (task: Task, id: string) => {
   };
 };
 
+export const setTaskStatus = (task: Task) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('tasks')
+      .doc(task.id)
+      .update({ ...task, status: !task.status })
+      .then(() => {
+        dispatch({ type: SET_TASK_STATUS });
+      });
+  };
+};
+
 export const deleteTask = (id: string) => {
   return (dispatch, getState, { getFirestore }) => {
-    //@todo: Investigate why task is not deleted from firestore
     const firestore = getFirestore();
 
     firestore

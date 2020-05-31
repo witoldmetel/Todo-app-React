@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
 import { Task } from '../../fixtures/types';
+import { setTaskStatus } from '../../store/actions';
 import { RandomAvatar } from '../index';
 
 import './TaskItem.scss';
 
 export interface Props {
+  id: string;
   task: Task;
   deleteTask?: (id: string) => void;
+  setTaskStatus: (task: Task) => void;
 }
 
 // Creates a keyframed trail
@@ -36,14 +40,25 @@ class TaskItem extends React.Component<Props> {
     return this.state.isMenuOpen ? 'open' : 'close';
   }
 
+  private onToggleStatus = () => {
+    this.props.setTaskStatus(this.props.task);
+  };
+
+  private get statusIconClassName() {
+    return classnames('icon', {
+      check: !this.props.task.status,
+      'close icon': this.props.task.status,
+    });
+  }
+
   private get contextMenuOptions() {
     const { id } = this.props.task;
 
     return (
       <React.Fragment>
-        <Link className="ui icon circular button" to={`/`}>
-          <i className="check icon" />
-        </Link>
+        <button className="ui icon circular button" onClick={this.onToggleStatus}>
+          <i className={this.statusIconClassName} />
+        </button>
         <Link className="ui icon circular button" to={`/task/edit/${id}`}>
           <i className="pencil icon" />
         </Link>
@@ -142,4 +157,4 @@ class TaskItem extends React.Component<Props> {
   }
 }
 
-export default TaskItem;
+export default connect(null, { setTaskStatus })(TaskItem);

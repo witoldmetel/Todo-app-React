@@ -1,4 +1,12 @@
-import { GET_TASKS, GET_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK, TASK_ERROR } from '../../fixtures/constants';
+import {
+  GET_TASKS,
+  GET_TASK,
+  CREATE_TASK,
+  UPDATE_TASK,
+  DELETE_TASK,
+  TASK_ERROR,
+  SET_TASK_STATUS,
+} from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
 const INITIAL_STATE = {
@@ -39,6 +47,9 @@ export const tasksReducer = (state = INITIAL_STATE, action: Action) => {
       return state;
 
     case DELETE_TASK:
+      return state;
+
+    case SET_TASK_STATUS:
       return state;
 
     case TASK_ERROR:

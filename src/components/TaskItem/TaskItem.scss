@@ -73,7 +73,7 @@
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    margin: 0;
+    padding: 0 20px;
     background-color: #fff;
 
     &.isOpen {
@@ -81,10 +81,33 @@
       border-top: 0;
     }
 
-    .action-buttons {
-      display: flex;
-      align-items: center;
-      min-height: 50px;
+    .column {
+      &.second {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        flex-direction: column;
+        margin-top: 10px;
+        min-width: 220px;
+      }
+
+      .description {
+        font-size: 16px;
+        word-break: break-all;
+      }
+
+      .meta {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .action-buttons {
+        display: flex;
+        align-items: center;
+        min-height: 50px;
+      }
     }
   }
 }

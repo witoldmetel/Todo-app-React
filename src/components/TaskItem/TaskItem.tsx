@@ -46,8 +46,8 @@ class TaskItem extends React.Component<Props> {
 
   private get statusIconClassName() {
     return classnames('icon', {
-      check: !this.props.task.status,
-      'close icon': this.props.task.status,
+      'check green': !this.props.task.status,
+      'close icon red': this.props.task.status,
     });
   }
 
@@ -91,32 +91,42 @@ class TaskItem extends React.Component<Props> {
   };
 
   private get taskStatus() {
+    // @todo: unify this
     const status = this.props.task.status ? 'completed' : 'incompleted';
+    const labelColor = this.props.task.status ? 'green' : 'red';
     const icon = this.props.task.status ? 'check' : 'close icon';
 
     return (
-      <div className="ui label">
+      <div className={`ui label ${labelColor}`}>
         <i className={`${icon} icon`}></i> Task {status}
       </div>
     );
   }
 
   private get taskContent() {
-    const { id, description } = this.props.task;
+    const { id, description, author } = this.props.task;
 
     return (
       <React.Fragment>
-        <div className="description">{description}</div>
-        {this.taskStatus}
-        <div className="action-buttons">
-          <Link className="ui image label yellow" to={`/task/edit/${id}`}>
-            <i className="pencil icon" />
-            Edit
-          </Link>
-          <Link className="ui inverted label red" to={`/task/delete/${id}`}>
-            <i className="trash icon" />
-            Remove
-          </Link>
+        <div className="first column">
+          <div className="description">{description}</div>
+          <div className="meta">
+            <span>Author: {author}</span>
+            <span>created at: 1.1.2020</span>
+          </div>
+        </div>
+        <div className="second column">
+          {this.taskStatus}
+          <div className="action-buttons">
+            <Link className="ui image label yellow" to={`/task/edit/${id}`}>
+              <i className="pencil icon" />
+              Edit
+            </Link>
+            <Link className="ui inverted label red" to={`/task/delete/${id}`}>
+              <i className="trash icon" />
+              Remove
+            </Link>
+          </div>
         </div>
       </React.Fragment>
     );

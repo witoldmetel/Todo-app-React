@@ -10,6 +10,8 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const SEARCH_TASK = 'SEARCH_TASK';
 export const SET_FILTER = 'SET_FILTER';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 /**
  * GENERIC

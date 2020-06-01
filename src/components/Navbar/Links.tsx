@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class Links extends React.Component {
+class Links extends React.Component {
   private get renderLinks() {
     // todo: Add later proper state
-    return true ? (
+    return false ? (
       <React.Fragment>
         <NavLink to="/task/new" className="header item">
           Create New Task
@@ -32,3 +33,10 @@ export default class Links extends React.Component {
     return <div className="right menu">{this.renderLinks}</div>;
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps -> state', state);
+  return { auth: state.firebase.auth };
+};
+
+export default connect(mapStateToProps)(Links);

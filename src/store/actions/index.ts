@@ -8,6 +8,8 @@ import {
   SET_TASK_STATUS,
   SEARCH_TASK,
   SET_FILTER,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -123,4 +125,22 @@ export const setFilter = (filter: string) => {
       type: SET_FILTER,
       payload: filter,
     });
+};
+
+/**
+ * Firebase Auth
+ */
+export const SignIn = (credentials) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(() => {
+        dispatch({
+          type: LOGIN_SUCCESS,
+        }).catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
+      });
+  };
 };

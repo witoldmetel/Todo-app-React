@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import { Redirect } from 'react-router-dom';
 
 import { Task } from '../../fixtures/types';
 import { getTask, deleteTask } from '../../store/actions';
@@ -28,6 +29,10 @@ class TaskRemove extends React.Component<Props> {
   private onCancelClick = () => this.props.history.push('/');
 
   public render() {
+    const { auth } = this.props;
+
+    if (!auth.uid) return <Redirect to="/signin" />;
+
     return !this.props.task ? (
       <div className="ui active inverted dimmer">
         <div className="ui text loader">Loading task</div>
@@ -56,7 +61,7 @@ const mapStateToProps = (state, ownProps) => {
   const tasks = state.firestore.data.tasks;
   const task = tasks ? tasks[id] : null;
 
-  return { task, id };
+  return { task, id, auth: state.firebase.auth };
 };
 
 export default compose(

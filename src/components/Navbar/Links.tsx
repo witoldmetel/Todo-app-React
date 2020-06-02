@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { signOut } from '../../store/actions';
 
 export interface Props {
+  auth: any;
   signOut: () => void;
 }
 
 class Links extends React.Component<Props> {
   private get renderLinks() {
-    // todo: Add later proper state
-    return false ? (
+    const { auth } = this.props;
+
+    return auth.uid ? (
       <React.Fragment>
         <NavLink to="/task/new" className="header item">
           Create New Task
@@ -29,7 +31,7 @@ class Links extends React.Component<Props> {
           Signup
         </NavLink>
         <NavLink to="/signin" className="header item">
-          Signin
+          Login
         </NavLink>
       </React.Fragment>
     );

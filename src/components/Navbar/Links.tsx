@@ -2,7 +2,13 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-class Links extends React.Component {
+import { signOut } from '../../store/actions';
+
+export interface Props {
+  signOut: () => void;
+}
+
+class Links extends React.Component<Props> {
   private get renderLinks() {
     // todo: Add later proper state
     return false ? (
@@ -10,9 +16,9 @@ class Links extends React.Component {
         <NavLink to="/task/new" className="header item">
           Create New Task
         </NavLink>
-        <NavLink to="/logout" className="header item">
+        <a onClick={() => this.props.signOut()} className="header item">
           Logout
-        </NavLink>
+        </a>
         <NavLink to="/profile" className="header item">
           <img src="https://api.adorable.io/avatars/profile.png" className="ui mini circular image" />
         </NavLink>
@@ -35,8 +41,7 @@ class Links extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps -> state', state);
   return { auth: state.firebase.auth };
 };
 
-export default connect(mapStateToProps)(Links);
+export default connect(mapStateToProps, { signOut })(Links);

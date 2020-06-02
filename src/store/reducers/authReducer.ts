@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_ERROR } from '../../fixtures/constants';
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS } from '../../fixtures/constants';
 
 const INITIAL_STATE = {
   authError: null,
@@ -12,8 +12,10 @@ export const authReducer = (state: object = INITIAL_STATE, action: Action) => {
       return { ...state, authError: null };
 
     case LOGIN_ERROR:
-      console.log(state);
       return { ...state, authError: 'Login failed' };
+
+    case LOGOUT_SUCCESS:
+      return state;
 
     default:
       return state;

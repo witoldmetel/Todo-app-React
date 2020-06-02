@@ -10,6 +10,7 @@ import {
   SET_FILTER,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT_SUCCESS,
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -141,5 +142,18 @@ export const signIn = (credentials) => {
         dispatch({ type: LOGIN_SUCCESS });
       })
       .catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
+  };
+};
+
+export const signOut = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: LOGOUT_SUCCESS });
+      });
   };
 };

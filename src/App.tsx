@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
+import { Task } from './fixtures/types';
 import { Navbar, Dashboard, TaskEdit, SignInComponent, SignUpComponent, TaskCreate, TaskRemove } from './components';
 
 import './App.scss';
 
-class App extends React.Component {
+export interface Props {
+  tasks: Task[];
+}
+
+class App extends React.Component<Props> {
   public render() {
     // @todo: Find better solution for auth loading
     return !isLoaded(this.props?.tasks) ? (

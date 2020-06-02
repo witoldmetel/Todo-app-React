@@ -1,15 +1,15 @@
 import React from 'react';
 
-export default class SignUpComponent extends React.Component {
+export interface Props {
+  history: any;
+}
+
+export default class SignUpComponent extends React.Component<Props> {
   private get content() {
     return (
       <form className="ui form">
         <div className="field">
-          <label>Username</label>
-          <input type="text" name="username" placeholder="Username" />
-        </div>
-        <div className="field">
-          <label>E-mail</label>
+          <label>Email</label>
           <input type="email" placeholder="joe@schmoe.com" />
         </div>
         <div className="field">

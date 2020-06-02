@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
-import { Task } from '../../fixtures/types';
+import { Task, Auth } from '../../fixtures/types';
 import { getTask, deleteTask } from '../../store/actions';
 
 export interface Props {
   id: string;
   task: Task;
+  auth: Auth;
   history: any;
   getTask: (id: string) => void;
   deleteTask: (id: string) => void;
@@ -61,10 +60,11 @@ const mapStateToProps = (state, ownProps) => {
   const tasks = state.firestore.data.tasks;
   const task = tasks ? tasks[id] : null;
 
-  return { task, id, auth: state.firebase.auth };
+  return {
+    task,
+    id,
+    auth: state.firebase.auth,
+  };
 };
 
-export default compose(
-  firestoreConnect([{ collection: 'tasks' }]),
-  connect(mapStateToProps, { getTask, deleteTask }),
-)(TaskRemove);
+export default connect(mapStateToProps, { getTask, deleteTask })(TaskRemove);

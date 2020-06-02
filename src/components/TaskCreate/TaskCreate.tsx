@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Task } from '../../fixtures/types';
+import { Task, Auth } from '../../fixtures/types';
 import { createTask } from '../../store/actions';
 
 export interface Props {
+  auth: Auth;
   history: any;
   createTask: (task: Task) => void;
 }

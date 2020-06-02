@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { Credentials } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
 
 export interface Props {
   authError: string;
   history: any;
-  signIn: (credentials: any) => void;
+  signIn: (credentials: Credentials) => void;
 }
 
 class SignInComponent extends React.Component<Props> {

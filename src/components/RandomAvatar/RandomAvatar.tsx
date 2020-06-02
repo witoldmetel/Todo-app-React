@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 export interface Props {
-  randomFace: string;
+  randomFace?: string;
   className?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;

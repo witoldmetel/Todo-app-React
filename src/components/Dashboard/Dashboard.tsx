@@ -2,11 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import { Auth } from '../../fixtures/types';
 import { TaskList, UserPanel } from '../index';
 
 import './Dashboard.scss';
 
-class Dashboard extends React.Component {
+export interface Props {
+  auth: Auth;
+}
+
+class Dashboard extends React.Component<Props> {
   public render() {
     const { auth } = this.props;
 

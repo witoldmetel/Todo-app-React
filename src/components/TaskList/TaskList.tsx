@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import classnames from 'classnames';
 
 import { getTasks } from '../../store/actions';
@@ -50,8 +48,8 @@ class TaskList extends React.Component<Props> {
 
     return !this.props.tasks.length
       ? this.emptyList
-      : this.props.tasks.map((task: Task) => {
-          return <TaskItem key={task.id} task={task} />;
+      : this.props.tasks.map((task: Task, index: number) => {
+          return <TaskItem key={index} task={task} />;
         });
   }
 
@@ -74,4 +72,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps, { getTasks }))(TaskList);
+export default connect(mapStateToProps, { getTasks })(TaskList);

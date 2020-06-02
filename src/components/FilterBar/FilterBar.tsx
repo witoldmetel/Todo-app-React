@@ -44,4 +44,4 @@ class FilterBar extends React.Component<Props> {
   }
 }
 
-export default connect(null, { setFilter })(FilterBar as any);
+export default connect(null, { setFilter })(FilterBar);

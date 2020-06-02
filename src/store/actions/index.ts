@@ -130,7 +130,7 @@ export const setFilter = (filter: string) => {
 /**
  * Firebase Auth
  */
-export const SignIn = (credentials) => {
+export const signIn = (credentials) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
@@ -138,9 +138,8 @@ export const SignIn = (credentials) => {
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(() => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-        }).catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
-      });
+        dispatch({ type: LOGIN_SUCCESS });
+      })
+      .catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
   };
 };

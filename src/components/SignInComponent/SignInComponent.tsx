@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { SignIn } from '../../store/actions';
+import { signIn } from '../../store/actions';
 
 export interface Props {
+  authError: string;
   history: any;
   signIn: (credentials: any) => void;
 }
@@ -19,27 +20,33 @@ class SignInComponent extends React.Component<Props> {
   };
 
   private onLoginClick = () => {
-    if (this.state.email.trim() !== '' && this.state.password.trim()) {
-      this.props.signIn(this.state);
-      this.setState({ email: '', password: '' });
-    }
+    this.props.signIn(this.state);
 
-    this.props.history.push('/');
+    // if (!this.props.authError) {
+    //   this.setState({ email: '', password: '' });
+
+    //   this.props.history.push('/');
+    // }
   };
 
   private onCancelClick = () => this.props.history.push('/');
+
+  private get errorMessage() {
+    return this.props.authError ? <div className="ui red message">{this.props.authError}</div> : null;
+  }
 
   private get content() {
     return (
       <form className="ui form">
         <div className="field">
-          <label>email</label>
-          <input type="text" name="email" placeholder="Email" onChange={this.onInputChange} />
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="Email" onChange={this.onInputChange} />
         </div>
         <div className="field">
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Password" onChange={this.onInputChange} />
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" placeholder="Password" onChange={this.onInputChange} />
         </div>
+        {this.errorMessage}
       </form>
     );
   }
@@ -64,10 +71,10 @@ class SignInComponent extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    signIn: (credendials) => dispatch(SignIn),
+    authError: state.auth.authError,
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignInComponent);
+export default connect(mapStateToProps, { signIn })(SignInComponent);

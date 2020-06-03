@@ -24,7 +24,10 @@ class Dashboard extends React.Component<Props> {
         </div>
       </React.Fragment>
     ) : (
-      <Redirect to="/signin" />
+      <React.Fragment>
+        <h1>Task List</h1>
+        <div className="dashboard">{`You don't have access. Log in to service or register.`}</div>
+      </React.Fragment>
     );
   }
 }

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Links from './Links';
 
+import './Navbar.scss';
+
 export default class Navbar extends React.Component {
   private logo = require('../../../public/assets/logo.png');
 
@@ -12,7 +14,7 @@ export default class Navbar extends React.Component {
         <nav className="ui container">
           <Link to="/" className="header item">
             <img className="logo" src={this.logo} />
-            Task List App
+            <p>Task List App</p>
           </Link>
           <Links />
         </nav>

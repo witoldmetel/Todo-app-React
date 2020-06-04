@@ -53,7 +53,6 @@ export const tasksReducer = (state = INITIAL_STATE, action: Action) => {
       return state;
 
     case TASK_ERROR:
-      console.log('Task error:', action.error);
       return state;
 
     default:

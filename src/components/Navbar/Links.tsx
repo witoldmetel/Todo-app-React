@@ -22,7 +22,7 @@ class Links extends React.Component<Props> {
           Logout
         </a>
         <NavLink to="/profile" className="header item">
-          <img src="https://api.adorable.io/avatars/profile.png" className="ui mini circular image" />
+          <img src={`https://api.adorable.io/avatars/${auth.uid}.png`} className="ui mini circular image" />
         </NavLink>
       </React.Fragment>
     ) : (

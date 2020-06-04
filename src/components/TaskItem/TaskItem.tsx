@@ -11,7 +11,7 @@ import { RandomAvatar } from '../index';
 import './TaskItem.scss';
 
 export interface Props {
-  id: string;
+  id?: string;
   task: Task;
   deleteTask?: (id: string) => void;
   setTaskStatus: (task: Task) => void;
@@ -21,10 +21,13 @@ export interface Props {
 const ContextMenu = Keyframes.Trail({
   open: { right: 65, opacity: 1, delay: 100 },
   close: { right: 30, opacity: 0, delay: 0 },
-} as any);
+});
 
 class TaskItem extends React.Component<Props> {
-  state = { isContentOpen: false, isMenuOpen: false };
+  state = {
+    isContentOpen: false,
+    isMenuOpen: false,
+  };
 
   private openMenu = () => {
     if (!this.state.isContentOpen) {
@@ -72,7 +75,7 @@ class TaskItem extends React.Component<Props> {
   private get taskIcon() {
     return (
       <div className="context-menu" onMouseEnter={this.openMenu} onMouseLeave={this.closeMenu}>
-        <RandomAvatar randomFace={this.props.task.id} className="task-icon" />
+        <RandomAvatar randomFace={this.props.task?.id} className="task-icon" />
         <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
           {(option, index: number) => (props) => (
             <animated.div key={`${option}-${index}`} className={`menu-option option-${index}`} style={props}>
@@ -104,15 +107,18 @@ class TaskItem extends React.Component<Props> {
   }
 
   private get taskContent() {
-    const { id, description, author } = this.props.task;
+    const { id, description, author, createdAt, updatedAt } = this.props.task;
 
     return (
       <React.Fragment>
         <div className="first column">
           <div className="description">{description}</div>
           <div className="meta">
-            <span>Author: {author}</span>
-            <span>created at: 1.1.2020</span>
+            <span>
+              Created by: <b>{author}</b>
+            </span>
+            <span>Created: {createdAt}</span>
+            <span>Updated: {updatedAt}</span>
           </div>
         </div>
         <div className="second column">

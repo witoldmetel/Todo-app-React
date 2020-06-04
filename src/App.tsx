@@ -1,13 +1,24 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
+import { Task } from './fixtures/types';
 import { Navbar, Dashboard, TaskEdit, SignInComponent, SignUpComponent, TaskCreate, TaskRemove } from './components';
 
 import './App.scss';
 
-export default class App extends React.Component {
+export interface Props {
+  tasks: Task[];
+}
+
+class App extends React.Component<Props> {
   public render() {
-    return (
+    // @todo: Find better solution for auth loading
+    return !isLoaded(this.props?.tasks) ? (
+      <span>Loading...</span>
+    ) : (
       <BrowserRouter>
         <Navbar />
         <Switch>
@@ -22,3 +33,9 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { tasks: state.firestore.ordered.tasks };
+};
+
+export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps))(App);

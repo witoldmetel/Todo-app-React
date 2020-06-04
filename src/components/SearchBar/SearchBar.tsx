@@ -33,4 +33,4 @@ class SearchBar extends React.Component<Props> {
   }
 }
 
-export default connect(null, { searchTask })(SearchBar as any);
+export default connect(null, { searchTask })(SearchBar);

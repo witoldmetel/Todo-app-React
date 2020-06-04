@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   GET_TASKS,
   GET_TASK,
@@ -8,6 +10,11 @@ import {
   SET_TASK_STATUS,
   SEARCH_TASK,
   SET_FILTER,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT_SUCCESS,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -50,14 +57,19 @@ export const createTask = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .add({
         ...task,
         status: false,
-        author: 'Admin',
-        authorId: 12345,
-        createdAt: Date.now(),
+        author: profile.username,
+        authorId,
+        createdAt: date,
+        updatedAt: date,
       })
       .then(() => {
         dispatch({ type: CREATE_TASK });
@@ -70,10 +82,12 @@ export const updateTask = (task: Task, id: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .doc(id)
-      .update(task)
+      .update({ ...task, updatedAt: date })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
       });
@@ -84,10 +98,12 @@ export const setTaskStatus = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .doc(task.id)
-      .update({ ...task, status: !task.status })
+      .update({ ...task, status: !task.status, updatedAt: date })
       .then(() => {
         dispatch({ type: SET_TASK_STATUS });
       });
@@ -123,4 +139,54 @@ export const setFilter = (filter: string) => {
       type: SET_FILTER,
       payload: filter,
     });
+};
+
+/**
+ * Firebase Auth
+ */
+export const signIn = (credentials) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(() => {
+        dispatch({ type: LOGIN_SUCCESS });
+      })
+      .catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
+  };
+};
+
+export const signOut = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: LOGOUT_SUCCESS });
+      });
+  };
+};
+
+export const signUp = (newUser) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then((response) => {
+        return firestore.collection('users').doc(response.user.uid).set({
+          username: newUser.username,
+        });
+      })
+      .then(() => {
+        dispatch({ type: SIGNUP_SUCCESS });
+      })
+      .catch((error) => dispatch({ type: SIGNUP_ERROR, payload: error }));
+  };
 };

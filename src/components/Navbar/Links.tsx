@@ -1,19 +1,28 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class Links extends React.Component {
+import { signOut } from '../../store/actions';
+
+export interface Props {
+  auth: any;
+  signOut: () => void;
+}
+
+class Links extends React.Component<Props> {
   private get renderLinks() {
-    // todo: Add later proper state
-    return true ? (
+    const { auth } = this.props;
+
+    return auth.uid ? (
       <React.Fragment>
         <NavLink to="/task/new" className="header item">
           Create New Task
         </NavLink>
-        <NavLink to="/logout" className="header item">
+        <a onClick={() => this.props.signOut()} className="header item">
           Logout
-        </NavLink>
+        </a>
         <NavLink to="/profile" className="header item">
-          <img src="https://api.adorable.io/avatars/profile.png" className="ui mini circular image" />
+          <img src={`https://api.adorable.io/avatars/${auth.uid}.png`} className="ui mini circular image" />
         </NavLink>
       </React.Fragment>
     ) : (
@@ -22,7 +31,7 @@ export default class Links extends React.Component {
           Signup
         </NavLink>
         <NavLink to="/signin" className="header item">
-          Signin
+          Login
         </NavLink>
       </React.Fragment>
     );
@@ -32,3 +41,9 @@ export default class Links extends React.Component {
     return <div className="right menu">{this.renderLinks}</div>;
   }
 }
+
+const mapStateToProps = (state) => {
+  return { auth: state.firebase.auth };
+};
+
+export default connect(mapStateToProps, { signOut })(Links);

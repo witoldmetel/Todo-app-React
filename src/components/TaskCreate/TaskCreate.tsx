@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import { Task } from '../../fixtures/types';
+import { Task, Auth } from '../../fixtures/types';
 import { createTask } from '../../store/actions';
 
 export interface Props {
+  auth: Auth;
   history: any;
   createTask: (task: Task) => void;
 }
@@ -58,6 +60,10 @@ class TaskCreate extends React.Component<Props> {
   private onCancelClick = () => this.props.history.push('/');
 
   public render() {
+    const { auth } = this.props;
+
+    if (!auth.uid) return <Redirect to="/signin" />;
+
     return (
       <div className="ui dimmer modals visible active">
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
@@ -77,4 +83,8 @@ class TaskCreate extends React.Component<Props> {
   }
 }
 
-export default connect(null, { createTask })(TaskCreate);
+const mapStateToProps = (state) => {
+  return { auth: state.firebase.auth };
+};
+
+export default connect(mapStateToProps, { createTask })(TaskCreate);

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   GET_TASKS,
   GET_TASK,
@@ -55,14 +57,19 @@ export const createTask = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .add({
         ...task,
         status: false,
-        author: 'Admin',
-        authorId: 12345,
-        createdAt: Date.now(),
+        author: profile.username,
+        authorId,
+        createdAt: date,
+        updatedAt: date,
       })
       .then(() => {
         dispatch({ type: CREATE_TASK });
@@ -75,10 +82,12 @@ export const updateTask = (task: Task, id: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .doc(id)
-      .update(task)
+      .update({ ...task, updatedAt: date })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
       });
@@ -89,10 +98,12 @@ export const setTaskStatus = (task: Task) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const date = moment(new Date()).calendar();
+
     firestore
       .collection('tasks')
       .doc(task.id)
-      .update({ ...task, status: !task.status })
+      .update({ ...task, status: !task.status, updatedAt: date })
       .then(() => {
         dispatch({ type: SET_TASK_STATUS });
       });

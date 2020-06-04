@@ -6,6 +6,7 @@ export interface Task {
   description: string;
   status?: boolean;
   createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Auth {

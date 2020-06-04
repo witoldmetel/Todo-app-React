@@ -107,15 +107,18 @@ class TaskItem extends React.Component<Props> {
   }
 
   private get taskContent() {
-    const { id, description, author } = this.props.task;
+    const { id, description, author, createdAt, updatedAt } = this.props.task;
 
     return (
       <React.Fragment>
         <div className="first column">
           <div className="description">{description}</div>
           <div className="meta">
-            <span>Author: {author}</span>
-            <span>created at: 1.1.2020</span>
+            <span>
+              Created by: <b>{author}</b>
+            </span>
+            <span>Created: {createdAt}</span>
+            <span>Updated: {updatedAt}</span>
           </div>
         </div>
         <div className="second column">

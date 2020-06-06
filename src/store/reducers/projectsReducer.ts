@@ -1,4 +1,4 @@
-import { GET_PROJECTS, CREATE_PROJECT, PROJECT_ERROR } from '../../fixtures/constants';
+import { GET_PROJECTS, GET_PROJECT, CREATE_PROJECT, PROJECT_ERROR } from '../../fixtures/constants';
 import { Project } from '../../fixtures/types';
 
 type Action = { type: string; payload?: any; error?: string };
@@ -23,6 +23,9 @@ export const projectsReducer = (state = [], action: Action) => {
         ...state,
         projects,
       };
+
+    case GET_PROJECT:
+      return state;
 
     case CREATE_PROJECT:
       return state;

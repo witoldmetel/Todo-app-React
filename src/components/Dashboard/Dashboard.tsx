@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Auth, Project } from '../../fixtures/types';
-import { ProjectList, TaskList, UserPanel } from '../index';
+import { ProjectList } from '../index';
 
 import './Dashboard.scss';
 
@@ -34,10 +34,6 @@ class Dashboard extends React.Component<Props> {
         return (
           <React.Fragment>
             <h1>Task List</h1>
-            <div className="dashboard">
-              <TaskList />
-              <UserPanel />
-            </div>
           </React.Fragment>
         );
       }

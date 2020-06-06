@@ -16,6 +16,7 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
   GET_PROJECTS,
+  GET_PROJECT,
   CREATE_PROJECT,
   PROJECT_ERROR,
 } from '../../fixtures/constants';
@@ -210,6 +211,22 @@ export const getProjects = () => {
         snapshot.docs.forEach((doc) => projects.push(doc.data() as Project));
 
         dispatch({ type: GET_PROJECTS, payload: projects });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const getProject = (id: string) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .get()
+      .then((snapshot) => {
+        const project = snapshot.docs.find((doc) => doc.data().id === id);
+
+        dispatch({ type: GET_PROJECT, payload: project });
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
   };

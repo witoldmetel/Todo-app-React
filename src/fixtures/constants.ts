@@ -16,6 +16,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const GET_PROJECTS = 'GET_PROJECTS';
+export const GET_PROJECT = 'GET_PROJECT';
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const PROJECT_ERROR = 'PROJECT_ERROR';
 

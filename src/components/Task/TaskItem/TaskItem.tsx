@@ -11,9 +11,7 @@ import { RandomAvatar } from '../../index';
 import './TaskItem.scss';
 
 export interface Props {
-  id?: string;
   task: Task;
-  deleteTask?: (id: string) => void;
   setTaskStatus: (task: Task) => void;
 }
 

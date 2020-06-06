@@ -14,6 +14,7 @@ import {
   SignUpComponent,
   TaskCreate,
   TaskRemove,
+  TaskList,
 } from './components';
 
 import './App.scss';
@@ -35,6 +36,7 @@ class App extends React.Component<Props> {
           <Route path="/signup" component={SignUpComponent} />
           <Route path="/" exact component={Dashboard} />
           <Route path="/project/new" exact component={ProjectCreate} />
+          <Route path="/project/:id" exact component={TaskList} />
           <Route path="/task/new" exact component={TaskCreate} />
           <Route path="/task/edit/:id" component={TaskEdit} />
           <Route path="/task/delete/:id" component={TaskRemove} />

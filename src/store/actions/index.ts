@@ -15,8 +15,11 @@ import {
   LOGOUT_SUCCESS,
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
+  GET_PROJECTS,
+  CREATE_PROJECT,
+  PROJECT_ERROR,
 } from '../../fixtures/constants';
-import { Task } from '../../fixtures/types';
+import { Task, Project } from '../../fixtures/types';
 
 export const getTasks = () => {
   return (dispatch, getState, { getFirestore }) => {
@@ -189,5 +192,48 @@ export const signUp = (newUser) => {
         dispatch({ type: SIGNUP_SUCCESS });
       })
       .catch((error) => dispatch({ type: SIGNUP_ERROR, payload: error }));
+  };
+};
+
+/**
+ * Project
+ */
+export const getProjects = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .get()
+      .then((snapshot) => {
+        const projects: Project[] = [];
+
+        snapshot.docs.forEach((doc) => projects.push(doc.data() as Project));
+
+        dispatch({ type: GET_PROJECTS, payload: projects });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const createProject = (project: Project) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
+
+    firestore
+      .collection('projects')
+      .add({
+        ...project,
+        tasks: [],
+        author: profile.username,
+        authorId,
+      })
+      .then(() => {
+        dispatch({ type: CREATE_PROJECT });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
   };
 };

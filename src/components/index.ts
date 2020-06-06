@@ -5,6 +5,7 @@ import RandomAvatar from './RandomAvatar/RandomAvatar';
 import SearchBar from './SearchBar/SearchBar';
 import SignInComponent from './SignInComponent/SignInComponent';
 import SignUpComponent from './SignUpComponent/SignUpComponent';
+import { ProjectCreate, ProjectItem, ProjectList } from './Project';
 import { TaskCreate, TaskEdit, TaskItem, TaskList, TaskRemove } from './Task';
 import UserPanel from './UserPanel/UserPanel';
 
@@ -16,6 +17,9 @@ export {
   SearchBar,
   SignInComponent,
   SignUpComponent,
+  ProjectCreate,
+  ProjectItem,
+  ProjectList,
   TaskCreate,
   TaskEdit,
   TaskItem,

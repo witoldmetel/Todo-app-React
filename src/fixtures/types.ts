@@ -1,5 +1,12 @@
 import { ACCOUNT_TYPE } from './constants';
 
+export interface Project {
+  id?: string;
+  author?: string;
+  authorId?: string;
+  projectName: string;
+}
+
 export interface Task {
   id?: string;
   author?: string;

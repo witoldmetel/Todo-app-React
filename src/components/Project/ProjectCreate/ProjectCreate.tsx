@@ -14,6 +14,7 @@ export interface Props {
 class ProjectCreate extends React.Component<Props> {
   state = {
     projectName: '',
+    description: '',
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +40,16 @@ class ProjectCreate extends React.Component<Props> {
             id="projectName"
             placeholder="Project Name"
             value={this.state.projectName}
+            onChange={this.onInputChange}
+          />
+        </div>
+        <div className="field">
+          <label>Description</label>
+          <input
+            type="text"
+            id="description"
+            placeholder="Description"
+            value={this.state.description}
             onChange={this.onInputChange}
           />
         </div>

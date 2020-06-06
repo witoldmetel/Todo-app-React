@@ -9,14 +9,24 @@ export interface Props {
 
 class ProjectItem extends React.Component<Props> {
   public render() {
-    const { projectName } = this.props.project;
+    const { projectName, description, author, authorId } = this.props.project;
 
     return (
-      <li className="project-item">
-        <div className="project-header">
-          <h3 className="title">{projectName}</h3>
-        </div>
-      </li>
+      <React.Fragment>
+        <a className="ui card" href="http://www.dog.com">
+          <div className="content">
+            <div className="header">{projectName}</div>
+            <div className="meta">
+              <span className="category">{description}</span>
+            </div>
+          </div>
+          <div className="extra content">
+            <div className="right floated author">
+              <img className="ui avatar image" src={`https://api.adorable.io/avatars/${authorId}.png`} /> {author}
+            </div>
+          </div>
+        </a>
+      </React.Fragment>
     );
   }
 }

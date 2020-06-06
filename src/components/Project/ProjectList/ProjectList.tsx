@@ -6,6 +6,8 @@ import { getProjects } from '../../../store/actions';
 import { Project } from '../../../fixtures/types';
 import { ProjectItem } from '../index';
 
+import './ProjectList.scss';
+
 export interface Props {
   projects: Project[];
   getProjects: () => void;
@@ -44,11 +46,7 @@ class ProjectList extends React.Component<Props> {
   }
 
   public render() {
-    return (
-      <div className="projects-container">
-        <ul className="list">{this.renderList}</ul>
-      </div>
-    );
+    return <div className="projects-container">{this.renderList}</div>;
   }
 }
 

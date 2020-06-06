@@ -14,6 +14,7 @@ export const projectsReducer = (state = [], action: Action) => {
           author: doc.author,
           authorId: doc.authorId,
           projectName: doc.projectName,
+          description: doc.description,
           tasks: doc.tasks,
         });
       });

@@ -182,6 +182,7 @@ export const signUp = (newUser) => {
       .then((response) => {
         return firestore.collection('users').doc(response.user.uid).set({
           username: newUser.username,
+          accountType: newUser.accountType,
         });
       })
       .then(() => {

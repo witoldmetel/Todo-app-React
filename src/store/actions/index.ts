@@ -27,7 +27,6 @@ export const getTasks = () => {
 
     firestore
       .collection('tasks')
-      .orderBy('title')
       .get()
       .then((snapshot) => {
         const tasks: Task[] = [];

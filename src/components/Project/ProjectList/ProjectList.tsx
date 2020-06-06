@@ -19,8 +19,8 @@ class ProjectList extends React.Component<Props> {
   private get emptyList() {
     return (
       <React.Fragment>
-        <h3 className="info">You have no task to do! Add first here:</h3>
-        <Link className="add-icon" to="/task/new">
+        <h3 className="info">Add first project here:</h3>
+        <Link className="add-icon" to="/project/new">
           <i className="plus circle icon green" />
         </Link>
       </React.Fragment>

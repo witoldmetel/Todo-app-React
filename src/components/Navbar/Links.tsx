@@ -17,7 +17,7 @@ class Links extends React.Component<Props> {
     const { profile } = this.props;
 
     return profile.accountType === ACCOUNT_TYPE.VIP ? (
-      <NavLink to="/task/new" className="header item">
+      <NavLink to="/project/new" className="header item">
         Create New Project
       </NavLink>
     ) : null;

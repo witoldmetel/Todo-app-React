@@ -9,13 +9,9 @@ import {
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
-const INITIAL_STATE = {
-  tasks: [],
-};
-
 type Action = { type: string; payload?: any; error?: string };
 
-export const tasksReducer = (state = INITIAL_STATE, action: Action) => {
+export const tasksReducer = (state = [], action: Action) => {
   switch (action.type) {
     case GET_TASKS:
       const tasks: Task[] = [];

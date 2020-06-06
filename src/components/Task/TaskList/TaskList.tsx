@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { getTasks } from '../../store/actions';
-import { getTasksSelector } from '../../store/selectors';
-import { Task } from '../../fixtures/types';
-import { TaskItem, FilterBar, SearchBar } from '../index';
+import { getTasks } from '../../../store/actions';
+import { getTasksSelector } from '../../../store/selectors';
+import { Task } from '../../../fixtures/types';
+import { TaskItem, FilterBar, SearchBar } from '../../index';
 
 import './TaskList.scss';
 

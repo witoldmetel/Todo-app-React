@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Task, Auth } from '../../fixtures/types';
-import { getTask, updateTask } from '../../store/actions';
-import { RandomAvatar } from '../index';
+import { Task, Auth } from '../../../fixtures/types';
+import { getTask, updateTask } from '../../../store/actions';
+import { RandomAvatar } from '../../index';
 
 export interface Props {
   id: string;

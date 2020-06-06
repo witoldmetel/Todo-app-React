@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Task, Auth } from '../../fixtures/types';
-import { getTask, deleteTask } from '../../store/actions';
+import { Task, Auth } from '../../../fixtures/types';
+import { getTask, deleteTask } from '../../../store/actions';
 
 export interface Props {
   id: string;

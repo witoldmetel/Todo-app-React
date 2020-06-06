@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
-import { Task } from '../../fixtures/types';
-import { setTaskStatus } from '../../store/actions';
-import { RandomAvatar } from '../index';
+import { Task } from '../../../fixtures/types';
+import { setTaskStatus } from '../../../store/actions';
+import { RandomAvatar } from '../../index';
 
 import './TaskItem.scss';
 

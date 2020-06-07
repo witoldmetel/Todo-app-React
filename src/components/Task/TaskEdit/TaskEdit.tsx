@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';

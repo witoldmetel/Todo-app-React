@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import classnames from 'classnames';
 
 import { getProject, getTasks } from '../../../store/actions';
@@ -94,8 +96,20 @@ const mapStateToProps = (state, ownProps) => {
     project,
     projectId,
     auth: state.firebase.auth,
-    tasks: getTasksSelector(state.tasks),
+    tasks: getTasksSelector(state),
   };
 };
 
-export default connect(mapStateToProps, { getProject, getTasks })(TaskList);
+export default compose(
+  firestoreConnect((props) => {
+    return [
+      {
+        collection: 'projects',
+        doc: props.match.params.id,
+        subcollections: [{ collection: 'tasks' }],
+        storeAs: 'tasks',
+      },
+    ];
+  }),
+  connect(mapStateToProps, { getProject, getTasks }),
+)(TaskList);

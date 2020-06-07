@@ -35,7 +35,7 @@ export const getProjects = () => {
       .then((snapshot) => {
         const projects: Project[] = [];
 
-        snapshot.docs.forEach((doc) => projects.push(doc.data() as Project));
+        snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
 
         dispatch({ type: GET_PROJECTS, payload: projects });
       })
@@ -54,7 +54,7 @@ export const getProject = (projectId: string) => {
       .then((snapshot) => {
         const project = snapshot.doc.data();
 
-        dispatch({ type: GET_PROJECT, payload: project });
+        dispatch({ type: GET_PROJECT, payload: { ...project, id: snapshot.doc.data().id } });
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
   };
@@ -115,7 +115,7 @@ export const getTask = (taskId: string, projectId: string) => {
       .then((snapshot) => {
         const task = snapshot.doc.data();
 
-        dispatch({ type: GET_TASK, payload: task });
+        dispatch({ type: GET_TASK, payload: { ...task, id: snapshot.doc.data().id } });
       })
       .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };

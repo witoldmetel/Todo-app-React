@@ -59,7 +59,9 @@ class App extends React.Component<Props> {
 }
 
 const mapStateToProps = (state) => {
-  return { projects: state.firestore.ordered.projects };
+  return {
+    projects: state.firestore.ordered.projects,
+  };
 };
 
 export default compose(firestoreConnect([{ collection: 'projects' }]), connect(mapStateToProps))(App);

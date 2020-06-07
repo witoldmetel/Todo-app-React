@@ -2,22 +2,43 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Auth } from '../../fixtures/types';
+import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signOut } from '../../store/actions';
 
 export interface Props {
-  auth: any;
+  projectId: string;
+  profile: any;
+  auth: Auth;
   signOut: () => void;
 }
 
 class Links extends React.Component<Props> {
+  private get createProjectLink() {
+    const { profile } = this.props;
+
+    return profile.accountType === ACCOUNT_TYPE.VIP ? (
+      <NavLink to="/project/new" className="header item">
+        Create New Project
+      </NavLink>
+    ) : null;
+  }
+
+  private get createTaskLink() {
+    return this.props.projectId ? (
+      <NavLink to={`/project/${this.props.projectId}/task/new`} className="header item">
+        Create New Task
+      </NavLink>
+    ) : null;
+  }
+
   private get renderLinks() {
     const { auth } = this.props;
 
     return auth.uid ? (
       <React.Fragment>
-        <NavLink to="/task/new" className="header item">
-          Create New Task
-        </NavLink>
+        {this.createProjectLink}
+        {this.createTaskLink}
         <a onClick={() => this.props.signOut()} className="header item">
           Logout
         </a>
@@ -42,8 +63,12 @@ class Links extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { auth: state.firebase.auth };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+    projectId: ownProps.match.params.id,
+  };
 };
 
 export default connect(mapStateToProps, { signOut })(Links);

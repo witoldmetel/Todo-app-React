@@ -4,30 +4,54 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
-import { Task } from './fixtures/types';
-import { Navbar, Dashboard, TaskEdit, SignInComponent, SignUpComponent, TaskCreate, TaskRemove } from './components';
+import { Project } from './fixtures/types';
+import {
+  Navbar,
+  Dashboard,
+  ProjectCreate,
+  TaskEdit,
+  SignInComponent,
+  SignUpComponent,
+  TaskCreate,
+  TaskRemove,
+  TaskList,
+} from './components';
 
 import './App.scss';
 
 export interface Props {
-  tasks: Task[];
+  projects: Project[];
 }
+
+const NavRoute = ({ exact, path, component: Component }) => (
+  <Route
+    exact={exact}
+    path={path}
+    render={(props) => (
+      <React.Fragment>
+        <Navbar {...props} />
+        <Component {...props} />
+      </React.Fragment>
+    )}
+  />
+);
 
 class App extends React.Component<Props> {
   public render() {
     // @todo: Find better solution for auth loading
-    return !isLoaded(this.props?.tasks) ? (
+    return !isLoaded(this.props?.projects) ? (
       <span>Loading...</span>
     ) : (
       <BrowserRouter>
-        <Navbar />
         <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/task/new" exact component={TaskCreate} />
-          <Route path="/task/edit/:id" component={TaskEdit} />
-          <Route path="/task/delete/:id" component={TaskRemove} />
-          <Route path="/signin" component={SignInComponent} />
-          <Route path="/signup" component={SignUpComponent} />
+          <NavRoute path="/signin" exact component={SignInComponent} />
+          <NavRoute path="/signup" exact component={SignUpComponent} />
+          <NavRoute path="/" exact component={Dashboard} />
+          <NavRoute path="/project/new" exact component={ProjectCreate} />
+          <NavRoute path="/project/:id" exact component={TaskList} />
+          <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />
+          <NavRoute path="/project/:id/task/edit/:id" exact component={TaskEdit} />
+          <NavRoute path="/project/:id/task/delete/:id" exact component={TaskRemove} />
         </Switch>
       </BrowserRouter>
     );
@@ -35,7 +59,9 @@ class App extends React.Component<Props> {
 }
 
 const mapStateToProps = (state) => {
-  return { tasks: state.firestore.ordered.tasks };
+  return {
+    projects: state.firestore.ordered.projects,
+  };
 };
 
-export default compose(firestoreConnect([{ collection: 'tasks' }]), connect(mapStateToProps))(App);
+export default compose(firestoreConnect([{ collection: 'projects' }]), connect(mapStateToProps))(App);

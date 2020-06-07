@@ -16,7 +16,7 @@ export default class Navbar extends React.Component {
             <img className="logo" src={this.logo} />
             <p>Task List App</p>
           </Link>
-          <Links />
+          <Links {...this.props} />
         </nav>
       </header>
     );

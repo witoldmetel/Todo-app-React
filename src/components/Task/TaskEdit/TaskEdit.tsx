@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
-import { Task, Auth } from '../../fixtures/types';
-import { getTask, updateTask } from '../../store/actions';
-import { RandomAvatar } from '../index';
+import { Task, Auth } from '../../../fixtures/types';
+import { getTask, updateTask } from '../../../store/actions';
+import { RandomAvatar } from '../../index';
 
 export interface Props {
+  projectId: string;
   id: string;
   task: Task;
   auth: Auth;
   history: any;
-  getTask: (id: string) => void;
-  updateTask: (task: Task, id: string) => void;
+  getTask: (id: string, projectId: string) => void;
+  updateTask: (task: Task, id: string, projectId: string) => void;
 }
 
 class TaskEdit extends React.Component<Props> {
@@ -22,7 +25,7 @@ class TaskEdit extends React.Component<Props> {
   };
 
   public componentDidMount() {
-    this.props.getTask(this.props.id);
+    this.props.getTask(this.props.id, this.props.projectId);
   }
 
   public componentDidUpdate(prevProps) {
@@ -40,14 +43,14 @@ class TaskEdit extends React.Component<Props> {
 
   private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      this.props.updateTask(this.state, this.props.id);
+      this.props.updateTask(this.state, this.props.id, this.props.projectId);
       this.setState({ title: '', description: '' });
     }
 
-    this.props.history.push('/');
+    this.props.history.goBack();
   };
 
-  private onCancelClick = () => this.props.history.push('/');
+  private onCancelClick = () => this.props.history.goBack();
 
   private get content() {
     return (
@@ -108,15 +111,35 @@ class TaskEdit extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const projectPathname = ownProps.location.pathname;
+  //@todo: Refactoring this
+  const projectId = projectPathname.substring(0, projectPathname.lastIndexOf('/task')).replace('/project/', '');
   const id = ownProps.match.params.id;
   const tasks = state.firestore.data.tasks;
   const task = tasks ? tasks[id] : null;
 
   return {
+    projectId,
     task,
     id,
     auth: state.firebase.auth,
   };
 };
 
-export default connect(mapStateToProps, { getTask, updateTask })(TaskEdit);
+export default compose(
+  firestoreConnect((props: any) => {
+    const projectPathname = props.location.pathname;
+    //@todo: Refactoring this
+    const projectId = projectPathname.substring(0, projectPathname.lastIndexOf('/task')).replace('/project/', '');
+
+    return [
+      {
+        collection: 'projects',
+        doc: projectId,
+        subcollections: [{ collection: 'tasks' }],
+        storeAs: 'tasks',
+      },
+    ];
+  }),
+  connect(mapStateToProps, { getTask, updateTask }),
+)(TaskEdit);

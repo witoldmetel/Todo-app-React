@@ -15,6 +15,10 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const GET_PROJECTS = 'GET_PROJECTS';
+export const GET_PROJECT = 'GET_PROJECT';
+export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const PROJECT_ERROR = 'PROJECT_ERROR';
 
 /**
  * GENERIC
@@ -23,4 +27,10 @@ export enum FILTERS {
   SHOW_ALL = 'SHOW_ALL',
   SHOW_INCOMPLETED = 'SHOW_INCOMPLETED',
   SHOW_COMPLETED = 'SHOW_COMPLETED',
+}
+
+export enum ACCOUNT_TYPE {
+  ADMIN = 'ADMIN',
+  REGULAR = 'REGULAR',
+  VIP = 'VIP',
 }

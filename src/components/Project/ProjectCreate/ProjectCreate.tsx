@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Task, Auth } from '../../fixtures/types';
-import { createTask } from '../../store/actions';
+import { Auth } from '../../../fixtures/types';
+import { createProject } from '../../../store/actions';
 
 export interface Props {
   auth: Auth;
   history: any;
-  createTask: (task: Task) => void;
+  createProject: (project: any) => void;
 }
 
-class TaskCreate extends React.Component<Props> {
+class ProjectCreate extends React.Component<Props> {
   state = {
-    title: '',
+    projectName: '',
     description: '',
   };
 
@@ -22,9 +22,9 @@ class TaskCreate extends React.Component<Props> {
   };
 
   private onConfirmClick = () => {
-    if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      this.props.createTask(this.state);
-      this.setState({ title: '', description: '' });
+    if (this.state.projectName.trim() !== '') {
+      this.props.createProject(this.state);
+      this.setState({ projectName: '' });
     }
 
     this.props.history.push('/');
@@ -34,12 +34,12 @@ class TaskCreate extends React.Component<Props> {
     return (
       <form className="ui form">
         <div className="field">
-          <label>Title</label>
+          <label>Project Name</label>
           <input
             type="text"
-            id="title"
-            placeholder="task title"
-            value={this.state.title}
+            id="projectName"
+            placeholder="Project Name"
+            value={this.state.projectName}
             onChange={this.onInputChange}
           />
         </div>
@@ -48,7 +48,7 @@ class TaskCreate extends React.Component<Props> {
           <input
             type="text"
             id="description"
-            placeholder="description"
+            placeholder="Description"
             value={this.state.description}
             onChange={this.onInputChange}
           />
@@ -67,7 +67,7 @@ class TaskCreate extends React.Component<Props> {
     return (
       <div className="ui dimmer modals visible active">
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Create Task</div>
+          <div className="header">Create Project</div>
           <div className="content">{this.content}</div>
           <div className="actions">
             <button className="ui positive button" onClick={this.onConfirmClick}>
@@ -87,4 +87,4 @@ const mapStateToProps = (state) => {
   return { auth: state.firebase.auth };
 };
 
-export default connect(mapStateToProps, { createTask })(TaskCreate);
+export default connect(mapStateToProps, { createProject })(ProjectCreate);

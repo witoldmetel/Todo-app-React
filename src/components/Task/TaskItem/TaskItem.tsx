@@ -4,24 +4,23 @@ import { connect } from 'react-redux';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
-import { Task } from '../../fixtures/types';
-import { setTaskStatus } from '../../store/actions';
-import { RandomAvatar } from '../index';
+import { Task } from '../../../fixtures/types';
+import { setTaskStatus } from '../../../store/actions';
+import { RandomAvatar } from '../../index';
 
 import './TaskItem.scss';
 
 export interface Props {
-  id?: string;
+  projectId: string;
   task: Task;
-  deleteTask?: (id: string) => void;
-  setTaskStatus: (task: Task) => void;
+  setTaskStatus: (task: Task, projectId: string) => void;
 }
 
 // Creates a keyframed trail
 const ContextMenu = Keyframes.Trail({
   open: { right: 65, opacity: 1, delay: 100 },
   close: { right: 30, opacity: 0, delay: 0 },
-});
+}) as any;
 
 class TaskItem extends React.Component<Props> {
   state = {
@@ -44,7 +43,7 @@ class TaskItem extends React.Component<Props> {
   }
 
   private onToggleStatus = () => {
-    this.props.setTaskStatus(this.props.task);
+    this.props.setTaskStatus(this.props.task, this.props.projectId);
   };
 
   private get statusIconClassName() {
@@ -62,10 +61,10 @@ class TaskItem extends React.Component<Props> {
         <button className="ui icon circular button" onClick={this.onToggleStatus}>
           <i className={this.statusIconClassName} />
         </button>
-        <Link className="ui icon circular button" to={`/task/edit/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${this.props.projectId}/task/edit/${id}`}>
           <i className="pencil icon" />
         </Link>
-        <Link className="ui icon circular button" to={`/task/delete/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${this.props.projectId}/task/delete/${id}`}>
           <i className="trash icon" />
         </Link>
       </React.Fragment>
@@ -124,11 +123,11 @@ class TaskItem extends React.Component<Props> {
         <div className="second column">
           {this.taskStatus}
           <div className="action-buttons">
-            <Link className="ui image label yellow" to={`/task/edit/${id}`}>
+            <Link className="ui image label yellow" to={`/project/${this.props.projectId}/task/edit/${id}`}>
               <i className="pencil icon" />
               Edit
             </Link>
-            <Link className="ui inverted label red" to={`/task/delete/${id}`}>
+            <Link className="ui inverted label red" to={`/project/${this.props.projectId}/task/delete/${id}`}>
               <i className="trash icon" />
               Remove
             </Link>

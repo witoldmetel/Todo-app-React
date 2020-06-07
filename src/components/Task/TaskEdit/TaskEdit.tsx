@@ -43,14 +43,15 @@ class TaskEdit extends React.Component<Props> {
 
   private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
+      console.log('TaskEdit -> privateonConfirmClick -> this.props.projectId', this.props.projectId);
       this.props.updateTask(this.state, this.props.id, this.props.projectId);
       this.setState({ title: '', description: '' });
     }
 
-    this.props.history.push('/');
+    this.props.history.goBack();
   };
 
-  private onCancelClick = () => this.props.history.push('/');
+  private onCancelClick = () => this.props.history.goBack();
 
   private get content() {
     return (
@@ -111,15 +112,35 @@ class TaskEdit extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const projectPathname = ownProps.location.pathname;
+  //@todo: Refactoring this
+  const projectId = projectPathname.substring(0, projectPathname.lastIndexOf('/task')).replace('/project/', '');
   const id = ownProps.match.params.id;
-  const tasks = state.tasks;
+  const tasks = state.firestore.data.tasks;
   const task = tasks ? tasks[id] : null;
 
   return {
+    projectId,
     task,
     id,
     auth: state.firebase.auth,
   };
 };
 
-export default connect(mapStateToProps, { getTask, updateTask })(TaskEdit);
+export default compose(
+  firestoreConnect((props: any) => {
+    const projectPathname = props.location.pathname;
+    //@todo: Refactoring this
+    const projectId = projectPathname.substring(0, projectPathname.lastIndexOf('/task')).replace('/project/', '');
+
+    return [
+      {
+        collection: 'projects',
+        doc: projectId,
+        subcollections: [{ collection: 'tasks' }],
+        storeAs: 'tasks',
+      },
+    ];
+  }),
+  connect(mapStateToProps, { getTask, updateTask }),
+)(TaskEdit);

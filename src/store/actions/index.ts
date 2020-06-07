@@ -152,7 +152,6 @@ export const updateTask = (task: Task, taskId: string, projectId: string) => {
     const firestore = getFirestore();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
-
     const date = moment(new Date()).calendar();
 
     tasksRef
@@ -169,7 +168,6 @@ export const setTaskStatus = (task: Task, projectId: string) => {
     const firestore = getFirestore();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
-
     const date = moment(new Date()).calendar();
 
     tasksRef

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
@@ -22,7 +20,7 @@ export interface Props {
 const ContextMenu = Keyframes.Trail({
   open: { right: 65, opacity: 1, delay: 100 },
   close: { right: 30, opacity: 0, delay: 0 },
-});
+}) as any;
 
 class TaskItem extends React.Component<Props> {
   state = {

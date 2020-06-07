@@ -43,7 +43,6 @@ class TaskEdit extends React.Component<Props> {
 
   private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      console.log('TaskEdit -> privateonConfirmClick -> this.props.projectId', this.props.projectId);
       this.props.updateTask(this.state, this.props.id, this.props.projectId);
       this.setState({ title: '', description: '' });
     }

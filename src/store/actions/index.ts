@@ -22,18 +22,80 @@ import {
 } from '../../fixtures/constants';
 import { Task, Project } from '../../fixtures/types';
 
+/**
+ * Project
+ */
+export const getProjects = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .get()
+      .then((snapshot) => {
+        const projects: Project[] = [];
+
+        snapshot.docs.forEach((doc) => projects.push(doc.data() as Project));
+
+        dispatch({ type: GET_PROJECTS, payload: projects });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const getProject = (projectId: string) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .doc(projectId)
+      .get()
+      .then((snapshot) => {
+        const project = snapshot.doc.data();
+
+        dispatch({ type: GET_PROJECT, payload: project });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const createProject = (project: Project) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
+
+    firestore
+      .collection('projects')
+      .add({
+        ...project,
+        author: profile.username,
+        authorId,
+      })
+      .then(() => {
+        dispatch({ type: CREATE_PROJECT });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+/**
+ * Task
+ */
 export const getTasks = (projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    const tasksRef = firestore.collection('projects').doc(projectId).collection('tasks');
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
 
     tasksRef
       .get()
       .then((snapshot) => {
         const tasks: Task[] = [];
 
-        snapshot.docs.forEach((doc) => tasks.push(doc.data() as Task));
+        snapshot.docs.forEach((doc) => tasks.push({ ...doc.data(), id: doc.id } as Task));
 
         dispatch({ type: GET_TASKS, payload: tasks });
       })
@@ -41,15 +103,17 @@ export const getTasks = (projectId: string) => {
   };
 };
 
-export const getTask = (id: string) => {
+export const getTask = (taskId: string, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    firestore
-      .collection('tasks')
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
+
+    tasksRef
+      .doc(taskId)
       .get()
       .then((snapshot) => {
-        const task = snapshot.docs.find((doc) => doc.data().id === id);
+        const task = snapshot.doc.data();
 
         dispatch({ type: GET_TASK, payload: task });
       })
@@ -65,7 +129,7 @@ export const createTask = (task: Task, projectId: string) => {
     const authorId = getState().firebase.auth.uid;
     const date = moment(new Date()).calendar();
 
-    const tasksRef = firestore.collection('projects').doc(projectId).collection('tasks');
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
 
     tasksRef
       .add({
@@ -83,15 +147,16 @@ export const createTask = (task: Task, projectId: string) => {
   };
 };
 
-export const updateTask = (task: Task, id: string) => {
+export const updateTask = (task: Task, taskId: string, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
+
     const date = moment(new Date()).calendar();
 
-    firestore
-      .collection('tasks')
-      .doc(id)
+    tasksRef
+      .doc(taskId)
       .update({ ...task, updatedAt: date })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
@@ -99,14 +164,15 @@ export const updateTask = (task: Task, id: string) => {
   };
 };
 
-export const setTaskStatus = (task: Task) => {
+export const setTaskStatus = (task: Task, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
+
     const date = moment(new Date()).calendar();
 
-    firestore
-      .collection('tasks')
+    tasksRef
       .doc(task.id)
       .update({ ...task, status: !task.status, updatedAt: date })
       .then(() => {
@@ -115,16 +181,17 @@ export const setTaskStatus = (task: Task) => {
   };
 };
 
-export const deleteTask = (id: string) => {
+export const deleteTask = (taskId: string, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    firestore
-      .collection('tasks')
-      .doc(id)
+    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
+
+    tasksRef
+      .doc(taskId)
       .delete()
       .then(() => {
-        dispatch({ type: DELETE_TASK, id });
+        dispatch({ type: DELETE_TASK, taskId });
       })
       .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };
@@ -194,64 +261,5 @@ export const signUp = (newUser) => {
         dispatch({ type: SIGNUP_SUCCESS });
       })
       .catch((error) => dispatch({ type: SIGNUP_ERROR, payload: error }));
-  };
-};
-
-/**
- * Project
- */
-export const getProjects = () => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    firestore
-      .collection('projects')
-      .get()
-      .then((snapshot) => {
-        const projects: Project[] = [];
-
-        snapshot.docs.forEach((doc) => projects.push(doc.data() as Project));
-
-        dispatch({ type: GET_PROJECTS, payload: projects });
-      })
-      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
-  };
-};
-
-export const getProject = (id: string) => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    firestore
-      .collection('projects')
-      .get()
-      .then((snapshot) => {
-        const project = snapshot.docs.find((doc) => doc.data().id === id);
-
-        dispatch({ type: GET_PROJECT, payload: project });
-      })
-      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
-  };
-};
-
-export const createProject = (project: Project) => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    const profile = getState().firebase.profile;
-    const authorId = getState().firebase.auth.uid;
-
-    firestore
-      .collection('projects')
-      .add({
-        ...project,
-        tasks: [],
-        author: profile.username,
-        authorId,
-      })
-      .then(() => {
-        dispatch({ type: CREATE_PROJECT });
-      })
-      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
   };
 };

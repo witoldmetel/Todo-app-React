@@ -7,12 +7,13 @@ import { getTask, updateTask } from '../../../store/actions';
 import { RandomAvatar } from '../../index';
 
 export interface Props {
+  projectId: string;
   id: string;
   task: Task;
   auth: Auth;
   history: any;
-  getTask: (id: string) => void;
-  updateTask: (task: Task, id: string) => void;
+  getTask: (id: string, projectId: string) => void;
+  updateTask: (task: Task, id: string, projectId: string) => void;
 }
 
 class TaskEdit extends React.Component<Props> {
@@ -22,7 +23,7 @@ class TaskEdit extends React.Component<Props> {
   };
 
   public componentDidMount() {
-    this.props.getTask(this.props.id);
+    this.props.getTask(this.props.id, this.props.projectId);
   }
 
   public componentDidUpdate(prevProps) {
@@ -40,7 +41,7 @@ class TaskEdit extends React.Component<Props> {
 
   private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      this.props.updateTask(this.state, this.props.id);
+      this.props.updateTask(this.state, this.props.id, this.props.projectId);
       this.setState({ title: '', description: '' });
     }
 
@@ -109,7 +110,7 @@ class TaskEdit extends React.Component<Props> {
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
-  const tasks = state.firestore.data.tasks;
+  const tasks = state.tasks;
   const task = tasks ? tasks[id] : null;
 
   return {

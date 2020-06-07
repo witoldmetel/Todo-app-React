@@ -11,7 +11,7 @@ import { TaskItem, FilterBar, SearchBar, UserPanel } from '../../index';
 import './TaskList.scss';
 
 export interface Props {
-  id: string;
+  projectId: string;
   project: Project;
   tasks: Task[];
   auth: Auth;
@@ -21,8 +21,8 @@ export interface Props {
 
 class TaskList extends React.Component<Props> {
   public componentDidMount() {
-    this.props.getProject(this.props.id);
-    this.props.getTasks(this.props.id);
+    this.props.getProject(this.props.projectId);
+    this.props.getTasks(this.props.projectId);
   }
 
   private get className() {
@@ -35,7 +35,7 @@ class TaskList extends React.Component<Props> {
     return (
       <React.Fragment>
         <h3 className="info">You have no task to do! Add first here:</h3>
-        <Link className="add-icon" to={`/project/${this.props.id}/task/new`}>
+        <Link className="add-icon" to={`/project/${this.props.projectId}/task/new`}>
           <i className="plus circle icon green" />
         </Link>
       </React.Fragment>
@@ -54,7 +54,7 @@ class TaskList extends React.Component<Props> {
     return !this.props.tasks.length
       ? this.emptyList
       : this.props.tasks.map((task: Task, index: number) => {
-          return <TaskItem key={index} task={task} />;
+          return <TaskItem key={index} task={task} projectId={this.props.projectId} />;
         });
   }
 
@@ -86,13 +86,13 @@ class TaskList extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id;
+  const projectId = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
-  const project = projects ? projects[id] : null;
+  const project = projects ? projects[projectId] : null;
 
   return {
     project,
-    id,
+    projectId,
     auth: state.firebase.auth,
     tasks: getTasksSelector(state.tasks),
   };

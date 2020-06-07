@@ -7,12 +7,31 @@ import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signOut } from '../../store/actions';
 
 export interface Props {
+  location: any;
   profile: any;
   auth: Auth;
   signOut: () => void;
 }
 
 class Links extends React.Component<Props> {
+  state = {
+    projectId: '',
+  };
+
+  public componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.getProjectId();
+    }
+  }
+
+  private getProjectId = () => {
+    const { pathname } = this.props.location;
+
+    return pathname && pathname.includes('project')
+      ? this.setState({ projectId: pathname.replace('/project/', '') })
+      : this.setState({ projectId: '' });
+  };
+
   private get createProjectLink() {
     const { profile } = this.props;
 
@@ -22,15 +41,22 @@ class Links extends React.Component<Props> {
       </NavLink>
     ) : null;
   }
+
+  private get createTaskLink() {
+    return this.state.projectId ? (
+      <NavLink to={`/project/${this.state.projectId}/task/new`} className="header item">
+        Create New Task
+      </NavLink>
+    ) : null;
+  }
+
   private get renderLinks() {
     const { auth } = this.props;
 
     return auth.uid ? (
       <React.Fragment>
         {this.createProjectLink}
-        <NavLink to="/task/new" className="header item">
-          Create New Task
-        </NavLink>
+        {this.createTaskLink}
         <a onClick={() => this.props.signOut()} className="header item">
           Logout
         </a>
@@ -55,10 +81,11 @@ class Links extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
+    location: ownProps.location,
   };
 };
 

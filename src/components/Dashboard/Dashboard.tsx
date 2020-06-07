@@ -31,11 +31,7 @@ class Dashboard extends React.Component<Props> {
           return <div className="dashboard">List empty. Create projects</div>;
         }
       } else {
-        return (
-          <React.Fragment>
-            <h1>Task List</h1>
-          </React.Fragment>
-        );
+        return <h1>Task List</h1>;
       }
     } else {
       return <div className="dashboard">{`You don't have access. Log in to service or register.`}</div>;

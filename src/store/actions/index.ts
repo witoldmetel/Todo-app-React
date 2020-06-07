@@ -22,12 +22,13 @@ import {
 } from '../../fixtures/constants';
 import { Task, Project } from '../../fixtures/types';
 
-export const getTasks = () => {
+export const getTasks = (projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    firestore
-      .collection('tasks')
+    const tasksRef = firestore.collection('projects').doc(projectId).collection('tasks');
+
+    tasksRef
       .get()
       .then((snapshot) => {
         const tasks: Task[] = [];
@@ -56,7 +57,7 @@ export const getTask = (id: string) => {
   };
 };
 
-export const createTask = (task: Task) => {
+export const createTask = (task: Task, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -64,8 +65,9 @@ export const createTask = (task: Task) => {
     const authorId = getState().firebase.auth.uid;
     const date = moment(new Date()).calendar();
 
-    firestore
-      .collection('tasks')
+    const tasksRef = firestore.collection('projects').doc(projectId).collection('tasks');
+
+    tasksRef
       .add({
         ...task,
         status: false,

@@ -23,6 +23,19 @@ export interface Props {
   projects: Project[];
 }
 
+const NavRoute = ({ exact, path, component: Component }) => (
+  <Route
+    exact={exact}
+    path={path}
+    render={(props) => (
+      <React.Fragment>
+        <Navbar {...props} />
+        <Component {...props} />
+      </React.Fragment>
+    )}
+  />
+);
+
 class App extends React.Component<Props> {
   public render() {
     // @todo: Find better solution for auth loading
@@ -30,16 +43,15 @@ class App extends React.Component<Props> {
       <span>Loading...</span>
     ) : (
       <BrowserRouter>
-        <Navbar />
         <Switch>
-          <Route path="/signin" component={SignInComponent} />
-          <Route path="/signup" component={SignUpComponent} />
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/project/new" exact component={ProjectCreate} />
-          <Route path="/project/:id" exact component={TaskList} />
-          <Route path="/task/new" exact component={TaskCreate} />
-          <Route path="/task/edit/:id" component={TaskEdit} />
-          <Route path="/task/delete/:id" component={TaskRemove} />
+          <NavRoute path="/signin" exact component={SignInComponent} />
+          <NavRoute path="/signup" exact component={SignUpComponent} />
+          <NavRoute path="/" exact component={Dashboard} />
+          <NavRoute path="/project/new" exact component={ProjectCreate} />
+          <NavRoute path="/project/:id" exact component={TaskList} />
+          <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />
+          <NavRoute path="/project/:id/task/edit/:id" exact component={TaskEdit} />
+          <NavRoute path="/project/:id/task/delete/:id" exact component={TaskRemove} />
         </Switch>
       </BrowserRouter>
     );

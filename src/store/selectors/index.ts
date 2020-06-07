@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { FILTERS } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
-const fetchTasks = (state) => state.firestore.ordered.tasks;
+const fetchTasks = (state) => state.tasks;
 const getSearchValue = (state) => state.searchValue;
 const getFilters = (state) => state.filters;
 

@@ -16,18 +16,18 @@ export interface Props {
   tasks: Task[];
   auth: Auth;
   getProject: (id: string) => void;
-  getTasks: () => void;
+  getTasks: (projectId: string) => void;
 }
 
 class TaskList extends React.Component<Props> {
   public componentDidMount() {
     this.props.getProject(this.props.id);
-    this.props.getTasks();
+    this.props.getTasks(this.props.id);
   }
 
   private get className() {
     return classnames('list', {
-      empty: !this.props.project.tasks?.length,
+      empty: !this.props.tasks?.length,
     });
   }
 
@@ -35,7 +35,7 @@ class TaskList extends React.Component<Props> {
     return (
       <React.Fragment>
         <h3 className="info">You have no task to do! Add first here:</h3>
-        <Link className="add-icon" to="/task/new">
+        <Link className="add-icon" to={`/project/${this.props.id}/task/new`}>
           <i className="plus circle icon green" />
         </Link>
       </React.Fragment>
@@ -43,7 +43,7 @@ class TaskList extends React.Component<Props> {
   }
 
   private get renderList() {
-    if (!this.props.project.tasks) {
+    if (!this.props.tasks) {
       return (
         <div className="ui active inverted dimmer">
           <div className="ui text loader">Loading tasks</div>
@@ -51,9 +51,9 @@ class TaskList extends React.Component<Props> {
       );
     }
 
-    return !this.props.project.tasks.length
+    return !this.props.tasks.length
       ? this.emptyList
-      : this.props.project.tasks.map((task: Task, index: number) => {
+      : this.props.tasks.map((task: Task, index: number) => {
           return <TaskItem key={index} task={task} />;
         });
   }
@@ -94,7 +94,7 @@ const mapStateToProps = (state, ownProps) => {
     project,
     id,
     auth: state.firebase.auth,
-    tasks: getTasksSelector(state),
+    tasks: getTasksSelector(state.tasks),
   };
 };
 

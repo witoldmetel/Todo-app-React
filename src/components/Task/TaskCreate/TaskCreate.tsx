@@ -6,9 +6,10 @@ import { Task, Auth } from '../../../fixtures/types';
 import { createTask } from '../../../store/actions';
 
 export interface Props {
+  match: any;
   auth: Auth;
   history: any;
-  createTask: (task: Task) => void;
+  createTask: (task: Task, projectId: string) => void;
 }
 
 class TaskCreate extends React.Component<Props> {
@@ -23,11 +24,11 @@ class TaskCreate extends React.Component<Props> {
 
   private onConfirmClick = () => {
     if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      this.props.createTask(this.state);
+      this.props.createTask(this.state, this.props.match.params.id);
       this.setState({ title: '', description: '' });
     }
 
-    this.props.history.push('/');
+    this.props.history.push(`/project/${this.props.match.params.id}`);
   };
 
   private get content() {
@@ -57,7 +58,7 @@ class TaskCreate extends React.Component<Props> {
     );
   }
 
-  private onCancelClick = () => this.props.history.push('/');
+  private onCancelClick = () => this.props.history.push(`/project/${this.props.match.params.id}`);
 
   public render() {
     const { auth } = this.props;

@@ -9,12 +9,13 @@ import {
   Navbar,
   Dashboard,
   ProjectCreate,
-  TaskEdit,
+  MembersModal,
   SignInComponent,
   SignUpComponent,
   TaskCreate,
   TaskRemove,
   TaskList,
+  TaskEdit,
 } from './components';
 
 import './App.scss';
@@ -49,6 +50,7 @@ class App extends React.Component<Props> {
           <NavRoute path="/" exact component={Dashboard} />
           <NavRoute path="/project/new" exact component={ProjectCreate} />
           <NavRoute path="/project/:id" exact component={TaskList} />
+          <NavRoute path="/project/:id/members" exact component={MembersModal} />
           <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />
           <NavRoute path="/project/:id/task/edit/:id" exact component={TaskEdit} />
           <NavRoute path="/project/:id/task/delete/:id" exact component={TaskRemove} />

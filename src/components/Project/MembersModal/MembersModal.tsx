@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
-import { getProject } from '../../../store/actions';
+import { getProject, assignMembers } from '../../../store/actions';
 import { Project, Auth } from '../../../fixtures/types';
 
 export interface Props {
@@ -15,30 +15,67 @@ export interface Props {
   auth: Auth;
   history: any;
   getProject: (id: string) => void;
+  assignMembers: (project: Project, projectId: string, members: string[]) => void;
 }
 
 class MembersModal extends React.Component<Props> {
+  state = {
+    members: [],
+  };
+
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
   }
 
   private onConfirmClick = () => {
+    this.props.assignMembers(this.props.project, this.props.projectId, this.state.members);
     this.props.history.goBack();
   };
 
   private onCancelClick = () => this.props.history.goBack();
+
+  private getUserIds = (selectedUsers, options) => {
+    const members: string[] = [];
+
+    for (const selectedUser of selectedUsers) {
+      const member = options.find((option) => option.value === selectedUser);
+      const memberId = member.id;
+      const memberName = member.value;
+
+      members.push({ memberId, memberName });
+    }
+
+    this.setState({ members });
+  };
+
+  private onChange = (e, data) => {
+    const selectedValue = data.value;
+    const options = data.options;
+
+    this.getUserIds(selectedValue, options);
+  };
 
   private get memberOptions() {
     return this.props.users
       ? this.props.users.map((user) => {
           return {
             key: user.id,
+            id: user.id,
             value: user.username,
             image: { avatar: true, src: `https://api.adorable.io/avatars/${user.id}.png` },
             text: user.username,
           };
         })
       : null;
+  }
+
+  private get memberAvatar() {
+    return this.props.project.members.map((member) => (
+      <div className="right floated author" key={member.memberId}>
+        <img className="ui avatar image" src={`https://api.adorable.io/avatars/${member.memberId}.png`} />
+        {member.memberName}
+      </div>
+    ));
   }
 
   private get content() {
@@ -48,10 +85,6 @@ class MembersModal extends React.Component<Props> {
           <div className="header">Members</div>
           <div className="content">
             <div className="ui form">
-              <div className="field">
-                <label>Project Name</label>
-                <label>{this.props.project.projectName}</label>
-              </div>
               <div className="field">
                 <label>Owner</label>
                 <div className="right floated author">
@@ -64,10 +97,19 @@ class MembersModal extends React.Component<Props> {
               </div>
               <div className="field">
                 <label>Members</label>
+                {this.memberAvatar}
               </div>
               <div className="field">
                 <label>Add Member</label>
-                <Dropdown placeholder="Add members" fluid multiple search selection options={this.memberOptions} />
+                <Dropdown
+                  placeholder="Add members"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={this.memberOptions}
+                  onChange={this.onChange}
+                />
               </div>
             </div>
           </div>
@@ -114,5 +156,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   firestoreConnect([{ collection: 'users' }]),
-  connect(mapStateToProps, { getProject }),
+  connect(mapStateToProps, { getProject, assignMembers }),
 )(MembersModal);

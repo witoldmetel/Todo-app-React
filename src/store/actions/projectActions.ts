@@ -1,4 +1,4 @@
-import { GET_PROJECTS, GET_PROJECT, CREATE_PROJECT, PROJECT_ERROR } from '../../fixtures/constants';
+import { GET_PROJECTS, GET_PROJECT, CREATE_PROJECT, PROJECT_ERROR, ASSIGN_MEMBERS } from '../../fixtures/constants';
 import { Project } from '../../fixtures/types';
 
 export const getProjects = () => {
@@ -49,10 +49,25 @@ export const createProject = (project: Project) => {
         ...project,
         author: profile.username,
         authorId,
+        members: [authorId],
       })
       .then(() => {
         dispatch({ type: CREATE_PROJECT });
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const assignMembers = (project: Project, projectId: string, members: string[]) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .doc(projectId)
+      .update({ ...project, members: project.members.concat(...members) })
+      .then(() => {
+        dispatch({ type: ASSIGN_MEMBERS });
+      });
   };
 };

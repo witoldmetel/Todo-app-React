@@ -6,6 +6,7 @@ export interface Project {
   authorId?: string;
   projectName: string;
   description: string;
+  members: string[];
 }
 
 export interface Task {

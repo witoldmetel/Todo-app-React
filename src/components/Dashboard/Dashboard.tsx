@@ -1,37 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Auth, Project } from '../../fixtures/types';
+import { ACCOUNT_TYPE } from '../../fixtures/constants';
+import { Auth, Project, NewUser } from '../../fixtures/types';
 import { ProjectList } from '../index';
 
 import './Dashboard.scss';
 
 export interface Props {
   auth: Auth;
-  profile: any;
+  profile: NewUser;
   projects: Project[];
 }
 
 class Dashboard extends React.Component<Props> {
+  private get emptyContent() {
+    return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR ? (
+      <div className="dashboard">Project list is empty. You are not assign to any project</div>
+    ) : (
+      <div className="dashboard">Project list is empty. Create new project</div>
+    );
+  }
+
+  private get isUserHasProject() {
+    const { auth, projects } = this.props;
+
+    return projects.some((project) => project.members.some((member) => member.id === auth.uid));
+  }
+
   public render() {
-    const { auth, projects, profile } = this.props;
+    const { auth } = this.props;
 
     if (auth.uid) {
-      if (profile.accountType === 'VIP') {
-        if (projects.length) {
-          return (
-            <React.Fragment>
-              <h1>Projects List</h1>
-              <div className="dashboard">
-                <ProjectList />
-              </div>
-            </React.Fragment>
-          );
-        } else {
-          return <div className="dashboard">List empty. Create projects</div>;
-        }
+      if (this.isUserHasProject) {
+        return (
+          <React.Fragment>
+            <h1>Projects List</h1>
+            <div className="dashboard">
+              <ProjectList />
+            </div>
+          </React.Fragment>
+        );
       } else {
-        return <h1>Task List</h1>;
+        return this.emptyContent;
       }
     } else {
       return <div className="dashboard">{`You don't have access. Log in to service or register.`}</div>;

@@ -33,6 +33,8 @@ class SignUpComponent extends React.Component<Props> {
     e.preventDefault();
 
     this.props.signUp(this.state);
+
+    this.props.history.push('/');
   };
 
   private onCancelClick = () => this.props.history.push('/');

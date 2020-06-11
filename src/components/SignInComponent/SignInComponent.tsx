@@ -23,11 +23,7 @@ class SignInComponent extends React.Component<Props> {
   private onLoginClick = () => {
     this.props.signIn(this.state);
 
-    // if (!this.props.authError) {
-    //   this.setState({ email: '', password: '' });
-
-    //   this.props.history.push('/');
-    // }
+    this.props.history.push('/');
   };
 
   private onCancelClick = () => this.props.history.push('/');

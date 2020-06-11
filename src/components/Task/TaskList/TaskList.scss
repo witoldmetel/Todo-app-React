@@ -9,6 +9,10 @@
   .action-panel {
     display: flex;
     justify-content: space-around;
+
+    .members {
+      width: 75px;
+    }
   }
 
   ul.list {

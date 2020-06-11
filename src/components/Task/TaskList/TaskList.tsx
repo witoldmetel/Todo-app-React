@@ -75,6 +75,12 @@ class TaskList extends React.Component<Props> {
         <div className="dashboard">
           <div className="tasks-container">
             <div className="action-panel">
+              <Link className="ui vertical animated button" to={`/project/${this.props.projectId}/members`}>
+                <div className="hidden content">Members</div>
+                <div className="visible content">
+                  <i className="users icon"></i>
+                </div>
+              </Link>
               <FilterBar />
               <SearchBar />
             </div>

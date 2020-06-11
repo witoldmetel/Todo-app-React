@@ -6,12 +6,15 @@ import { Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
 import { getProject, assignMembers } from '../../../store/actions';
-import { Project, Auth } from '../../../fixtures/types';
+import { Project, Auth, User } from '../../../fixtures/types';
+import { RandomAvatar } from '../../index';
+
+import './MembersModal.scss';
 
 export interface Props {
   projectId: string;
   project: Project;
-  users: any;
+  users: User[];
   auth: Auth;
   history: any;
   getProject: (id: string) => void;
@@ -28,21 +31,23 @@ class MembersModal extends React.Component<Props> {
   }
 
   private onConfirmClick = () => {
-    this.props.assignMembers(this.props.project, this.props.projectId, this.state.members);
-    this.props.history.goBack();
+    const { assignMembers, project, projectId, history } = this.props;
+
+    assignMembers(project, projectId, this.state.members);
+    history.goBack();
   };
 
   private onCancelClick = () => this.props.history.goBack();
 
   private getUserIds = (selectedUsers, options) => {
-    const members: string[] = [];
+    const members: User[] = [];
 
     for (const selectedUser of selectedUsers) {
       const member = options.find((option) => option.value === selectedUser);
-      const memberId = member.id;
-      const memberName = member.value;
+      const id = member.id;
+      const username = member.value;
 
-      members.push({ memberId, memberName });
+      members.push({ id, username });
     }
 
     this.setState({ members });
@@ -55,9 +60,29 @@ class MembersModal extends React.Component<Props> {
     this.getUserIds(selectedValue, options);
   };
 
+  private get filteredMembers() {
+    const {
+      users,
+      project: { members },
+    } = this.props;
+
+    const filteredUsers = [];
+
+    users &&
+      users.filter((user) => {
+        if (!members.find((member: User) => member.id === user.id)) {
+          (filteredUsers as User[]).push(user);
+        }
+      });
+
+    return filteredUsers.length ? filteredUsers : [];
+  }
+
   private get memberOptions() {
-    return this.props.users
-      ? this.props.users.map((user) => {
+    const { users } = this.props;
+
+    return users
+      ? (this.filteredMembers as User[]).map((user) => {
           return {
             key: user.id,
             id: user.id,
@@ -66,33 +91,29 @@ class MembersModal extends React.Component<Props> {
             text: user.username,
           };
         })
-      : null;
+      : [];
   }
 
   private get memberAvatar() {
     return this.props.project.members.map((member) => (
-      <div className="right floated author" key={member.memberId}>
-        <img className="ui avatar image" src={`https://api.adorable.io/avatars/${member.memberId}.png`} />
-        {member.memberName}
+      <div key={member.id} className="ui icon button member" data-tooltip={member.username}>
+        <RandomAvatar className="ui avatar image" randomFace={member.id} />
       </div>
     ));
   }
 
   private get content() {
     return (
-      <div className="ui dimmer modals visible active">
+      <div className="ui dimmer modals visible active members-modal">
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
           <div className="header">Members</div>
           <div className="content">
             <div className="ui form">
               <div className="field">
                 <label>Owner</label>
-                <div className="right floated author">
-                  <img
-                    className="ui avatar image"
-                    src={`https://api.adorable.io/avatars/${this.props.project.authorId}.png`}
-                  />
-                  {this.props.project.author}
+                <div className="author-avatar">
+                  <RandomAvatar className="ui avatar image" randomFace={this.props.project.authorId} />
+                  <b>{this.props.project.author}</b>
                 </div>
               </div>
               <div className="field">

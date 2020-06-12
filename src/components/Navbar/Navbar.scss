@@ -1,3 +1,8 @@
-.ui.menu .ui.container .logo {
-  margin-right: 10px;
+.ui.menu .ui.container {
+  width: 100%;
+  margin: 0 !important; // Unfortunately needed to replace semantic ui styles
+
+  .logo {
+    margin-right: 10px;
+  }
 }

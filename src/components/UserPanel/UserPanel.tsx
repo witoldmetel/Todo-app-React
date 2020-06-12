@@ -4,6 +4,7 @@ import './UserPanel.scss';
 
 export default class UserPanel extends React.Component {
   public render() {
-    return <div className="user-panel">Notifications</div>;
+    // @todo: Feature flag: Implement after firebase functions
+    return false ? <div className="user-panel">Notifications</div> : null;
   }
 }

@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
-import { getProject, assignMembers } from '../../../store/actions';
+import { getProject, assignMembers, removeMember } from '../../../store/actions';
 import { Project, Auth, User } from '../../../fixtures/types';
 import { RandomAvatar } from '../../index';
 
@@ -19,6 +19,7 @@ export interface Props {
   history: any;
   getProject: (id: string) => void;
   assignMembers: (project: Project, projectId: string, members: string[]) => void;
+  removeMember: (project: Project, projectId: string, memberId: string) => void;
 }
 
 class MembersModal extends React.Component<Props> {
@@ -94,9 +95,20 @@ class MembersModal extends React.Component<Props> {
       : [];
   }
 
+  private removeMember = (id) => {
+    const { project, projectId } = this.props;
+
+    return id !== this.props.project.authorId ? this.props.removeMember(project, projectId, id) : null;
+  };
+
   private get memberAvatar() {
     return this.props.project.members.map((member) => (
-      <div key={member.id} className="ui icon button member" data-tooltip={member.username}>
+      <div
+        key={member.id}
+        className="ui icon button member"
+        data-tooltip={member.username}
+        onClick={() => this.removeMember(member.id)}
+      >
         <RandomAvatar className="ui avatar image" randomFace={member.id} />
       </div>
     ));
@@ -177,5 +189,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   firestoreConnect([{ collection: 'users' }]),
-  connect(mapStateToProps, { getProject, assignMembers }),
+  connect(mapStateToProps, { getProject, assignMembers, removeMember }),
 )(MembersModal);

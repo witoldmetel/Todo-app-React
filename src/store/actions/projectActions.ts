@@ -1,5 +1,12 @@
-import { GET_PROJECTS, GET_PROJECT, CREATE_PROJECT, PROJECT_ERROR, ASSIGN_MEMBERS } from '../../fixtures/constants';
-import { Project } from '../../fixtures/types';
+import {
+  GET_PROJECTS,
+  GET_PROJECT,
+  CREATE_PROJECT,
+  PROJECT_ERROR,
+  ASSIGN_MEMBERS,
+  REMOVE_MEMBER,
+} from '../../fixtures/constants';
+import { Project, User } from '../../fixtures/types';
 
 export const getProjects = () => {
   return (dispatch, getState, { getFirestore }) => {
@@ -58,7 +65,7 @@ export const createProject = (project: Project) => {
   };
 };
 
-export const assignMembers = (project: Project, projectId: string, members: string[]) => {
+export const assignMembers = (project: Project, projectId: string, members: User[]) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -68,6 +75,20 @@ export const assignMembers = (project: Project, projectId: string, members: stri
       .update({ ...project, members: project.members.concat(...members) })
       .then(() => {
         dispatch({ type: ASSIGN_MEMBERS });
+      });
+  };
+};
+
+export const removeMember = (project: Project, projectId: string, memberId: string) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .doc(projectId)
+      .update({ ...project, members: project.members.filter((member) => member.id !== memberId) })
+      .then(() => {
+        dispatch({ type: REMOVE_MEMBER, memberId });
       });
   };
 };

@@ -1,5 +1,5 @@
 import { signIn, signOut, signUp } from './authActions';
-import { getProjects, getProject, createProject, assignMembers } from './projectActions';
+import { getProjects, getProject, createProject, assignMembers, removeMember } from './projectActions';
 import {
   getTasks,
   getTask,
@@ -19,6 +19,7 @@ export {
   getProject,
   createProject,
   assignMembers,
+  removeMember,
   getTasks,
   getTask,
   createTask,

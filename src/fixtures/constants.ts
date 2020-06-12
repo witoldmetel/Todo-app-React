@@ -20,6 +20,7 @@ export const GET_PROJECT = 'GET_PROJECT';
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const PROJECT_ERROR = 'PROJECT_ERROR';
 export const ASSIGN_MEMBERS = 'ASSIGN_MEMBERS';
+export const REMOVE_MEMBER = 'REMOVE_MEMBER';
 
 /**
  * GENERIC

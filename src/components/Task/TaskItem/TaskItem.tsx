@@ -11,6 +11,7 @@ import { RandomAvatar } from '../../index';
 import './TaskItem.scss';
 
 export interface Props {
+  projectId: string;
   project: Project;
   task: Task;
   auth: Auth;
@@ -56,7 +57,7 @@ class TaskItem extends React.Component<Props> {
   }
 
   private onToggleStatus = () => {
-    this.props.setTaskStatus(this.props.task, this.props.project.id as string);
+    this.props.setTaskStatus(this.props.task, this.props.projectId);
   };
 
   private get statusIconClassName() {
@@ -67,17 +68,17 @@ class TaskItem extends React.Component<Props> {
   }
 
   private get contextMenuOptions() {
-    const { id } = this.props.task;
+    const { task, projectId } = this.props;
 
     return (
       <React.Fragment>
         <button className="ui icon circular button" onClick={this.onToggleStatus}>
           <i className={this.statusIconClassName} />
         </button>
-        <Link className="ui icon circular button" to={`/project/${this.props.project.id}/task/edit/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${projectId}/task/edit/${task.id}`}>
           <i className="pencil icon" />
         </Link>
-        <Link className="ui icon circular button" to={`/project/${this.props.project.id}/task/delete/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${projectId}/task/delete/${task.id}`}>
           <i className="trash icon" />
         </Link>
       </React.Fragment>
@@ -119,15 +120,15 @@ class TaskItem extends React.Component<Props> {
   }
 
   private get editableTaskContent() {
-    const { task, project } = this.props;
+    const { task, projectId } = this.props;
 
     return this.isTaskEditable ? (
       <div className="action-buttons">
-        <Link className="ui image label yellow" to={`/project/${project.id}/task/edit/${task.id}`}>
+        <Link className="ui image label yellow" to={`/project/${projectId}/task/edit/${task.id}`}>
           <i className="pencil icon" />
           Edit
         </Link>
-        <Link className="ui inverted label red" to={`/project/${project.id}/task/delete/${task.id}`}>
+        <Link className="ui inverted label red" to={`/project/${projectId}/task/delete/${task.id}`}>
           <i className="trash icon" />
           Remove
         </Link>

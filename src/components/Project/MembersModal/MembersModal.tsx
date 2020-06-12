@@ -5,69 +5,144 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
-import { getProject } from '../../../store/actions';
-import { Project, Auth } from '../../../fixtures/types';
+import { getProject, assignMembers, removeMember } from '../../../store/actions';
+import { Project, Auth, User } from '../../../fixtures/types';
+import { RandomAvatar } from '../../index';
+
+import './MembersModal.scss';
 
 export interface Props {
   projectId: string;
   project: Project;
-  users: any;
+  users: User[];
   auth: Auth;
   history: any;
   getProject: (id: string) => void;
+  assignMembers: (project: Project, projectId: string, members: string[]) => void;
+  removeMember: (project: Project, projectId: string, memberId: string) => void;
 }
 
 class MembersModal extends React.Component<Props> {
+  state = {
+    members: [],
+  };
+
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
   }
 
   private onConfirmClick = () => {
-    this.props.history.goBack();
+    const { assignMembers, project, projectId, history } = this.props;
+
+    assignMembers(project, projectId, this.state.members);
+    history.goBack();
   };
 
   private onCancelClick = () => this.props.history.goBack();
 
+  private getUserIds = (selectedUsers, options) => {
+    const members: User[] = [];
+
+    for (const selectedUser of selectedUsers) {
+      const member = options.find((option) => option.value === selectedUser);
+      const id = member.id;
+      const username = member.value;
+
+      members.push({ id, username });
+    }
+
+    this.setState({ members });
+  };
+
+  private onChange = (e, data) => {
+    const selectedValue = data.value;
+    const options = data.options;
+
+    this.getUserIds(selectedValue, options);
+  };
+
+  private get filteredMembers() {
+    const {
+      users,
+      project: { members },
+    } = this.props;
+
+    const filteredUsers = [];
+
+    users &&
+      users.filter((user) => {
+        if (!members.find((member: User) => member.id === user.id)) {
+          (filteredUsers as User[]).push(user);
+        }
+      });
+
+    return filteredUsers.length ? filteredUsers : [];
+  }
+
   private get memberOptions() {
-    return this.props.users
-      ? this.props.users.map((user) => {
+    const { users } = this.props;
+
+    return users
+      ? (this.filteredMembers as User[]).map((user) => {
           return {
             key: user.id,
+            id: user.id,
             value: user.username,
             image: { avatar: true, src: `https://api.adorable.io/avatars/${user.id}.png` },
             text: user.username,
           };
         })
-      : null;
+      : [];
+  }
+
+  private removeMember = (id) => {
+    const { project, projectId } = this.props;
+
+    return id !== this.props.project.authorId ? this.props.removeMember(project, projectId, id) : null;
+  };
+
+  private get memberAvatar() {
+    return this.props.project.members.map((member) => (
+      <div
+        key={member.id}
+        className="ui icon button member"
+        data-tooltip={member.username}
+        onClick={() => this.removeMember(member.id)}
+      >
+        <RandomAvatar className="ui avatar image" randomFace={member.id} />
+      </div>
+    ));
   }
 
   private get content() {
     return (
-      <div className="ui dimmer modals visible active">
+      <div className="ui dimmer modals visible active members-modal">
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
           <div className="header">Members</div>
           <div className="content">
             <div className="ui form">
               <div className="field">
-                <label>Project Name</label>
-                <label>{this.props.project.projectName}</label>
-              </div>
-              <div className="field">
                 <label>Owner</label>
-                <div className="right floated author">
-                  <img
-                    className="ui avatar image"
-                    src={`https://api.adorable.io/avatars/${this.props.project.authorId}.png`}
-                  />
-                  {this.props.project.author}
+                <div className="author-avatar">
+                  <RandomAvatar className="ui avatar image" randomFace={this.props.project.authorId} />
+                  <b>{this.props.project.author}</b>
                 </div>
               </div>
               <div className="field">
                 <label>Members</label>
+                {this.memberAvatar}
               </div>
               <div className="field">
                 <label>Add Member</label>
-                <Dropdown placeholder="Add members" fluid multiple search selection options={this.memberOptions} />
+                <Dropdown
+                  placeholder="Add members"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={this.memberOptions}
+                  onChange={this.onChange}
+                />
               </div>
             </div>
           </div>
@@ -114,5 +189,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   firestoreConnect([{ collection: 'users' }]),
-  connect(mapStateToProps, { getProject }),
+  connect(mapStateToProps, { getProject, assignMembers, removeMember }),
 )(MembersModal);

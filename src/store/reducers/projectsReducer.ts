@@ -1,4 +1,11 @@
-import { GET_PROJECTS, GET_PROJECT, CREATE_PROJECT, PROJECT_ERROR } from '../../fixtures/constants';
+import {
+  GET_PROJECTS,
+  GET_PROJECT,
+  CREATE_PROJECT,
+  PROJECT_ERROR,
+  ASSIGN_MEMBERS,
+  REMOVE_MEMBER,
+} from '../../fixtures/constants';
 import { Project } from '../../fixtures/types';
 
 type Action = { type: string; payload?: any; error?: string };
@@ -15,6 +22,7 @@ export const projectsReducer = (state = [], action: Action) => {
           authorId: doc.authorId,
           projectName: doc.projectName,
           description: doc.description,
+          members: doc.members,
         });
       });
 
@@ -30,6 +38,12 @@ export const projectsReducer = (state = [], action: Action) => {
       return state;
 
     case PROJECT_ERROR:
+      return state;
+
+    case ASSIGN_MEMBERS:
+      return state;
+
+    case REMOVE_MEMBER:
       return state;
 
     default:

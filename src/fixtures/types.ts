@@ -6,6 +6,7 @@ export interface Project {
   authorId?: string;
   projectName: string;
   description: string;
+  members: User[];
 }
 
 export interface Task {
@@ -26,6 +27,11 @@ export interface Auth {
 export interface Credentials {
   email: string;
   password: string;
+}
+
+export interface User {
+  id: string;
+  username: string;
 }
 
 export interface NewUser {

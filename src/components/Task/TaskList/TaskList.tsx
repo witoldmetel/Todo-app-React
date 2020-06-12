@@ -56,8 +56,21 @@ class TaskList extends React.Component<Props> {
     return !this.props.tasks.length
       ? this.emptyList
       : this.props.tasks.map((task: Task, index: number) => {
-          return <TaskItem key={index} task={task} projectId={this.props.projectId} />;
+          return <TaskItem key={index} task={task} project={this.props.project} />;
         });
+  }
+
+  private get membersButton() {
+    const { auth, project } = this.props;
+
+    return auth.uid === project.authorId ? (
+      <Link className="ui vertical animated button members" to={`/project/${this.props.projectId}/members`}>
+        <div className="hidden content">Members</div>
+        <div className="visible content">
+          <i className="users icon"></i>
+        </div>
+      </Link>
+    ) : null;
   }
 
   public render() {
@@ -75,12 +88,7 @@ class TaskList extends React.Component<Props> {
         <div className="dashboard">
           <div className="tasks-container">
             <div className="action-panel">
-              <Link className="ui vertical animated button" to={`/project/${this.props.projectId}/members`}>
-                <div className="hidden content">Members</div>
-                <div className="visible content">
-                  <i className="users icon"></i>
-                </div>
-              </Link>
+              {this.membersButton}
               <FilterBar />
               <SearchBar />
             </div>

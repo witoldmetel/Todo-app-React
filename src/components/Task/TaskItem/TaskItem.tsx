@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
 
-import { Task } from '../../../fixtures/types';
+import { Task, Project, Auth } from '../../../fixtures/types';
 import { setTaskStatus } from '../../../store/actions';
 import { RandomAvatar } from '../../index';
 
 import './TaskItem.scss';
 
 export interface Props {
-  projectId: string;
+  project: Project;
   task: Task;
+  auth: Auth;
   setTaskStatus: (task: Task, projectId: string) => void;
 }
 
@@ -28,9 +29,21 @@ class TaskItem extends React.Component<Props> {
     isMenuOpen: false,
   };
 
+  private get isTaskEditable() {
+    const {
+      auth: { uid },
+      task,
+      project,
+    } = this.props;
+
+    return uid === task.authorId || uid === project.authorId;
+  }
+
   private openMenu = () => {
-    if (!this.state.isContentOpen) {
-      this.setState({ isMenuOpen: true });
+    if (this.isTaskEditable) {
+      if (!this.state.isContentOpen) {
+        this.setState({ isMenuOpen: true });
+      }
     }
   };
 
@@ -43,7 +56,7 @@ class TaskItem extends React.Component<Props> {
   }
 
   private onToggleStatus = () => {
-    this.props.setTaskStatus(this.props.task, this.props.projectId);
+    this.props.setTaskStatus(this.props.task, this.props.project.id as string);
   };
 
   private get statusIconClassName() {
@@ -61,10 +74,10 @@ class TaskItem extends React.Component<Props> {
         <button className="ui icon circular button" onClick={this.onToggleStatus}>
           <i className={this.statusIconClassName} />
         </button>
-        <Link className="ui icon circular button" to={`/project/${this.props.projectId}/task/edit/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${this.props.project.id}/task/edit/${id}`}>
           <i className="pencil icon" />
         </Link>
-        <Link className="ui icon circular button" to={`/project/${this.props.projectId}/task/delete/${id}`}>
+        <Link className="ui icon circular button" to={`/project/${this.props.project.id}/task/delete/${id}`}>
           <i className="trash icon" />
         </Link>
       </React.Fragment>
@@ -74,7 +87,7 @@ class TaskItem extends React.Component<Props> {
   private get taskIcon() {
     return (
       <div className="context-menu" onMouseEnter={this.openMenu} onMouseLeave={this.closeMenu}>
-        <RandomAvatar randomFace={this.props.task?.id} className="task-icon" />
+        <RandomAvatar randomFace={this.props.task.authorId} className="task-icon" />
         <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
           {(option, index: number) => (props) => (
             <animated.div key={`${option}-${index}`} className={`menu-option option-${index}`} style={props}>
@@ -105,8 +118,25 @@ class TaskItem extends React.Component<Props> {
     );
   }
 
+  private get editableTaskContent() {
+    const { task, project } = this.props;
+
+    return this.isTaskEditable ? (
+      <div className="action-buttons">
+        <Link className="ui image label yellow" to={`/project/${project.id}/task/edit/${task.id}`}>
+          <i className="pencil icon" />
+          Edit
+        </Link>
+        <Link className="ui inverted label red" to={`/project/${project.id}/task/delete/${task.id}`}>
+          <i className="trash icon" />
+          Remove
+        </Link>
+      </div>
+    ) : null;
+  }
+
   private get taskContent() {
-    const { id, description, author, createdAt, updatedAt } = this.props.task;
+    const { description, author, createdAt, updatedAt } = this.props.task;
 
     return (
       <React.Fragment>
@@ -122,16 +152,7 @@ class TaskItem extends React.Component<Props> {
         </div>
         <div className="second column">
           {this.taskStatus}
-          <div className="action-buttons">
-            <Link className="ui image label yellow" to={`/project/${this.props.projectId}/task/edit/${id}`}>
-              <i className="pencil icon" />
-              Edit
-            </Link>
-            <Link className="ui inverted label red" to={`/project/${this.props.projectId}/task/delete/${id}`}>
-              <i className="trash icon" />
-              Remove
-            </Link>
-          </div>
+          {this.editableTaskContent}
         </div>
       </React.Fragment>
     );
@@ -184,4 +205,10 @@ class TaskItem extends React.Component<Props> {
   }
 }
 
-export default connect(null, { setTaskStatus })(TaskItem);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps, { setTaskStatus })(TaskItem);

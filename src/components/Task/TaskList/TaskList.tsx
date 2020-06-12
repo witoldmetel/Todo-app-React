@@ -56,7 +56,7 @@ class TaskList extends React.Component<Props> {
     return !this.props.tasks.length
       ? this.emptyList
       : this.props.tasks.map((task: Task, index: number) => {
-          return <TaskItem key={index} task={task} projectId={this.props.projectId} />;
+          return <TaskItem key={index} task={task} project={this.props.project} />;
         });
   }
 

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { createTask } from '../../../store/actions';
+import { Modal } from '../../index';
 
 export interface Props {
   match: any;
@@ -22,18 +23,9 @@ class TaskCreate extends React.Component<Props> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private onConfirmClick = () => {
-    if (this.state.title.trim() !== '' && this.state.description.trim()) {
-      this.props.createTask(this.state, this.props.match.params.id);
-      this.setState({ title: '', description: '' });
-    }
-
-    this.props.history.push(`/project/${this.props.match.params.id}`);
-  };
-
   private get content() {
     return (
-      <form className="ui form">
+      <div className="ui form content">
         <div className="field">
           <label>Title</label>
           <input
@@ -54,33 +46,40 @@ class TaskCreate extends React.Component<Props> {
             onChange={this.onInputChange}
           />
         </div>
-      </form>
+      </div>
     );
   }
 
-  private onCancelClick = () => this.props.history.push(`/project/${this.props.match.params.id}`);
+  private handleSubmit = () => {
+    if (this.state.title.trim() !== '' && this.state.description.trim() !== '') {
+      this.props.createTask(this.state, this.props.match.params.id);
+      this.setState({ title: '', description: '' });
+    }
+
+    this.props.history.goBack();
+  };
+
+  private handleCancel = () => this.props.history.goBack();
+
+  private get actionButtons() {
+    return (
+      <React.Fragment>
+        <button className="ui positive button" onClick={this.handleSubmit}>
+          Create
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
+    );
+  }
 
   public render() {
     const { auth } = this.props;
 
     if (!auth.uid) return <Redirect to="/signin" />;
 
-    return (
-      <div className="ui dimmer modals visible active">
-        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Create Task</div>
-          <div className="content">{this.content}</div>
-          <div className="actions">
-            <button className="ui positive button" onClick={this.onConfirmClick}>
-              Create
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <Modal header="Create Task" content={this.content} actionButtons={this.actionButtons} />;
   }
 }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { Credentials } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
+import { Modal } from '../index';
 
 export interface Props {
   authError: string;
@@ -20,21 +21,13 @@ class SignInComponent extends React.Component<Props> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private onLoginClick = () => {
-    this.props.signIn(this.state);
-
-    this.props.history.push('/');
-  };
-
-  private onCancelClick = () => this.props.history.push('/');
-
   private get errorMessage() {
     return this.props.authError ? <div className="ui red message">{this.props.authError}</div> : null;
   }
 
   private get content() {
     return (
-      <form className="ui form">
+      <div className="ui form content">
         <div className="field">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" placeholder="Email" onChange={this.onInputChange} />
@@ -44,27 +37,33 @@ class SignInComponent extends React.Component<Props> {
           <input type="password" id="password" placeholder="Password" onChange={this.onInputChange} />
         </div>
         {this.errorMessage}
-      </form>
+      </div>
+    );
+  }
+
+  private handleSubmit = () => {
+    this.props.signIn(this.state);
+
+    this.props.history.push('/');
+  };
+
+  private handleCancel = () => this.props.history.push('/');
+
+  private get actionButtons() {
+    return (
+      <React.Fragment>
+        <button className="ui positive button" onClick={this.handleSubmit}>
+          Login
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
     );
   }
 
   public render() {
-    return (
-      <div className="ui dimmer modals visible active">
-        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Sign Up</div>
-          <div className="content">{this.content}</div>
-          <div className="actions">
-            <button className="ui positive button" onClick={this.onLoginClick}>
-              Login
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <Modal header="Sign In" content={this.content} actionButtons={this.actionButtons} />;
   }
 }
 

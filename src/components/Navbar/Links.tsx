@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Dropdown, Icon, Menu, Segment } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
@@ -54,7 +54,7 @@ class Links extends React.Component<Props> {
     ) : (
       <React.Fragment>
         <NavLink to="/signup" className="header item">
-          Signup
+          Register
         </NavLink>
         <NavLink to="/signin" className="header item">
           Login

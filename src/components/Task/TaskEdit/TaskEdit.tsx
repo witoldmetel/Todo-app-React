@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { getTask, updateTask } from '../../../store/actions';
+import { Modal } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -40,8 +41,35 @@ class TaskEdit extends React.Component<Props> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private onConfirmClick = () => {
-    if (this.state.title.trim() !== '' && this.state.description.trim()) {
+  private get content() {
+    return (
+      <div className="ui form content">
+        <div className="field">
+          <label>Title</label>
+          <input
+            type="text"
+            id="title"
+            placeholder="task title"
+            value={this.state.title}
+            onChange={this.onInputChange}
+          />
+        </div>
+        <div className="field">
+          <label>Label</label>
+          <input
+            type="text"
+            id="description"
+            placeholder="description"
+            value={this.state.description}
+            onChange={this.onInputChange}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  private handleSubmit = () => {
+    if (this.state.title.trim() !== '' && this.state.description.trim() !== '') {
       this.props.updateTask(this.state, this.props.id, this.props.projectId);
       this.setState({ title: '', description: '' });
     }
@@ -49,47 +77,18 @@ class TaskEdit extends React.Component<Props> {
     this.props.history.goBack();
   };
 
-  private onCancelClick = () => this.props.history.goBack();
+  private handleCancel = () => this.props.history.goBack();
 
-  private get content() {
+  private get actionButtons() {
     return (
-      <div className="ui dimmer modals visible active">
-        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Edit Task</div>
-          <div className="content">
-            <form className="ui form">
-              <div className="field">
-                <label>Title</label>
-                <input
-                  type="text"
-                  id="title"
-                  placeholder="task title"
-                  value={this.state.title}
-                  onChange={this.onInputChange}
-                />
-              </div>
-              <div className="field">
-                <label>Label</label>
-                <input
-                  type="text"
-                  id="description"
-                  placeholder="description"
-                  value={this.state.description}
-                  onChange={this.onInputChange}
-                />
-              </div>
-            </form>
-          </div>
-          <div className="actions">
-            <button className="ui positive button" type="submit" onClick={this.onConfirmClick}>
-              Ok
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
+      <React.Fragment>
+        <button className="ui positive button" onClick={this.handleSubmit}>
+          Ok
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
     );
   }
 
@@ -103,7 +102,7 @@ class TaskEdit extends React.Component<Props> {
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      this.content
+      <Modal header="Edit Task" content={this.content} actionButtons={this.actionButtons} />
     );
   }
 }

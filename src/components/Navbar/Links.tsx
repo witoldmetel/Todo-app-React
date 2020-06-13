@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Dropdown, Icon, Menu, Segment } from 'semantic-ui-react';
 
-import { Auth } from '../../fixtures/types';
+import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signOut } from '../../store/actions';
 
 export interface Props {
   projectId: string;
-  profile: any;
+  profile: NewUser;
   auth: Auth;
   signOut: () => void;
 }
@@ -33,18 +34,22 @@ class Links extends React.Component<Props> {
   }
 
   private get renderLinks() {
-    const { auth } = this.props;
+    const { auth, signOut } = this.props;
 
     return auth.uid ? (
       <React.Fragment>
         {this.createProjectLink}
         {this.createTaskLink}
-        <a onClick={() => this.props.signOut()} className="header item">
-          Logout
-        </a>
-        <NavLink to="/profile" className="header item">
-          <img src={`https://api.adorable.io/avatars/${auth.uid}.png`} className="ui mini circular image" />
-        </NavLink>
+        <Dropdown
+          item
+          icon={<img src={`https://api.adorable.io/avatars/${auth.uid}.png`} className="ui mini circular image" />}
+          simple
+        >
+          <Dropdown.Menu direction="left">
+            <Dropdown.Item disabled>Settings</Dropdown.Item>
+            <Dropdown.Item onClick={() => signOut()}>Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </React.Fragment>
     ) : (
       <React.Fragment>

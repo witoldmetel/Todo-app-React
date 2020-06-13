@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Project } from '../../../fixtures/types';
+import { RandomAvatar } from '../../index';
 
 export interface Props {
   project: Project;
@@ -21,7 +22,8 @@ class ProjectItem extends React.Component<Props> {
         </div>
         <div className="extra content">
           <div className="right floated author">
-            <img className="ui avatar image" src={`https://api.adorable.io/avatars/${authorId}.png`} /> {author}
+            <RandomAvatar className="ui avatar image" randomFace={authorId} />
+            {author}
           </div>
         </div>
       </Link>

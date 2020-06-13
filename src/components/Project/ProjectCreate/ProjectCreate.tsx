@@ -35,29 +35,27 @@ class ProjectCreate extends React.Component<Props> {
 
   private get content() {
     return (
-      <div className="content">
-        <form className="ui form">
-          <div className="field">
-            <label>Project Name</label>
-            <input
-              type="text"
-              id="projectName"
-              placeholder="Project Name"
-              value={this.state.projectName}
-              onChange={this.onInputChange}
-            />
-          </div>
-          <div className="field">
-            <label>Description</label>
-            <input
-              type="text"
-              id="description"
-              placeholder="Description"
-              value={this.state.description}
-              onChange={this.onInputChange}
-            />
-          </div>
-        </form>
+      <div className="ui form content">
+        <div className="field">
+          <label>Project Name</label>
+          <input
+            type="text"
+            id="projectName"
+            placeholder="Project Name"
+            value={this.state.projectName}
+            onChange={this.onInputChange}
+          />
+        </div>
+        <div className="field">
+          <label>Description</label>
+          <input
+            type="text"
+            id="description"
+            placeholder="Description"
+            value={this.state.description}
+            onChange={this.onInputChange}
+          />
+        </div>
       </div>
     );
   }

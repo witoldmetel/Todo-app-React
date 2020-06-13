@@ -7,7 +7,7 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { getProject, assignMembers, removeMember } from '../../../store/actions';
 import { Project, Auth, User } from '../../../fixtures/types';
-import { RandomAvatar } from '../../index';
+import { RandomAvatar, Modal } from '../../index';
 
 import './MembersModal.scss';
 
@@ -30,15 +30,6 @@ class MembersModal extends React.Component<Props> {
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
   }
-
-  private onConfirmClick = () => {
-    const { assignMembers, project, projectId, history } = this.props;
-
-    assignMembers(project, projectId, this.state.members);
-    history.goBack();
-  };
-
-  private onCancelClick = () => this.props.history.goBack();
 
   private getUserIds = (selectedUsers, options) => {
     const members: User[] = [];
@@ -71,7 +62,7 @@ class MembersModal extends React.Component<Props> {
 
     users &&
       users.filter((user) => {
-        if (!members.find((member: User) => member.id === user.id)) {
+        if (!(members as User[]).find((member: User) => member.id === user.id)) {
           (filteredUsers as User[]).push(user);
         }
       });
@@ -101,8 +92,8 @@ class MembersModal extends React.Component<Props> {
     return id !== this.props.project.authorId ? this.props.removeMember(project, projectId, id) : null;
   };
 
-  private get memberAvatar() {
-    return this.props.project.members.map((member) => (
+  private get members() {
+    return (this.props.project.members as User[]).map((member) => (
       <div
         key={member.id}
         className="ui icon button member"
@@ -115,47 +106,56 @@ class MembersModal extends React.Component<Props> {
   }
 
   private get content() {
+    const { authorId, author } = this.props.project;
+
     return (
-      <div className="ui dimmer modals visible active members-modal">
-        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Members</div>
-          <div className="content">
-            <div className="ui form">
-              <div className="field">
-                <label>Owner</label>
-                <div className="author-avatar">
-                  <RandomAvatar className="ui avatar image" randomFace={this.props.project.authorId} />
-                  <b>{this.props.project.author}</b>
-                </div>
-              </div>
-              <div className="field">
-                <label>Members</label>
-                {this.memberAvatar}
-              </div>
-              <div className="field">
-                <label>Add Member</label>
-                <Dropdown
-                  placeholder="Add members"
-                  fluid
-                  multiple
-                  search
-                  selection
-                  options={this.memberOptions}
-                  onChange={this.onChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="actions">
-            <button className="ui positive button" type="submit" onClick={this.onConfirmClick}>
-              Ok
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
+      <div className="ui form content">
+        <div className="field">
+          <label>Owner</label>
+          <div className="author-avatar">
+            <RandomAvatar className="ui avatar image" randomFace={authorId} />
+            <b>{author}</b>
           </div>
         </div>
+        <div className="field">
+          <label>Members</label>
+          {this.members}
+        </div>
+        <div className="field">
+          <label>Add Member</label>
+          <Dropdown
+            placeholder="Add members"
+            fluid
+            multiple
+            search
+            selection
+            options={this.memberOptions}
+            onChange={this.onChange}
+          />
+        </div>
       </div>
+    );
+  }
+
+  private handleSubmit = () => {
+    const { assignMembers, project, projectId, history } = this.props;
+
+    assignMembers(project, projectId, this.state.members);
+    history.goBack();
+  };
+
+  private handleCancel = () => this.props.history.goBack();
+
+  private get actionButtons() {
+    return (
+      <React.Fragment>
+        <button className="ui positive button" onClick={this.handleSubmit}>
+          Ok
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
     );
   }
 
@@ -166,10 +166,10 @@ class MembersModal extends React.Component<Props> {
 
     return !project ? (
       <div className="ui active inverted dimmer">
-        <div className="ui text loader">Loading project details</div>
+        <div className="ui text loader">Loading members</div>
       </div>
     ) : (
-      this.content
+      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} />
     );
   }
 }

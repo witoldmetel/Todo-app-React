@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signUp } from '../../store/actions';
+import { Modal } from '../index';
 
 export interface Props {
   auth: Auth;
@@ -29,23 +30,13 @@ class SignUpComponent extends React.Component<Props> {
     this.setState({ accountType: e.target.id });
   };
 
-  private onSubmitClick = (e) => {
-    e.preventDefault();
-
-    this.props.signUp(this.state);
-
-    this.props.history.push('/');
-  };
-
-  private onCancelClick = () => this.props.history.push('/');
-
   private get errorMessage() {
     return this.props.authError ? <div className="ui red message">{this.props.authError}</div> : null;
   }
 
   private get content() {
     return (
-      <form className="ui form">
+      <div className="ui form content">
         <div className="field">
           <label htmlFor="email">Email</label>
           <input type="email" id="email" placeholder="joe@schmoe.com" onChange={this.onInputChange} />
@@ -86,7 +77,30 @@ class SignUpComponent extends React.Component<Props> {
           </div>
         </div>
         {this.errorMessage}
-      </form>
+      </div>
+    );
+  }
+
+  private handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.signUp(this.state);
+
+    this.props.history.push('/');
+  };
+
+  private handleCancel = () => this.props.history.push('/');
+
+  private get actionButtons() {
+    return (
+      <React.Fragment>
+        <button className="ui positive button" onClick={this.handleSubmit}>
+          Register
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
     );
   }
 
@@ -95,22 +109,7 @@ class SignUpComponent extends React.Component<Props> {
 
     if (auth.uid) return <Redirect to="/" />;
 
-    return (
-      <div className="ui dimmer modals visible active">
-        <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
-          <div className="header">Sign Up</div>
-          <div className="content">{this.content}</div>
-          <div className="actions">
-            <button className="ui positive button" onClick={this.onSubmitClick}>
-              Submit
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <Modal header="Register" content={this.content} actionButtons={this.actionButtons} />;
   }
 }
 

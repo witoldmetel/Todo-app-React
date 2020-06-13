@@ -1,5 +1,6 @@
 import Dashboard from './Dashboard/Dashboard';
 import FilterBar from './FilterBar/FilterBar';
+import { ModalComponent as Modal } from './ModalComponent/ModalComponent';
 import Navbar from './Navbar/Navbar';
 import RandomAvatar from './RandomAvatar/RandomAvatar';
 import SearchBar from './SearchBar/SearchBar';
@@ -12,6 +13,7 @@ import UserPanel from './UserPanel/UserPanel';
 export {
   Dashboard,
   FilterBar,
+  Modal,
   Navbar,
   RandomAvatar,
   SearchBar,

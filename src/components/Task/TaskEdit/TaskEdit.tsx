@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { getTask, updateTask } from '../../../store/actions';
-import { RandomAvatar } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -58,7 +57,6 @@ class TaskEdit extends React.Component<Props> {
         <div onClick={(e) => e.stopPropagation()} className="ui small modal visible active">
           <div className="header">Edit Task</div>
           <div className="content">
-            <RandomAvatar randomFace={this.props.id} />
             <form className="ui form">
               <div className="field">
                 <label>Title</label>

@@ -89,13 +89,15 @@ class TaskItem extends React.Component<Props> {
     return (
       <div className="context-menu" onMouseEnter={this.openMenu} onMouseLeave={this.closeMenu}>
         <RandomAvatar randomFace={this.props.task.authorId} className="task-icon" />
-        <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
-          {(option, index: number) => (props) => (
-            <animated.div key={`${option}-${index}`} className={`menu-option option-${index}`} style={props}>
-              {option}
-            </animated.div>
-          )}
-        </ContextMenu>
+        {this.isTaskEditable ? (
+          <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
+            {(option, index: number) => (props) => (
+              <animated.div key={`${option}-${index}`} className={`menu-option option-${index}`} style={props}>
+                {option}
+              </animated.div>
+            )}
+          </ContextMenu>
+        ) : null}
       </div>
     );
   }

@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { getTask, deleteTask } from '../../../store/actions';
+import { Modal } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -22,13 +23,26 @@ class TaskRemove extends React.Component<Props> {
     this.props.getTask(this.props.id, this.props.projectId);
   }
 
-  private onConfirmClick = () => {
+  private handleSubmit = () => {
     this.props.deleteTask(this.props.id, this.props.projectId);
 
     this.props.history.goBack();
   };
 
-  private onCancelClick = () => this.props.history.goBack();
+  private handleCancel = () => this.props.history.goBack();
+
+  private get actionButtons() {
+    return (
+      <React.Fragment>
+        <button className="ui negative button" onClick={this.handleSubmit}>
+          Ok
+        </button>
+        <button className="ui button" onClick={this.handleCancel}>
+          Cancel
+        </button>
+      </React.Fragment>
+    );
+  }
 
   public render() {
     const { auth } = this.props;
@@ -40,20 +54,11 @@ class TaskRemove extends React.Component<Props> {
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      <div className="ui dimmer modals visible active">
-        <div onClick={(e) => e.stopPropagation()} className="ui tiny modal visible active">
-          <div className="header">Delete Task</div>
-          <div className="content">Are you sure you want to delete this task?</div>
-          <div className="actions">
-            <button className="ui negative button" onClick={this.onConfirmClick}>
-              Ok
-            </button>
-            <button className="ui button" onClick={this.onCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
+      <Modal
+        header="Delete Task"
+        content="Are you sure you want to delete this task?"
+        actionButtons={this.actionButtons}
+      />
     );
   }
 }

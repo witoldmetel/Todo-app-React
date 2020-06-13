@@ -14,7 +14,7 @@ export class ModalComponent extends React.Component<Props> {
 
   public render() {
     return (
-      <Modal dimmer="blurring" open={this.state.open} onClose={this.closeModal}>
+      <Modal dimmer open={this.state.open} onClose={this.closeModal}>
         <Modal.Header>{this.props.header}</Modal.Header>
         <Modal.Content>{this.props.content}</Modal.Content>
         <Modal.Actions>{this.props.actionButtons}</Modal.Actions>

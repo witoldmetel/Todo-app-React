@@ -15,6 +15,7 @@ import './TaskList.scss';
 export interface Props {
   projectId: string;
   project: Project;
+  allTasks: Task[];
   tasks: Task[];
   auth: Auth;
   getProject: (id: string) => void;
@@ -34,13 +35,15 @@ class TaskList extends React.Component<Props> {
   }
 
   private get emptyList() {
-    return (
+    return !this.props.allTasks.length ? (
       <React.Fragment>
         <h3 className="info">You have no task to do! Add first here:</h3>
         <Link className="add-icon" to={`/project/${this.props.projectId}/task/new`}>
           <i className="plus circle icon green" />
         </Link>
       </React.Fragment>
+    ) : (
+      <h3 className="info">Filtered list is empty</h3>
     );
   }
 
@@ -110,6 +113,7 @@ const mapStateToProps = (state, ownProps) => {
     project,
     projectId,
     auth: state.firebase.auth,
+    allTasks: state.firestore.ordered.tasks,
     tasks: getTasksSelector(state),
   };
 };

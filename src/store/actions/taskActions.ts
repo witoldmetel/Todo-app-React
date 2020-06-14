@@ -50,7 +50,7 @@ export const getTask = (taskId: string, projectId: string) => {
   };
 };
 
-export const createTask = (task: Task, projectId: string) => {
+export const createTask = (task: Task, projectId: string, callback) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -71,6 +71,7 @@ export const createTask = (task: Task, projectId: string) => {
       })
       .then(() => {
         dispatch({ type: CREATE_TASK });
+        callback();
       })
       .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
   };

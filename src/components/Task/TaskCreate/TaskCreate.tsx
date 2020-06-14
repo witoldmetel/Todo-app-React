@@ -10,18 +10,29 @@ export interface Props {
   match: any;
   auth: Auth;
   history: any;
-  createTask: (task: Task, projectId: string) => void;
+  createTask: (task: Task, projectId: string, callback) => void;
 }
 
-class TaskCreate extends React.Component<Props> {
+export interface State {
+  title: string;
+  description: string;
+  errorMessage: string;
+}
+
+class TaskCreate extends React.Component<Props, State> {
   state = {
     title: '',
     description: '',
+    errorMessage: '',
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value });
+    this.setState({ [e.target.id]: e.target.value } as any);
   };
+
+  private get errorMessage() {
+    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
+  }
 
   private get content() {
     return (
@@ -46,17 +57,17 @@ class TaskCreate extends React.Component<Props> {
             onChange={this.onInputChange}
           />
         </div>
+        {this.errorMessage}
       </div>
     );
   }
 
   private handleSubmit = () => {
-    if (this.state.title.trim() !== '' && this.state.description.trim() !== '') {
-      this.props.createTask(this.state, this.props.match.params.id);
-      this.setState({ title: '', description: '' });
+    if (this.state.title.trim().length && this.state.description.trim().length) {
+      this.props.createTask(this.state, this.props.match.params.id, this.handleCancel);
+    } else {
+      this.setState({ errorMessage: 'Task fields are empty' });
     }
-
-    this.props.history.goBack();
   };
 
   private handleCancel = () => this.props.history.goBack();

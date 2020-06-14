@@ -65,7 +65,7 @@ class ProjectCreate extends React.Component<Props, State> {
     if (this.state.projectName.trim().length) {
       this.props.createProject(this.state, this.handleCancel);
     } else {
-      this.setState({ errorMessage: 'Invalid project name' });
+      this.setState({ errorMessage: 'Project name is empty' });
     }
   };
 

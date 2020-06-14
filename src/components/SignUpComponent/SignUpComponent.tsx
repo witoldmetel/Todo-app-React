@@ -100,10 +100,6 @@ class SignUpComponent extends React.Component<Props, State> {
     const { email, password, username, accountType } = this.state;
 
     if (this.formValidation.isValid) {
-      this.setState({
-        errorMessage: '',
-      });
-
       this.props.signUp({ email, password, username, accountType }, this.handleCancel);
     } else {
       this.setState({

@@ -43,7 +43,7 @@ export const getProject = (projectId: string) => {
   };
 };
 
-export const createProject = (project: Project) => {
+export const createProject = (project: Project, callback) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -60,6 +60,7 @@ export const createProject = (project: Project) => {
       })
       .then(() => {
         dispatch({ type: CREATE_PROJECT });
+        callback();
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
   };

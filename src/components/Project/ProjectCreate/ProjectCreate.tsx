@@ -9,29 +9,29 @@ import { Modal } from '../../index';
 export interface Props {
   auth: Auth;
   history: any;
-  createProject: (project: Project) => void;
+  createProject: (project: Project, callback) => void;
 }
 
-class ProjectCreate extends React.Component<Props> {
+export interface State {
+  projectName: string;
+  description: string;
+  errorMessage: string;
+}
+
+class ProjectCreate extends React.Component<Props, State> {
   state = {
     projectName: '',
     description: '',
+    errorMessage: '',
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value });
+    this.setState({ [e.target.id]: e.target.value } as any);
   };
 
-  private handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (this.state.projectName.trim() !== '') {
-      this.props.createProject(this.state);
-      this.setState({ projectName: '' });
-    }
-
-    this.props.history.push('/');
-  };
+  private get errorMessage() {
+    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
+  }
 
   private get content() {
     return (
@@ -56,9 +56,18 @@ class ProjectCreate extends React.Component<Props> {
             onChange={this.onInputChange}
           />
         </div>
+        {this.errorMessage}
       </div>
     );
   }
+
+  private handleSubmit = () => {
+    if (this.state.projectName.trim().length) {
+      this.props.createProject(this.state, this.handleCancel);
+    } else {
+      this.setState({ errorMessage: 'Invalid project name' });
+    }
+  };
 
   private handleCancel = () => this.props.history.goBack();
 

@@ -43,7 +43,7 @@ class SignInComponent extends React.Component<Props> {
   }
 
   private handleSubmit = () => {
-    this.props.signIn(this.state, this.props.history.push('/'));
+    this.props.signIn(this.state, this.handleCancel);
   };
 
   private handleCancel = () => {

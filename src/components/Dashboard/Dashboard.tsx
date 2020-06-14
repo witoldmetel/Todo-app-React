@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
-import { Auth, Project, NewUser } from '../../fixtures/types';
+import { Auth, Project, NewUser, User } from '../../fixtures/types';
 import { ProjectList } from '../index';
 
 import './Dashboard.scss';
@@ -25,7 +25,7 @@ class Dashboard extends React.Component<Props> {
   private get isUserHasProject() {
     const { auth, projects } = this.props;
 
-    return projects.some((project) => project.members.some((member) => member.id === auth.uid));
+    return projects.some((project) => (project.members as User[]).some((member) => member.id === auth.uid));
   }
 
   public render() {

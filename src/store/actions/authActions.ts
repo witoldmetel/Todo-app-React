@@ -1,6 +1,6 @@
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_ERROR } from '../../fixtures/constants';
 
-export const signUp = (newUser) => {
+export const signUp = (newUser, callback) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -16,6 +16,7 @@ export const signUp = (newUser) => {
       })
       .then(() => {
         dispatch({ type: SIGNUP_SUCCESS });
+        callback();
       })
       .catch((error) => dispatch({ type: SIGNUP_ERROR, payload: error }));
   };

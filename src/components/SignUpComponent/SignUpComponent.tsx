@@ -5,33 +5,42 @@ import { Redirect } from 'react-router-dom';
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signUp } from '../../store/actions';
+import { isSingUpFormValid } from '../../utils/validation';
 import { Modal } from '../index';
 
 export interface Props {
   auth: Auth;
-  authError: string;
   history: any;
-  signUp: (newUser: NewUser) => void;
+  signUp: (newUser: NewUser, callback) => void;
 }
 
-class SignUpComponent extends React.Component<Props> {
+export interface State {
+  email: string;
+  password: string;
+  username: string;
+  accountType: ACCOUNT_TYPE;
+  errorMessage: string;
+}
+
+class SignUpComponent extends React.Component<Props, State> {
   state = {
     email: '',
     password: '',
     username: '',
     accountType: ACCOUNT_TYPE.REGULAR,
+    errorMessage: '',
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value });
+    this.setState({ [e.target.id]: e.target.value } as any);
   };
 
   private onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ accountType: e.target.id });
+    this.setState({ accountType: e.target.id as ACCOUNT_TYPE });
   };
 
   private get errorMessage() {
-    return this.props.authError ? <div className="ui red message">{this.props.authError}</div> : null;
+    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
   }
 
   private get content() {
@@ -43,11 +52,11 @@ class SignUpComponent extends React.Component<Props> {
         </div>
         <div className="field">
           <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="Password" onChange={this.onInputChange} />
+          <input type="password" id="password" placeholder="password" onChange={this.onInputChange} />
         </div>
         <div className="field">
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" placeholder="joe schmoe" onChange={this.onInputChange} />
+          <input type="text" id="username" placeholder="Joe Schmoe" onChange={this.onInputChange} />
         </div>
         <div className="inline fields">
           <label>Account Type:</label>
@@ -81,8 +90,26 @@ class SignUpComponent extends React.Component<Props> {
     );
   }
 
+  private get formValidation() {
+    const { email, password, username } = this.state;
+
+    return isSingUpFormValid({ email, password, username });
+  }
+
   private handleSubmit = () => {
-    this.props.signUp(this.state);
+    const { email, password, username, accountType } = this.state;
+
+    if (this.formValidation.isValid) {
+      this.setState({
+        errorMessage: '',
+      });
+
+      this.props.signUp({ email, password, username, accountType }, this.handleCancel);
+    } else {
+      this.setState({
+        errorMessage: this.formValidation.errorMessage,
+      });
+    }
   };
 
   private handleCancel = () => this.props.history.push('/');
@@ -112,7 +139,6 @@ class SignUpComponent extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError,
   };
 };
 

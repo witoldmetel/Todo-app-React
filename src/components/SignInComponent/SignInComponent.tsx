@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Credentials } from '../../fixtures/types';
+import { Credentials, Auth } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
 import { Modal } from '../index';
 
 export interface Props {
+  auth: Auth;
   authError: string;
   history: any;
-  signIn: (credentials: Credentials) => void;
+  signIn: (credentials: Credentials, calback) => void;
 }
 
 class SignInComponent extends React.Component<Props> {
@@ -42,12 +43,12 @@ class SignInComponent extends React.Component<Props> {
   }
 
   private handleSubmit = () => {
-    this.props.signIn(this.state);
-
-    this.props.history.push('/');
+    this.props.signIn(this.state, this.props.history.push('/'));
   };
 
-  private handleCancel = () => this.props.history.push('/');
+  private handleCancel = () => {
+    this.props.history.push('/');
+  };
 
   private get actionButtons() {
     return (
@@ -69,6 +70,7 @@ class SignInComponent extends React.Component<Props> {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };

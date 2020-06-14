@@ -81,12 +81,8 @@ class SignUpComponent extends React.Component<Props> {
     );
   }
 
-  private handleSubmit = (e) => {
-    e.preventDefault();
-
+  private handleSubmit = () => {
     this.props.signUp(this.state);
-
-    this.props.history.push('/');
   };
 
   private handleCancel = () => this.props.history.push('/');

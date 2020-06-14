@@ -149,7 +149,7 @@ class MembersModal extends React.Component<Props> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
+        <button className="ui positive button" onClick={this.handleSubmit} disabled={!this.state.members.length}>
           Ok
         </button>
         <button className="ui button" onClick={this.handleCancel}>

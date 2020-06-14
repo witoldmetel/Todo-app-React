@@ -15,13 +15,20 @@ export interface Props {
   auth: Auth;
   history: any;
   getTask: (id: string, projectId: string) => void;
-  updateTask: (task: Task, id: string, projectId: string) => void;
+  updateTask: (task: Task, id: string, projectId: string, callback) => void;
 }
 
-class TaskEdit extends React.Component<Props> {
+export interface State {
+  title: string;
+  description: string;
+  errorMessage: string;
+}
+
+class TaskEdit extends React.Component<Props, State> {
   state = {
     title: this.props.task?.title || '',
     description: this.props.task?.description || '',
+    errorMessage: '',
   };
 
   public componentDidMount() {
@@ -38,8 +45,12 @@ class TaskEdit extends React.Component<Props> {
   }
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value });
+    this.setState({ [e.target.id]: e.target.value } as any);
   };
+
+  private get errorMessage() {
+    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
+  }
 
   private get content() {
     return (
@@ -55,7 +66,7 @@ class TaskEdit extends React.Component<Props> {
           />
         </div>
         <div className="field">
-          <label>Label</label>
+          <label>Description</label>
           <input
             type="text"
             id="description"
@@ -64,17 +75,17 @@ class TaskEdit extends React.Component<Props> {
             onChange={this.onInputChange}
           />
         </div>
+        {this.errorMessage}
       </div>
     );
   }
 
   private handleSubmit = () => {
-    if (this.state.title.trim() !== '' && this.state.description.trim() !== '') {
-      this.props.updateTask(this.state, this.props.id, this.props.projectId);
-      this.setState({ title: '', description: '' });
+    if (this.state.title.trim().length && this.state.description.trim().length) {
+      this.props.updateTask(this.state, this.props.id, this.props.projectId, this.handleCancel);
+    } else {
+      this.setState({ errorMessage: 'Task fields are empty' });
     }
-
-    this.props.history.goBack();
   };
 
   private handleCancel = () => this.props.history.goBack();

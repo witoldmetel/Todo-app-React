@@ -77,7 +77,7 @@ export const createTask = (task: Task, projectId: string, callback) => {
   };
 };
 
-export const updateTask = (task: Task, taskId: string, projectId: string) => {
+export const updateTask = (task: Task, taskId: string, projectId: string, callback) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
@@ -89,6 +89,7 @@ export const updateTask = (task: Task, taskId: string, projectId: string) => {
       .update({ ...task, updatedAt: date })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
+        callback();
       });
   };
 };

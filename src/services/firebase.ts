@@ -3,14 +3,13 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB6VZe0Bq4uuYkRwtz-Fi50KUdRum7BFPY',
-  authDomain: 'react-todo-app-2940e.firebaseapp.com',
-  databaseURL: 'https://react-todo-app-2940e.firebaseio.com',
-  projectId: 'react-todo-app-2940e',
-  storageBucket: 'react-todo-app-2940e.appspot.com',
-  messagingSenderId: '849165386693',
-  appId: '1:849165386693:web:40b2c8bae92ca10bd3c1ac',
-  measurementId: 'G-84QYSS1Q5F',
+  apiKey: 'AIzaSyCWFCwY_BqYeh8sgC_mWL52Cvv4jLk42nA',
+  authDomain: 'react-todo-app-e6d4a.firebaseapp.com',
+  databaseURL: 'https://react-todo-app-e6d4a.firebaseio.com',
+  projectId: 'react-todo-app-e6d4a',
+  storageBucket: 'react-todo-app-e6d4a.appspot.com',
+  messagingSenderId: '247883843020',
+  appId: '1:247883843020:web:9524c9fcaa341a463fc969',
 };
 
 // Initialize firebase instance

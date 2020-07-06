@@ -9,7 +9,9 @@
     "deploy": "gh-pages -b master -d dist",
     "clean": "rimraf -rf ./.cache",
     "lint": "eslint --fix src/*",
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose",
+    "test:coverage": "jest --verbose --coverage"
   },
   "repository": {
     "type": "git",

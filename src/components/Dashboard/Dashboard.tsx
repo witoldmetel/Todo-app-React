@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { Auth, Project, NewUser, User } from '../../fixtures/types';
-import { ProjectList } from '../index';
+import { ProjectList, ParticleComponent } from '../index';
 
 import './Dashboard.scss';
 
@@ -45,7 +45,11 @@ class Dashboard extends React.Component<Props> {
         return this.emptyContent;
       }
     } else {
-      return <div className="dashboard">{`You don't have access. Log in to service or register.`}</div>;
+      return (
+        <div className="dashboard">
+          <ParticleComponent />
+        </div>
+      );
     }
   }
 }

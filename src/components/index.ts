@@ -1,32 +1,12 @@
-import Dashboard from './Dashboard/Dashboard';
-import FilterBar from './FilterBar/FilterBar';
-import { ModalComponent as Modal } from './ModalComponent/ModalComponent';
-import Navbar from './Navbar/Navbar';
-import RandomAvatar from './RandomAvatar/RandomAvatar';
-import SearchBar from './SearchBar/SearchBar';
-import SignInComponent from './SignInComponent/SignInComponent';
-import SignUpComponent from './SignUpComponent/SignUpComponent';
-import { ProjectCreate, ProjectItem, ProjectList, MembersModal } from './Project';
-import { TaskCreate, TaskEdit, TaskItem, TaskList, TaskRemove } from './Task';
-import UserPanel from './UserPanel/UserPanel';
-
-export {
-  Dashboard,
-  FilterBar,
-  Modal,
-  Navbar,
-  RandomAvatar,
-  SearchBar,
-  SignInComponent,
-  SignUpComponent,
-  ProjectCreate,
-  ProjectItem,
-  ProjectList,
-  MembersModal,
-  TaskCreate,
-  TaskEdit,
-  TaskItem,
-  TaskList,
-  TaskRemove,
-  UserPanel,
-};
+export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as FilterBar } from './FilterBar/FilterBar';
+export { ModalComponent as Modal } from './ModalComponent/ModalComponent';
+export { default as Navbar } from './Navbar/Navbar';
+export { ParticleComponent } from './ParticleComponent/ParticleComponent';
+export { default as RandomAvatar } from './RandomAvatar/RandomAvatar';
+export { default as SearchBar } from './SearchBar/SearchBar';
+export { default as SignInComponent } from './SignInComponent/SignInComponent';
+export { default as SignUpComponent } from './SignUpComponent/SignUpComponent';
+export { ProjectCreate, ProjectItem, ProjectList, MembersModal } from './Project';
+export { TaskCreate, TaskEdit, TaskItem, TaskList, TaskRemove } from './Task';
+export { default as UserPanel } from './UserPanel/UserPanel';

@@ -46,7 +46,7 @@ class Dashboard extends React.Component<Props> {
       }
     } else {
       return (
-        <div className="dashboard">
+        <div className="dashboard particles-container">
           <ParticleComponent />
         </div>
       );

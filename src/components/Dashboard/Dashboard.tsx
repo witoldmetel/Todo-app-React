@@ -45,11 +45,12 @@ class Dashboard extends React.Component<Props> {
         return this.emptyContent;
       }
     } else {
-      return (
+      //@todo: Temporary disabled
+      return false ? (
         <div className="dashboard particles-container">
           <ParticleComponent />
         </div>
-      );
+      ) : null;
     }
   }
 }

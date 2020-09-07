@@ -9,6 +9,7 @@ development
 dist
 yarn-error.log
 firebaseConfig.ts
+coverage
 
 # IntelliJ
 *.iml

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar> renders correctly 1`] = `
+<header
+  className="ui menu"
+>
+  <nav
+    className="ui container"
+  >
+    <Link
+      className="header item"
+      to="/"
+    >
+      <span
+        className="logo"
+      />
+      <p>
+        Fire Jira
+      </p>
+    </Link>
+    <Connect(Links) />
+  </nav>
+</header>
+`;

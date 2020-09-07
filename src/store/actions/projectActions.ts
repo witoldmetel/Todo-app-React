@@ -56,7 +56,7 @@ export const createProject = (project: Project, callback) => {
         ...project,
         author: profile.username,
         authorId,
-        members: [authorId],
+        members: [{ id: authorId, username: profile.username }],
       })
       .then(() => {
         dispatch({ type: CREATE_PROJECT });
@@ -73,7 +73,7 @@ export const assignMembers = (project: Project, projectId: string, members: User
     firestore
       .collection('projects')
       .doc(projectId)
-      .update({ ...project, members: project.members.concat(...members) })
+      .update({ ...project, members: project.members?.concat(...members) })
       .then(() => {
         dispatch({ type: ASSIGN_MEMBERS });
       });
@@ -87,7 +87,7 @@ export const removeMember = (project: Project, projectId: string, memberId: stri
     firestore
       .collection('projects')
       .doc(projectId)
-      .update({ ...project, members: project.members.filter((member) => member.id !== memberId) })
+      .update({ ...project, members: project.members?.filter((member) => member.id !== memberId) })
       .then(() => {
         dispatch({ type: REMOVE_MEMBER, memberId });
       });

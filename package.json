@@ -1,7 +1,7 @@
 {
-  "name": "react-todo-app",
+  "name": "fire-jira-app",
   "version": "2.0.0",
-  "description": "Simple todo app write in React.js",
+  "description": "Jira clone wrote in React.js and Firebase",
   "main": "index.js",
   "scripts": {
     "start": "yarn clean && parcel public/index.html -p 8080",
@@ -9,7 +9,9 @@
     "deploy": "gh-pages -b master -d dist",
     "clean": "rimraf -rf ./.cache",
     "lint": "eslint --fix src/*",
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose",
+    "test:coverage": "jest --verbose --coverage"
   },
   "repository": {
     "type": "git",

@@ -36,3 +36,9 @@ export enum ACCOUNT_TYPE {
   REGULAR = 'REGULAR',
   VIP = 'VIP',
 }
+
+export const filters = [
+  { id: 1, name: 'All', filterName: FILTERS.SHOW_ALL },
+  { id: 2, name: 'Incompleted', filterName: FILTERS.SHOW_INCOMPLETED },
+  { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED },
+];

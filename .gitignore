@@ -8,6 +8,7 @@ npm-debug.log
 development
 dist
 yarn-error.log
+firebaseConfig.ts
 
 # IntelliJ
 *.iml

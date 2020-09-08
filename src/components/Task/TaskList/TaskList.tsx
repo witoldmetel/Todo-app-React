@@ -18,6 +18,7 @@ export interface Props {
   allTasks: Task[];
   tasks: Task[];
   auth: Auth;
+  notifications: any;
   getProject: (id: string) => void;
   getTasks: (projectId: string) => void;
 }
@@ -77,7 +78,7 @@ class TaskList extends React.Component<Props> {
   }
 
   public render() {
-    const { auth } = this.props;
+    const { auth, notifications } = this.props;
 
     if (!auth.uid) return <Redirect to="/signin" />;
 
@@ -97,7 +98,7 @@ class TaskList extends React.Component<Props> {
             </div>
             <ul className={this.className}>{this.renderList}</ul>
           </div>
-          <UserPanel />
+          <UserPanel notifications={notifications} />
         </div>
       </React.Fragment>
     );
@@ -115,6 +116,7 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.firebase.auth,
     allTasks: state.firestore.ordered.tasks,
     tasks: getTasksSelector(state),
+    notifications: state.firestore.ordered.notifications,
   };
 };
 
@@ -126,6 +128,12 @@ export default compose(
         doc: props.match.params.id,
         subcollections: [{ collection: 'tasks' }],
         storeAs: 'tasks',
+        orderBy: ['updatedAt', 'desc'],
+      },
+      {
+        collection: 'notifications',
+        limit: 5,
+        orderBy: ['time', 'desc'],
       },
     ];
   }),

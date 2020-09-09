@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import { getProject, getTasks } from '../../../store/actions';
 import { getTasksSelector } from '../../../store/selectors';
 import { Task, Project, Auth } from '../../../fixtures/types';
-import { TaskItem, FilterBar, SearchBar, UserPanel } from '../../index';
+import { TaskItem, FilterBar, SearchBar, NotificationsContainer } from '../../index';
 
 import './TaskList.scss';
 
@@ -98,7 +98,7 @@ class TaskList extends React.Component<Props> {
             </div>
             <ul className={this.className}>{this.renderList}</ul>
           </div>
-          <UserPanel notifications={notifications} />
+          <NotificationsContainer authId={auth.uid} notifications={notifications} />
         </div>
       </React.Fragment>
     );

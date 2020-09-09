@@ -19,6 +19,7 @@ export const projectCreated = functions.firestore.document('projects/{projectId}
   const notification = {
     content: 'created a new project',
     user: project.author,
+    authorId: project.authorId,
     time: admin.firestore.FieldValue.serverTimestamp(),
   };
 
@@ -33,6 +34,7 @@ export const projectUpdate = functions.firestore.document('projects/{projectId}'
     const notification = {
       content: `changed crew members in ${before.projectName} project`,
       user: before.author,
+      authorId: before.authorId,
       time: admin.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -50,6 +52,7 @@ export const taskCreated = functions.firestore.document('projects/{projectId}/ta
   const notification = {
     content: 'created a new task',
     user: task.author,
+    authorId: task.authorId,
     time: admin.firestore.FieldValue.serverTimestamp(),
   };
 
@@ -64,6 +67,7 @@ export const taskUpdated = functions.firestore.document('projects/{projectId}/ta
     const notification = {
       content: `changed task title to ${after.title}`,
       user: before.author,
+      authorId: before.authorId,
       time: admin.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -74,6 +78,7 @@ export const taskUpdated = functions.firestore.document('projects/{projectId}/ta
     const notification = {
       content: `changed description for ${after.title} task`,
       user: before.author,
+      authorId: before.authorId,
       time: admin.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -88,6 +93,7 @@ export const taskDelete = functions.firestore.document('projects/{projectId}/tas
   const notification = {
     content: `removed ${task.title} task`,
     user: task.author,
+    authorId: task.authorId,
     time: admin.firestore.FieldValue.serverTimestamp(),
   };
 
@@ -108,6 +114,7 @@ export const userJoined = functions.auth.user().onCreate((user) => {
       const notification = {
         content: 'joined to Fire Jira',
         user: newUser?.username,
+        authorId: user.uid,
         time: admin.firestore.FieldValue.serverTimestamp(),
       };
 

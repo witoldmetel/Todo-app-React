@@ -9,4 +9,4 @@ export { default as SignInComponent } from './SignInComponent/SignInComponent';
 export { default as SignUpComponent } from './SignUpComponent/SignUpComponent';
 export { ProjectCreate, ProjectItem, ProjectList, MembersModal } from './Project';
 export { TaskCreate, TaskEdit, TaskItem, TaskList, TaskRemove } from './Task';
-export { default as UserPanel } from './UserPanel/UserPanel';
+export { NotificationsContainer } from './NotificationsContainer/NotificationsContainer';

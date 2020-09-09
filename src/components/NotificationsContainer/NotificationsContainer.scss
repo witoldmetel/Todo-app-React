@@ -1,0 +1,32 @@
+.user-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 30%;
+  padding: 20px 30px;
+  border-radius: 10px 120px 10px 10px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+
+  .notification-container {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .notification-item {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &__content {
+        line-height: 20px;
+      }
+
+      &__time {
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "fire-jira-app",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Jira clone wrote in React.js and Firebase",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "author": "Witold Metel",
   "license": "MIT",
   "bugs": {
-    "url": "todo: Update url"
+    "url": "https://github.com/witoldmetel/Fire-Jira-App/issues"
   },
   "homepage": "todo: Update homepage",
   "devDependencies": {

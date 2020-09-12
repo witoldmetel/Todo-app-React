@@ -1,8 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import { Project } from './fixtures/types';
 import {
@@ -39,10 +36,7 @@ const NavRoute = ({ exact, path, component: Component }) => (
 
 class App extends React.Component<Props> {
   public render() {
-    // @todo: Find better solution for auth loading
-    return !isLoaded(this.props?.projects) ? (
-      <span>Loading...</span>
-    ) : (
+    return (
       <BrowserRouter>
         <Switch>
           <NavRoute path="/signin" exact component={SignInComponent} />
@@ -60,10 +54,4 @@ class App extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    projects: state.firestore.ordered.projects,
-  };
-};
-
-export default compose(firestoreConnect([{ collection: 'projects' }]), connect(mapStateToProps))(App);
+export default App;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { Auth, Project, NewUser, User } from '../../fixtures/types';
@@ -31,13 +33,18 @@ class Dashboard extends React.Component<Props> {
   public render() {
     const { auth } = this.props;
 
+    // @todo: Find better solution for auth loading
+    if (!isLoaded(this.props?.projects)) {
+      return <span>Loading...</span>;
+    }
+
     if (auth.uid) {
       if (this.isUserHasProject) {
         return (
           <React.Fragment>
             <h1>Projects List</h1>
             <div className="dashboard">
-              <ProjectList />
+              <ProjectList authId={auth.uid} />
             </div>
           </React.Fragment>
         );
@@ -63,4 +70,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Dashboard);
+export default compose(firestoreConnect([{ collection: 'projects' }]), connect(mapStateToProps))(Dashboard);

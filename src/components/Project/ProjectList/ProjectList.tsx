@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getProjects } from '../../../store/actions';
-import { Project } from '../../../fixtures/types';
+import { Project, User } from '../../../fixtures/types';
 import { ProjectItem } from '../index';
 
 import './ProjectList.scss';
 
 export interface Props {
+  authId: string;
   projects: Project[];
   getProjects: () => void;
 }
@@ -16,6 +17,12 @@ export interface Props {
 class ProjectList extends React.Component<Props> {
   public componentDidMount() {
     this.props.getProjects();
+  }
+
+  private get projects() {
+    return this.props.projects.filter((project) =>
+      (project.members as User[]).some((member) => member.id === this.props.authId),
+    );
   }
 
   private get emptyList() {
@@ -30,7 +37,7 @@ class ProjectList extends React.Component<Props> {
   }
 
   private get renderList() {
-    if (!this.props.projects) {
+    if (!this.projects) {
       return (
         <div className="ui active inverted dimmer">
           <div className="ui text loader">Loading projects</div>
@@ -38,9 +45,9 @@ class ProjectList extends React.Component<Props> {
       );
     }
 
-    return !this.props.projects.length
+    return !this.projects.length
       ? this.emptyList
-      : this.props.projects.map((project: Project, index: number) => {
+      : this.projects.map((project: Project, index: number) => {
           return <ProjectItem key={index} project={project} />;
         });
   }

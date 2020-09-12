@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Transition, Keyframes, animated } from 'react-spring/renderprops';
 import classnames from 'classnames';
+import moment from 'moment';
 
 import { Task, Project, Auth } from '../../../fixtures/types';
 import { setTaskStatus } from '../../../store/actions';
@@ -66,6 +67,8 @@ class TaskItem extends React.Component<Props> {
       'close icon red': this.props.task.status,
     });
   }
+
+  private formatTime = (time: any) => moment(time.toDate()).calendar();
 
   private get contextMenuOptions() {
     const { task, projectId } = this.props;
@@ -149,8 +152,8 @@ class TaskItem extends React.Component<Props> {
             <span>
               Created by: <b>{author}</b>
             </span>
-            <span>Created: {createdAt}</span>
-            <span>Updated: {updatedAt}</span>
+            <span>Created: {this.formatTime(createdAt)}</span>
+            <span>Updated: {this.formatTime(updatedAt)}</span>
           </div>
         </div>
         <div className="second column">

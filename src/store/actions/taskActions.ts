@@ -56,7 +56,7 @@ export const createTask = (task: Task, projectId: string, callback) => {
 
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
-    const date = moment(new Date()).calendar();
+    const date = firestore.Timestamp.now();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
 
@@ -82,11 +82,10 @@ export const updateTask = (task: Task, taskId: string, projectId: string, callba
     const firestore = getFirestore();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
-    const date = moment(new Date()).calendar();
 
     tasksRef
       .doc(taskId)
-      .update({ ...task, updatedAt: date })
+      .update({ ...task, updatedAt: firestore.Timestamp.now() })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
         callback();
@@ -99,11 +98,10 @@ export const setTaskStatus = (task: Task, projectId: string) => {
     const firestore = getFirestore();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
-    const date = moment(new Date()).calendar();
 
     tasksRef
       .doc(task.id)
-      .update({ ...task, status: !task.status, updatedAt: date })
+      .update({ ...task, status: !task.status, updatedAt: firestore.Timestamp.now() })
       .then(() => {
         dispatch({ type: SET_TASK_STATUS });
       });

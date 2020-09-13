@@ -113,7 +113,12 @@ class TaskEdit extends React.Component<Props, State> {
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      <Modal header="Edit Task" content={this.content} actionButtons={this.actionButtons} />
+      <Modal
+        header="Edit Task"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+      />
     );
   }
 }

@@ -169,7 +169,7 @@ class MembersModal extends React.Component<Props> {
         <div className="ui text loader">Loading members</div>
       </div>
     ) : (
-      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} />
+      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
     );
   }
 }

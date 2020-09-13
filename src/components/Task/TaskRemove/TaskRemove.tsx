@@ -58,6 +58,7 @@ class TaskRemove extends React.Component<Props> {
         header="Delete Task"
         content="Are you sure you want to delete this task?"
         actionButtons={this.actionButtons}
+        history={this.props.history}
       />
     );
   }

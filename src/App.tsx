@@ -19,6 +19,7 @@ import './App.scss';
 
 export interface Props {
   projects: Project[];
+  location: any;
 }
 
 const NavRoute = ({ exact, path, component: Component }) => (
@@ -39,10 +40,10 @@ class App extends React.Component<Props> {
     return (
       <BrowserRouter>
         <Switch>
+          <NavRoute path="/" exact component={Dashboard} />
           <NavRoute path="/signin" exact component={SignInComponent} />
           <NavRoute path="/signup" exact component={SignUpComponent} />
-          <NavRoute path="/" exact component={Dashboard} />
-          <NavRoute path="/project/new" exact component={ProjectCreate} />
+          <NavRoute path="/project/new" exact={false} component={ProjectCreate} />
           <NavRoute path="/project/:id" exact component={TaskList} />
           <NavRoute path="/project/:id/members" exact component={MembersModal} />
           <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />

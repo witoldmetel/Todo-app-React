@@ -64,7 +64,9 @@ class SignInComponent extends React.Component<Props> {
   }
 
   public render() {
-    return <Modal header="Sign In" content={this.content} actionButtons={this.actionButtons} />;
+    return (
+      <Modal header="Sign In" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
+    );
   }
 }
 

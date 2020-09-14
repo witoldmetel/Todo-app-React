@@ -162,14 +162,14 @@ class MembersModal extends React.Component<Props> {
   public render() {
     const { auth, project } = this.props;
 
-    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/" />;
 
     return !project ? (
       <div className="ui active inverted dimmer">
         <div className="ui text loader">Loading members</div>
       </div>
     ) : (
-      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} />
+      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
     );
   }
 }

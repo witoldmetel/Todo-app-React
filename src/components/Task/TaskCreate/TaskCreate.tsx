@@ -88,9 +88,16 @@ class TaskCreate extends React.Component<Props, State> {
   public render() {
     const { auth } = this.props;
 
-    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/" />;
 
-    return <Modal header="Create Task" content={this.content} actionButtons={this.actionButtons} />;
+    return (
+      <Modal
+        header="Create Task"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+      />
+    );
   }
 }
 

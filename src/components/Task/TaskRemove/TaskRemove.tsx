@@ -47,7 +47,7 @@ class TaskRemove extends React.Component<Props> {
   public render() {
     const { auth } = this.props;
 
-    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/" />;
 
     return !this.props.task ? (
       <div className="ui active inverted dimmer">
@@ -58,6 +58,7 @@ class TaskRemove extends React.Component<Props> {
         header="Delete Task"
         content="Are you sure you want to delete this task?"
         actionButtons={this.actionButtons}
+        history={this.props.history}
       />
     );
   }

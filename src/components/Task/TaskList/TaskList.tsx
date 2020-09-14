@@ -80,7 +80,7 @@ class TaskList extends React.Component<Props> {
   public render() {
     const { auth, notifications } = this.props;
 
-    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/" />;
 
     return !this.props.project ? (
       <div className="ui active inverted dimmer">

@@ -106,14 +106,19 @@ class TaskEdit extends React.Component<Props, State> {
   public render() {
     const { auth } = this.props;
 
-    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!auth.uid) return <Redirect to="/" />;
 
     return !this.props.task ? (
       <div className="ui active inverted dimmer">
         <div className="ui text loader">Loading task</div>
       </div>
     ) : (
-      <Modal header="Edit Task" content={this.content} actionButtons={this.actionButtons} />
+      <Modal
+        header="Edit Task"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+      />
     );
   }
 }

@@ -17,11 +17,9 @@ export interface Props {
 
 class Dashboard extends React.Component<Props> {
   private get emptyContent() {
-    return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR ? (
-      <div className="dashboard">Project list is empty. You are not assign to any project</div>
-    ) : (
-      <div className="dashboard">Project list is empty. Create new project</div>
-    );
+    return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR
+      ? 'Project list is empty. You are not assign to any project'
+      : 'Project list is empty. Create new project';
   }
 
   private get isUserHasProject() {
@@ -33,12 +31,15 @@ class Dashboard extends React.Component<Props> {
   public render() {
     const { auth } = this.props;
 
-    // @todo: Find better solution for auth loading
-    if (!isLoaded(this.props?.projects)) {
-      return <span>Loading...</span>;
-    }
-
     if (auth.uid) {
+      if (!isLoaded(this.props?.projects)) {
+        return (
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading page...</div>
+          </div>
+        );
+      }
+
       if (this.isUserHasProject) {
         return (
           <React.Fragment>
@@ -49,7 +50,7 @@ class Dashboard extends React.Component<Props> {
           </React.Fragment>
         );
       } else {
-        return this.emptyContent;
+        return <div className="dashboard">{this.emptyContent}</div>;
       }
     } else {
       //@todo: Temporary disabled

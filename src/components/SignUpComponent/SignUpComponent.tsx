@@ -128,7 +128,9 @@ class SignUpComponent extends React.Component<Props, State> {
 
     if (auth.uid) return <Redirect to="/" />;
 
-    return <Modal header="Register" content={this.content} actionButtons={this.actionButtons} />;
+    return (
+      <Modal header="Register" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
+    );
   }
 }
 

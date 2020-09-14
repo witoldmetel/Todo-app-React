@@ -1,11 +1,12 @@
 import React from 'react';
+import { History } from 'history';
 import { Modal } from 'semantic-ui-react';
 
 export interface Props {
   header: string | Element;
   content: string | JSX.Element;
   actionButtons: JSX.Element;
-  history: any;
+  history: History;
 }
 
 export class ModalComponent extends React.Component<Props> {

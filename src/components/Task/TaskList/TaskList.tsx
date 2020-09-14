@@ -12,13 +12,21 @@ import { TaskItem, FilterBar, SearchBar, NotificationsContainer } from '../../in
 
 import './TaskList.scss';
 
+interface Notification {
+  id: string;
+  content: string;
+  user: string;
+  authorId: string;
+  time: unknown;
+}
+
 export interface Props {
   projectId: string;
   project: Project;
   allTasks: Task[];
   tasks: Task[];
   auth: Auth;
-  notifications: any;
+  notifications: Notification[];
   getProject: (id: string) => void;
   getTasks: (projectId: string) => void;
 }

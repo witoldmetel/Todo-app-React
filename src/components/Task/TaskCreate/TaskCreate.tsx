@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -7,9 +8,13 @@ import { createTask } from '../../../store/actions';
 import { Modal } from '../../index';
 
 export interface Props {
-  match: any;
+  match: {
+    params: {
+      id: string;
+    };
+  };
   auth: Auth;
-  history: any;
+  history: History;
   createTask: (task: Task, projectId: string, callback) => void;
 }
 

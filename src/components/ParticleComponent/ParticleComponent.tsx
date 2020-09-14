@@ -6,7 +6,7 @@ import particle from './particle';
 export class ParticleComponent extends Component {
   private particleRef: React.RefObject<HTMLInputElement>;
 
-  public constructor(props: any) {
+  public constructor(props) {
     super(props);
 
     this.particleRef = React.createRef();

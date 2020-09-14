@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ import { Modal } from '../../index';
 
 export interface Props {
   auth: Auth;
-  history: any;
+  history: History;
   createProject: (project: Project, callback) => void;
 }
 
@@ -16,6 +17,7 @@ export interface State {
   projectName: string;
   description: string;
   errorMessage: string;
+  [key: string]: string;
 }
 
 class ProjectCreate extends React.Component<Props, State> {
@@ -26,7 +28,7 @@ class ProjectCreate extends React.Component<Props, State> {
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as any);
+    this.setState({ [e.target.id]: e.target.value } as State);
   };
 
   private get errorMessage() {

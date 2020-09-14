@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ import { Modal } from '../index';
 
 export interface Props {
   auth: Auth;
-  history: any;
+  history: History;
   signUp: (newUser: NewUser, callback) => void;
 }
 
@@ -20,6 +21,7 @@ export interface State {
   username: string;
   accountType: ACCOUNT_TYPE;
   errorMessage: string;
+  [key: string]: string;
 }
 
 class SignUpComponent extends React.Component<Props, State> {
@@ -32,7 +34,7 @@ class SignUpComponent extends React.Component<Props, State> {
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as any);
+    this.setState({ [e.target.id]: e.target.value } as State);
   };
 
   private onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {

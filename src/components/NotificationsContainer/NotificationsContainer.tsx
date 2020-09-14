@@ -3,9 +3,17 @@ import moment from 'moment';
 
 import './NotificationsContainer.scss';
 
+interface Notification {
+  id: string;
+  content: string;
+  user: string;
+  authorId: string;
+  time: unknown;
+}
+
 interface Props {
   authId: string;
-  notifications: any;
+  notifications: Notification[];
 }
 
 export class NotificationsContainer extends React.Component<Props> {

@@ -21,21 +21,23 @@ export interface Props {
   projects: Project[];
 }
 
-const NavRoute = ({ exact, path, component: Component }: any) => (
-  <Route
-    exact={exact}
-    path={path}
-    render={(props) => (
-      <React.Fragment>
-        <Navbar {...props} />
-        <Component {...props} />
-      </React.Fragment>
-    )}
-  />
-);
-
 class App extends React.Component<Props> {
+  private NavRoute = ({ exact = true, path, component: Component }: { exact: boolean; path: string; component }) => (
+    <Route
+      exact={exact}
+      path={path}
+      render={(props) => (
+        <React.Fragment>
+          <Navbar {...props} />
+          <Component {...props} />
+        </React.Fragment>
+      )}
+    />
+  );
+
   public render() {
+    const { NavRoute } = this;
+
     return (
       <BrowserRouter>
         <Switch>

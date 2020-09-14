@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 
 import { Credentials, Auth } from '../../fixtures/types';
@@ -8,7 +9,7 @@ import { Modal } from '../index';
 export interface Props {
   auth: Auth;
   authError: string;
-  history: any;
+  history: History;
   signIn: (credentials: Credentials, calback) => void;
 }
 

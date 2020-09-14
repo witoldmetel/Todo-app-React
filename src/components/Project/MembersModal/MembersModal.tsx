@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -16,7 +17,7 @@ export interface Props {
   project: Project;
   users: User[];
   auth: Auth;
-  history: any;
+  history: History;
   getProject: (id: string) => void;
   assignMembers: (project: Project, projectId: string, members: string[]) => void;
   removeMember: (project: Project, projectId: string, memberId: string) => void;

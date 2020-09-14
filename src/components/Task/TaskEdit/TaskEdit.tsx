@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -13,7 +14,7 @@ export interface Props {
   id: string;
   task: Task;
   auth: Auth;
-  history: any;
+  history: History;
   getTask: (id: string, projectId: string) => void;
   updateTask: (task: Task, id: string, projectId: string, callback) => void;
 }
@@ -22,6 +23,7 @@ export interface State {
   title: string;
   description: string;
   errorMessage: string;
+  [key: string]: string;
 }
 
 class TaskEdit extends React.Component<Props, State> {
@@ -45,7 +47,7 @@ class TaskEdit extends React.Component<Props, State> {
   }
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as any);
+    this.setState({ [e.target.id]: e.target.value } as State);
   };
 
   private get errorMessage() {

@@ -3,7 +3,14 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp(functions.config().firebase);
 
-const createNotification = (notification: any) => {
+interface Notification {
+  content: string;
+  user: string;
+  authorId: string;
+  time: unknown;
+}
+
+const createNotification = (notification: Notification) => {
   return admin
     .firestore()
     .collection('notifications')

@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -13,7 +14,7 @@ export interface Props {
   id: string;
   task: Task;
   auth: Auth;
-  history: any;
+  history: History;
   getTask: (id: string, projectId: string) => void;
   deleteTask: (id: string, projectId: string) => void;
 }

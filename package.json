@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "todo: Update url"
+    "url": "https://github.com/witoldmetel/Fire-Jira-App"
   },
   "keywords": [
     "parcel",
@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/witoldmetel/Fire-Jira-App/issues"
   },
-  "homepage": "todo: Update homepage",
+  "homepage": "fire-jira.firebaseapp.com",
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-runtime": "7.9.0",

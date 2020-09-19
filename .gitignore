@@ -10,7 +10,6 @@ dist
 yarn-error.log
 firebaseConfig.ts
 coverage
-
-# IntelliJ
+.firebase/
 *.iml
 /.idea

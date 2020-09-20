@@ -21,7 +21,8 @@
     "parcel",
     "typescript",
     "react",
-    "sass"
+    "sass",
+    "firebase"
   ],
   "author": "Witold Metel",
   "license": "MIT",

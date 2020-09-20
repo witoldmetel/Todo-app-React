@@ -14,6 +14,7 @@ export class ModalComponent extends React.Component<Props> {
 
   private closeModal = () => {
     this.setState({ open: false });
+
     this.props.history.goBack();
   };
 

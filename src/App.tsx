@@ -13,6 +13,7 @@ import {
   TaskRemove,
   TaskList,
   TaskEdit,
+  UnknownPage,
 } from './components';
 
 import './App.scss';
@@ -50,6 +51,7 @@ class App extends React.Component<Props> {
           <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />
           <NavRoute path="/project/:id/task/edit/:id" exact component={TaskEdit} />
           <NavRoute path="/project/:id/task/delete/:id" exact component={TaskRemove} />
+          <Route component={UnknownPage} />
         </Switch>
       </BrowserRouter>
     );

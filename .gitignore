@@ -13,4 +13,3 @@ coverage
 .firebase/
 *.iml
 /.idea
-.storybook/

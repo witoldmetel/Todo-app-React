@@ -23,9 +23,22 @@ Negative.args = {
   label: 'Negative',
 };
 
+const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Disabled',
+  disabled: true,
+};
+
 export const General = (args: ButtonProps) => (
   <>
     <Button {...args} {...Positive.args} />
     <Button {...args} {...Negative.args} />
+    <Button {...args} {...Disabled.args} />
   </>
 );
+
+export const ButtonWithIcon = Template.bind({});
+ButtonWithIcon.args = {
+  label: '',
+  children: <i className=" icon check green" />,
+};

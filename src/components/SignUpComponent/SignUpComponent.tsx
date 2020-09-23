@@ -7,7 +7,7 @@ import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signUp } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
-import { Modal } from '../index';
+import { Modal, Button } from '../index';
 
 export interface Props {
   auth: Auth;
@@ -115,12 +115,8 @@ class SignUpComponent extends React.Component<Props, State> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
-          Register
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Register" className="positive" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

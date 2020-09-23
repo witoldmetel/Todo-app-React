@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { createTask } from '../../../store/actions';
-import { Modal } from '../../index';
+import { Modal, Button } from '../../index';
 
 export interface Props {
   match: {
@@ -80,12 +80,8 @@ class TaskCreate extends React.Component<Props, State> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
-          Create
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Create" className="positive" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

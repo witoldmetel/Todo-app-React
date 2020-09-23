@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Auth, Project } from '../../../fixtures/types';
 import { createProject } from '../../../store/actions';
-import { Modal } from '../../index';
+import { Modal, Button } from '../../index';
 
 export interface Props {
   auth: Auth;
@@ -76,12 +76,8 @@ class ProjectCreate extends React.Component<Props, State> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
-          Create
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Create" className="positive" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

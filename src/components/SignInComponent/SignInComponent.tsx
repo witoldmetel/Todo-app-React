@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Credentials, Auth } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
-import { Modal } from '../index';
+import { Modal, Button } from '../index';
 
 export interface Props {
   auth: Auth;
@@ -54,12 +54,8 @@ class SignInComponent extends React.Component<Props> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
-          Login
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Login" className="positive" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

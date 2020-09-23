@@ -3,25 +3,34 @@ import classnames from 'classnames';
 
 export interface ButtonProps {
   /**
-   * Label content
-   */
-  label: string;
-  /**
    * Click handler
    */
   onClick: () => void;
   /**
+   * Label content
+   */
+  label?: string;
+  /**
    * Optional class name
    */
   className?: string;
+  /**
+   * Is button disabled
+   */
+  disabled?: boolean;
+  /**
+   * custom content
+   */
+  children?: unknown;
 }
 
-export const Button: React.FC<ButtonProps> = ({ label = 'Button', ...props }: ButtonProps) => {
+export const Button = ({ ...props }: ButtonProps) => {
   const className = classnames('ui button', props.className);
 
   return (
-    <button className={className} onClick={props.onClick}>
-      {label}
+    <button className={className} onClick={props.onClick} disabled={props.disabled}>
+      {props.label}
+      {props.children}
     </button>
   );
 };

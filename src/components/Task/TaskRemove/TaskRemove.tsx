@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { getTask, deleteTask } from '../../../store/actions';
-import { Modal } from '../../index';
+import { Modal, Button } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -35,12 +35,8 @@ class TaskRemove extends React.Component<Props> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui negative button" onClick={this.handleSubmit}>
-          Ok
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Ok" className="negative" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

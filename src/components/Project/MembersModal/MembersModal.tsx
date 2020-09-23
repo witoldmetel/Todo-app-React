@@ -8,7 +8,7 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { getProject, assignMembers, removeMember } from '../../../store/actions';
 import { Project, Auth, User } from '../../../fixtures/types';
-import { RandomAvatar, Modal } from '../../index';
+import { RandomAvatar, Modal, Button } from '../../index';
 
 import './MembersModal.scss';
 
@@ -150,12 +150,8 @@ class MembersModal extends React.Component<Props> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit} disabled={!this.state.members.length}>
-          Ok
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Ok" className="positive" onClick={this.handleSubmit} disabled={!this.state.members.length} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

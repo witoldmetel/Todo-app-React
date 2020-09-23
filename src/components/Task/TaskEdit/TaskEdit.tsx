@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { getTask, updateTask } from '../../../store/actions';
-import { Modal } from '../../index';
+import { Modal, Button } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -95,12 +95,8 @@ class TaskEdit extends React.Component<Props, State> {
   private get actionButtons() {
     return (
       <React.Fragment>
-        <button className="ui positive button" onClick={this.handleSubmit}>
-          Ok
-        </button>
-        <button className="ui button" onClick={this.handleCancel}>
-          Cancel
-        </button>
+        <Button label="Ok" className="positive" onClick={this.handleSubmit} />
+        <Button label="Cancel" onClick={this.handleCancel} />
       </React.Fragment>
     );
   }

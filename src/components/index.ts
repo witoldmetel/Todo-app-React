@@ -1,3 +1,4 @@
+export * from './shared';
 export { default as Dashboard } from './Dashboard/Dashboard';
 export { default as FilterBar } from './FilterBar/FilterBar';
 export { ModalComponent as Modal } from './ModalComponent/ModalComponent';

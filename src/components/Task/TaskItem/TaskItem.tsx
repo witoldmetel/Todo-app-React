@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import { Task, Project, Auth } from '../../../fixtures/types';
 import { setTaskStatus } from '../../../store/actions';
-import { RandomAvatar } from '../../index';
+import { RandomAvatar, Button } from '../../index';
 
 import './TaskItem.scss';
 
@@ -75,9 +75,9 @@ class TaskItem extends React.Component<Props> {
 
     return (
       <React.Fragment>
-        <button className="ui icon circular button" onClick={this.onToggleStatus}>
+        <Button className="icon circular" onClick={this.onToggleStatus}>
           <i className={this.statusIconClassName} />
-        </button>
+        </Button>
         <Link className="ui icon circular button" to={`/project/${projectId}/task/edit/${task.id}`}>
           <i className="pencil icon" />
         </Link>

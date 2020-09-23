@@ -75,7 +75,7 @@ class TaskItem extends React.Component<Props> {
 
     return (
       <React.Fragment>
-        <Button className="ui icon circular button" onClick={this.onToggleStatus}>
+        <Button className="icon circular" onClick={this.onToggleStatus}>
           <i className={this.statusIconClassName} />
         </Button>
         <Link className="ui icon circular button" to={`/project/${projectId}/task/edit/${task.id}`}>

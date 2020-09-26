@@ -87,7 +87,7 @@ class MembersModal extends React.Component<Props> {
       : [];
   }
 
-  private removeMember = (id) => {
+  private removeMember = (id: string) => {
     const { project, projectId } = this.props;
 
     return id !== this.props.project.authorId ? this.props.removeMember(project, projectId, id) : null;
@@ -185,6 +185,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default compose(
-  firestoreConnect([{ collection: 'users' }]),
+  firestoreConnect([{ collection: 'projects' }, { collection: 'users' }]),
   connect(mapStateToProps, { getProject, assignMembers, removeMember }),
 )(MembersModal);

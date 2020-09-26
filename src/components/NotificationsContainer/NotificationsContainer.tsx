@@ -1,5 +1,6 @@
 import React from 'react';
-import moment from 'moment';
+
+import { formatTimeFromNow } from '../../utils/helpers';
 
 import './NotificationsContainer.scss';
 
@@ -8,7 +9,7 @@ interface Notification {
   content: string;
   user: string;
   authorId: string;
-  time: unknown;
+  time: Date;
 }
 
 interface Props {
@@ -18,7 +19,6 @@ interface Props {
 
 export class NotificationsContainer extends React.Component<Props> {
   private getUserName = (username: string, userId: string) => (userId !== this.props.authId ? username : 'You');
-  private formatTime = (time: any) => moment(time.toDate()).fromNow();
 
   private get notifications() {
     return this.props.notifications
@@ -29,7 +29,7 @@ export class NotificationsContainer extends React.Component<Props> {
                 <strong>{this.getUserName(item.user, item.authorId)}</strong> {item.content}
               </span>
               <br />
-              <span className="notification-item__time">{this.formatTime(item.time)}</span>
+              <span className="notification-item__time">{formatTimeFromNow(item.time)}</span>
             </li>
           );
         })

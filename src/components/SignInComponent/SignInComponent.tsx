@@ -17,6 +17,7 @@ class SignInComponent extends React.Component<Props> {
   state = {
     email: '',
     password: '',
+    error: null,
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +26,7 @@ class SignInComponent extends React.Component<Props> {
 
   private get content() {
     return (
-      <Form errorMessage={this.props.authError} onSubmit={this.handleSubmit}>
+      <Form errorMessage={this.state.error} onSubmit={this.handleSubmit}>
         <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
         <Field id="password" label="Password" placeholder="Password" onChange={this.onInputChange} />
       </Form>
@@ -33,10 +34,12 @@ class SignInComponent extends React.Component<Props> {
   }
 
   private handleSubmit = () => {
+    this.setState({ error: this.props.authError });
     this.props.signIn(this.state, this.handleCancel);
   };
 
   private handleCancel = () => {
+    this.setState({ error: null });
     this.props.history.push('/');
   };
 

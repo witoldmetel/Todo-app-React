@@ -6,7 +6,7 @@ export interface FormProps {
   /**
    * show error message
    */
-  errorMessage?: string;
+  errorMessage?: string | null;
   children: any;
   initialValues?: any;
   /**

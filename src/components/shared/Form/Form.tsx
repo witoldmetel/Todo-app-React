@@ -1,14 +1,20 @@
 import React from 'react';
-import { Formik, Form as FormFormik } from 'formik';
+import { Formik, Form as FormFormik, FormikValues } from 'formik';
 import { noop } from 'lodash';
 
 export interface FormProps {
   /**
+   * custom content
+   */
+  children: unknown;
+  /**
+   * initial values
+   */
+  initialValues: FormikValues;
+  /**
    * show error message
    */
   errorMessage?: string | null;
-  children: any;
-  initialValues?: any;
   /**
    * field submit handler
    */

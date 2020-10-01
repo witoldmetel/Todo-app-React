@@ -21,12 +21,7 @@ class SearchBar extends React.Component<Props> {
   public render() {
     return (
       <div className="ui icon input">
-        <input
-          type="text"
-          placeholder="Search task... "
-          value={this.state.search}
-          onChange={this.onSearcherChange}
-        ></input>
+        <input type="text" placeholder="Search task... " value={this.state.search} onChange={this.onSearcherChange} />
         <i className="search icon"></i>
       </div>
     );

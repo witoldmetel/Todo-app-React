@@ -3,19 +3,19 @@ import classnames from 'classnames';
 
 export interface ButtonProps {
   /**
-   * Click handler
+   * click handler
    */
   onClick: () => void;
   /**
-   * Label content
+   * label title
    */
   label?: string;
   /**
-   * Optional class name
+   * optional class name
    */
   className?: string;
   /**
-   * Is button disabled
+   * is button disabled
    */
   disabled?: boolean;
   /**

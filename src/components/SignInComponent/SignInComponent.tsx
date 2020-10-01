@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Credentials, Auth } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
-import { Modal, Button } from '../index';
+import { Modal, Button, Form, Field } from '../index';
 
 export interface Props {
   auth: Auth;
@@ -17,37 +17,33 @@ class SignInComponent extends React.Component<Props> {
   state = {
     email: '',
     password: '',
+    error: null,
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private get errorMessage() {
-    return this.props.authError ? <div className="ui red message">{this.props.authError}</div> : null;
-  }
-
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="Email" onChange={this.onInputChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="Password" onChange={this.onInputChange} />
-        </div>
-        {this.errorMessage}
-      </div>
+      <Form
+        initialValues={[this.state.email, this.state.password]}
+        errorMessage={this.state.error}
+        onSubmit={this.handleSubmit}
+      >
+        <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
+        <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
+      </Form>
     );
   }
 
   private handleSubmit = () => {
+    this.setState({ error: this.props.authError });
     this.props.signIn(this.state, this.handleCancel);
   };
 
   private handleCancel = () => {
+    this.setState({ error: null });
     this.props.history.push('/');
   };
 

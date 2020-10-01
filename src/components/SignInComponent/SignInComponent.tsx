@@ -26,9 +26,13 @@ class SignInComponent extends React.Component<Props> {
 
   private get content() {
     return (
-      <Form initialValues={{ email: '', password: '' }} errorMessage={this.state.error} onSubmit={this.handleSubmit}>
+      <Form
+        initialValues={[this.state.email, this.state.password]}
+        errorMessage={this.state.error}
+        onSubmit={this.handleSubmit}
+      >
         <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
-        <Field id="password" label="Password" placeholder="Password" onChange={this.onInputChange} />
+        <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
       </Form>
     );
   }

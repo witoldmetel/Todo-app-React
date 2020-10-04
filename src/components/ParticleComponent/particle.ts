@@ -1,10 +1,10 @@
-import p5 from 'p5';
+import p5, { Vector } from 'p5';
 
 export default function particle(particle: p5) {
   class Particle {
-    private position: { x: number; y: number; add: (velocity: any) => void };
+    private position: { x: number; y: number; add: (velocity: Vector) => void };
     private size: number;
-    private velocity: { x: number; y: number };
+    private velocity: Vector;
 
     constructor() {
       this.position = particle.createVector(particle.random(0, particle.width), particle.random(0, particle.height));

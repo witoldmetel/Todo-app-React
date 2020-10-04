@@ -12,9 +12,9 @@ export class ParticleComponent extends Component {
     this.particleRef = React.createRef();
   }
 
-  public componentDidMount() {
-    new p5(particle, this.particleRef.current as HTMLInputElement);
-  }
+  // public componentDidMount() {
+  //   new p5(particle, this.particleRef.current as HTMLInputElement);
+  // }
 
   render() {
     return <div className="particle" ref={this.particleRef} />;

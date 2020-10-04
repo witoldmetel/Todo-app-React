@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import Links from './Links';
 
 import './Navbar.scss';
 
-export default class Navbar extends React.Component {
+export default class Navbar extends Component {
   public render() {
     return (
       <header className="ui menu">

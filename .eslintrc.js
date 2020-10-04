@@ -27,6 +27,7 @@ module.exports = {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/jsx-no-target-blank': [0, { allowReferrer: true, enforceDynamicLinks: true }],
+    'comma-dangle': ['error', 'never'],
   },
   settings: {
     react: {

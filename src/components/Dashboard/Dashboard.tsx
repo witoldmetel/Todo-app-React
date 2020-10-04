@@ -53,12 +53,11 @@ class Dashboard extends React.Component<Props> {
         return <div className="dashboard">{this.emptyContent}</div>;
       }
     } else {
-      //@todo: Temporary disabled
-      return false ? (
+      return (
         <div className="dashboard particles-container">
           <ParticleComponent />
         </div>
-      ) : null;
+      );
     }
   }
 }
@@ -67,7 +66,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    projects: state.firestore.ordered.projects,
+    projects: state.firestore.ordered.projects
   };
 };
 

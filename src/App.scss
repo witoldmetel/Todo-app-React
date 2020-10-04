@@ -1,9 +1,11 @@
+@import 'utils/sass/colors';
+
 body {
   background: #eeeeee;
   font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
   h1 {
-    color: #424242;
+    color: $dark;
     font-size: 64px;
     letter-spacing: 2px;
     text-align: center;

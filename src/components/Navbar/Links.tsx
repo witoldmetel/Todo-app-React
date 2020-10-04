@@ -72,7 +72,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    projectId: ownProps.match.params.id,
+    projectId: ownProps.match.params.id
   };
 };
 

@@ -13,7 +13,7 @@ import {
   TaskRemove,
   TaskList,
   TaskEdit,
-  UnknownPage,
+  UnknownPage
 } from './components';
 
 import './App.scss';

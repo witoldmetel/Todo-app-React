@@ -32,6 +32,21 @@
       position: absolute;
       opacity: 0.75;
     }
+
+    .container {
+      position: absolute;
+      background-color: red;
+      top: 150px;
+      width: 100%;
+
+      .title {
+        color: white;
+
+        .sub-title {
+          color: green;
+        }
+      }
+    }
   }
 
   .info-container {

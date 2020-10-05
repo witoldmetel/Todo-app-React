@@ -1,3 +1,5 @@
+@import './src/utils/sass/colors';
+
 .ui.menu {
   &.main {
     position: relative;
@@ -5,11 +7,29 @@
 
     .ui.container {
       .header.item {
-        color: white;
+        color: $white;
 
         .brand-name {
           font-size: 1.125rem;
           text-transform: uppercase;
+        }
+      }
+
+      .right.menu {
+        .header.item {
+          width: 100px;
+          margin: 10px;
+          display: flex;
+          justify-content: center;
+          width: 100px;
+          color: $dark-orange;
+          border: 1px solid $dark-orange;
+          border-radius: 0.25rem;
+
+          &:hover {
+            color: $white;
+            background-color: $dark-orange;
+          }
         }
       }
     }

@@ -1,14 +1,32 @@
-.ui.menu .ui.container {
-  width: 100%;
-  margin: 0 !important; // Unfortunately needed to replace semantic ui styles
+.ui.menu {
+  &.main {
+    position: relative;
+    background-color: transparent;
 
-  .header.item .logo {
-    background-image: url('../../../public/assets/logo.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    .ui.container {
+      .header.item {
+        color: white;
+
+        .brand-name {
+          font-size: 1.125rem;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .ui.container {
+    width: 100%;
+    margin: 0 !important; // Unfortunately needed to replace semantic ui styles
+
+    .header.item .logo {
+      background-image: url('../../../public/assets/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
   }
 }

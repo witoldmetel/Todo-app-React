@@ -54,17 +54,19 @@ class Dashboard extends React.Component<Props> {
       }
     } else {
       return (
-        <div className="dashboard particles-container">
-          <ParticleComponent />
-          <div className="container">
+        <div className="dashboard">
+          <div className="particles-container">
+            <ParticleComponent />
+          </div>
+          <div className="info-container">
             <h1 className="title">
               Feel The <span className="sub-title">Power</span>
             </h1>
-            <p className="">
+            <p className="content">
               Welcome to The Power Room. We are a fitness and training center that focuses on pushing you to your
               absolute limit. Download our complete brochure to get started today!
             </p>
-            <a href="#">Download Brochure</a>
+            <button>Download Brochure</button>
           </div>
         </div>
       );

@@ -60,13 +60,12 @@ class Dashboard extends React.Component<Props> {
           </div>
           <div className="info-container">
             <h1 className="title">
-              Feel The <span className="sub-title">Power</span>
+              Make Your Own <span className="sub-title">Workflow</span>
             </h1>
             <p className="content">
-              Welcome to The Power Room. We are a fitness and training center that focuses on pushing you to your
-              absolute limit. Download our complete brochure to get started today!
+              Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
             </p>
-            <button>Download Brochure</button>
+            <button disabled>Register</button>
           </div>
         </div>
       );

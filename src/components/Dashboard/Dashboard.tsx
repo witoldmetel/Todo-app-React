@@ -16,6 +16,74 @@ export interface Props {
 }
 
 class Dashboard extends React.Component<Props> {
+  private get infoContainer() {
+    return (
+      <section className="info-container">
+        <h1 className="title">
+          Make Your Own <span className="sub-title">Workflow</span>
+        </h1>
+        <p className="content">
+          Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
+        </p>
+        <button disabled>Register</button>
+      </section>
+    );
+  }
+
+  private get aboutContainer() {
+    return (
+      <section className="about-container">
+        <div className="left-column">
+          <img
+            alt="..."
+            className="picture"
+            src="https://images.unsplash.com/photo-1550345332-09e3ac987658?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          />
+        </div>
+        <div className="right-column">
+          <small className=" ">About our gym</small>
+          <h3 className=" ">Safe Body Building</h3>
+          <p className=" ">
+            The extension comes with three pre-built pages to help you get started faster. You can change the text and
+            images and you are good to go.
+          </p>
+          <ul className="">
+            <li className="">
+              <span className="">
+                <i className=""></i>
+              </span>
+              <h4 className="">The latest & greatest gym equipment</h4>
+            </li>
+            <li className="">
+              <span className="">
+                <i className=""></i>
+              </span>
+              <h4 className="">The latest & greatest gym equipment</h4>
+            </li>
+            <li className="">
+              <span className="">
+                <i className=""></i>
+              </span>
+              <h4 className="">The latest & greatest gym equipment</h4>
+            </li>
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
+  private get landingPage() {
+    return (
+      <div className="dashboard">
+        <div className="particles-container">
+          <ParticleComponent />
+        </div>
+        {this.infoContainer}
+        {this.aboutContainer}
+      </div>
+    );
+  }
+
   private get emptyContent() {
     return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR
       ? 'Project list is empty. You are not assign to any project'
@@ -53,22 +121,7 @@ class Dashboard extends React.Component<Props> {
         return <div className="dashboard">{this.emptyContent}</div>;
       }
     } else {
-      return (
-        <div className="dashboard">
-          <div className="particles-container">
-            <ParticleComponent />
-          </div>
-          <div className="info-container">
-            <h1 className="title">
-              Make Your Own <span className="sub-title">Workflow</span>
-            </h1>
-            <p className="content">
-              Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
-            </p>
-            <button disabled>Register</button>
-          </div>
-        </div>
-      );
+      return this.landingPage;
     }
   }
 }

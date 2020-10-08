@@ -41,30 +41,24 @@ class Dashboard extends React.Component<Props> {
           />
         </div>
         <div className="right-column">
-          <small className=" ">About our gym</small>
-          <h3 className=" ">Safe Body Building</h3>
-          <p className=" ">
+          <small className="small-title">About our gym</small>
+          <h3 className="title">Safe Body Building</h3>
+          <p className="content">
             The extension comes with three pre-built pages to help you get started faster. You can change the text and
             images and you are good to go.
           </p>
-          <ul className="">
-            <li className="">
-              <span className="">
-                <i className=""></i>
-              </span>
-              <h4 className="">The latest & greatest gym equipment</h4>
+          <ul className="list">
+            <li className="item">
+              <i className="fire icon" />
+              <h4 className="item-name">The latest & greatest gym equipment</h4>
             </li>
-            <li className="">
-              <span className="">
-                <i className=""></i>
-              </span>
-              <h4 className="">The latest & greatest gym equipment</h4>
+            <li className="item">
+              <i className="fire icon" />
+              <h4 className="item-name">The latest & greatest gym equipment</h4>
             </li>
-            <li className="">
-              <span className="">
-                <i className=""></i>
-              </span>
-              <h4 className="">The latest & greatest gym equipment</h4>
+            <li className="item">
+              <i className="fire icon" />
+              <h4 className="item-name">The latest & greatest gym equipment</h4>
             </li>
           </ul>
         </div>

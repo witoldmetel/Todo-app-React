@@ -66,6 +66,50 @@ class Dashboard extends React.Component<Props> {
     );
   }
 
+  private get functionalityContainer() {
+    return (
+      <section className="functionality-container">
+        <div className="top-card">
+          <h2 className="title">Another funtionality</h2>
+          <p className="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, ex. Facere, magni? Iure est rem saepe
+            ullam, deserunt pariatur, obcaecati, ea doloremque delectus quia laudantium nam suscipit nobis quidem
+            dolore!
+          </p>
+        </div>
+        <div className="pictures">
+          <div className="picture-container">
+            <img
+              alt="..."
+              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+              className="picture"
+            />
+            <h5 className="title">Mr Rogers</h5>
+            <p className="description">Neighborhood Watchman</p>
+          </div>
+          <div className="picture-container">
+            <img
+              alt="..."
+              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+              className="picture"
+            />
+            <h5 className="title">Mr Rogers</h5>
+            <p className="description">Neighborhood Watchman</p>
+          </div>
+          <div className="picture-container">
+            <img
+              alt="..."
+              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+              className="picture"
+            />
+            <h5 className="title">Mr Rogers</h5>
+            <p className="description">Neighborhood Watchman</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   private get landingPage() {
     return (
       <div className="dashboard">
@@ -74,6 +118,7 @@ class Dashboard extends React.Component<Props> {
         </div>
         {this.infoContainer}
         {this.aboutContainer}
+        {this.functionalityContainer}
       </div>
     );
   }

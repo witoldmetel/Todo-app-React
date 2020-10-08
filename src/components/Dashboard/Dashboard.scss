@@ -83,7 +83,7 @@
     position: absolute;
     top: 655px;
     width: 100%;
-    height: 700px;
+    height: 655px;
     background-color: $dark;
     color: $white;
 
@@ -143,6 +143,73 @@
             font-size: 1.25rem;
             margin: 0;
           }
+        }
+      }
+    }
+  }
+
+  .functionality-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    top: 1310px;
+    width: 100%;
+    height: 800px;
+
+    .top-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 50%;
+
+      .title {
+        font-size: 2.25rem;
+        text-transform: uppercase;
+      }
+
+      .content {
+        margin: 1rem;
+        font-size: 1.125rem;
+        line-height: 1.625;
+        text-align: center;
+      }
+    }
+
+    .pictures {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .picture-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+
+        .picture {
+          height: 375px;
+          width: 250px;
+          border-radius: 0.25rem;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .title {
+          font-size: 1.25rem;
+          font-weight: 700;
+        }
+
+        .description {
+          margin-top: 0.25rem;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          color: $dark;
         }
       }
     }

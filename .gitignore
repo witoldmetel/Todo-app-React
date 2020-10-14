@@ -1,5 +1,5 @@
-firebaseConfig.js
 *.gif
+*.iml
 /node_modules
 bundle.js
 npm-debug.log
@@ -8,8 +8,6 @@ npm-debug.log
 development
 dist
 yarn-error.log
-firebaseConfig.ts
 coverage
 .firebase/
-*.iml
 /.idea

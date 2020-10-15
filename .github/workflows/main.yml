@@ -5,7 +5,10 @@ name: Node.js CI
 
 on:
   push:
-    branches: [master]
+    # https://stackoverflow.com/questions/58362374/github-actions-how-to-run-services-on-windows-or-macos
+    # branches: [master]
+    branches-ignore:
+      - '**'
 
 jobs:
   build:

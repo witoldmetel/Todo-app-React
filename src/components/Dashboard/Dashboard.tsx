@@ -5,7 +5,7 @@ import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { Auth, Project, NewUser, User } from '../../fixtures/types';
-import { ProjectList, ParticleComponent } from '../index';
+import { ProjectList, ParticleComponent, Form, Field } from '../index';
 
 import './Dashboard.scss';
 
@@ -16,9 +16,9 @@ export interface Props {
 }
 
 class Dashboard extends React.Component<Props> {
-  private get infoContainer() {
+  private get infoSection() {
     return (
-      <section className="info-container">
+      <section className="info-section">
         <h1 className="title">
           Make Your Own <span className="sub-title">Workflow</span>
         </h1>
@@ -30,9 +30,9 @@ class Dashboard extends React.Component<Props> {
     );
   }
 
-  private get aboutContainer() {
+  private get aboutSection() {
     return (
-      <section className="about-container">
+      <section className="about-section">
         <div className="left-column">
           <img
             className="picture"
@@ -66,9 +66,9 @@ class Dashboard extends React.Component<Props> {
     );
   }
 
-  private get functionalityContainer() {
+  private get functionalitySection() {
     return (
-      <section className="functionality-container">
+      <section className="functionality-section">
         <div className="top-card">
           <h2 className="title">Another funtionality</h2>
           <p className="content">
@@ -110,15 +110,51 @@ class Dashboard extends React.Component<Props> {
     );
   }
 
+  private get contactSection() {
+    return (
+      <section className="contact-section">
+        <div className="top-card">
+          <h2 className="title">Contact Us</h2>
+          <p className="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit atque aut provident eaque corporis,
+            veritatis laborum aliquam? Id voluptate earum, soluta eius iusto distinctio dolor voluptatibus optio eum,
+            illo reiciendis?
+          </p>
+        </div>
+        <div className="contact-form">
+          <div className="contact-info">
+            <h4 className="title">Want to work with us?</h4>
+            <p className="content">Complete this form and we will get back to you in 24 hours.</p>
+          </div>
+          <Form initialValues={{}} onSubmit={() => console.log('submit')}>
+            <Field id="name" label="Name" placeholder="Name" onChange={(e) => console.log(e.target.value)} />
+            <Field id="email" label="Email" placeholder="Email" onChange={(e) => console.log(e.target.value)} />
+            <label htmlFor="message">Message</label>
+            <textarea
+              className="text-area"
+              id="message"
+              placeholder="Type a message..."
+              onChange={(e) => console.log(e.target.value)}
+            />
+            <div className="contact-form-button">
+              <button disabled>Send Message</button>
+            </div>
+          </Form>
+        </div>
+      </section>
+    );
+  }
+
   private get landingPage() {
     return (
       <div className="dashboard">
-        <div className="particles-container">
+        <div className="particles-section">
           <ParticleComponent />
         </div>
-        {this.infoContainer}
-        {this.aboutContainer}
-        {this.functionalityContainer}
+        {this.infoSection}
+        {this.aboutSection}
+        {this.functionalitySection}
+        {this.contactSection}
       </div>
     );
   }

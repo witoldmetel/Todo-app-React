@@ -20,7 +20,7 @@ class Dashboard extends React.Component<Props> {
     return (
       <section className="info-section">
         <h1 className="title">
-          Make Your Own <span className="sub-title">Workflow</span>
+          Make Your Own <span className="subtitle">Workflow</span>
         </h1>
         <p className="content">
           Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
@@ -145,6 +145,30 @@ class Dashboard extends React.Component<Props> {
     );
   }
 
+  private get footer() {
+    return (
+      <footer className="footer">
+        <div className="content">
+          <h4 className="title">Follow me on social media</h4>
+          <h5 className="subtitle">Find me on any of these platforms, I respond 1-2 business days :)</h5>
+          <div className="buttons">
+            <li className="item">
+              <i className="fire icon" />
+            </li>
+            <li className="item">
+              <i className="fire icon" />
+            </li>
+            <li className="item">
+              <i className="fire icon" />
+            </li>
+          </div>
+        </div>
+        <div className="ui inverted divider" />
+        <div className="copyright-label">Copyright © witoldmetel</div>
+      </footer>
+    );
+  }
+
   private get landingPage() {
     return (
       <div className="dashboard">
@@ -155,6 +179,7 @@ class Dashboard extends React.Component<Props> {
         {this.aboutSection}
         {this.functionalitySection}
         {this.contactSection}
+        {this.footer}
       </div>
     );
   }

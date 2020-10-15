@@ -6,7 +6,7 @@
   "scripts": {
     "start": "yarn clean && parcel public/index.html -p 8080",
     "build": "yarn lint && yarn test && parcel build public/index.html --no-cache --out-dir dist --public-url ./",
-    "deploy": "gh-pages -b master -d dist",
+    "deploy": "firebase deploy",
     "clean": "rimraf -rf ./.cache",
     "lint": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --verbose",

@@ -17,7 +17,7 @@ class SignInComponent extends React.Component<Props> {
   state = {
     email: '',
     password: '',
-    error: null,
+    error: null
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +66,7 @@ class SignInComponent extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError,
+    authError: state.auth.authError
   };
 };
 

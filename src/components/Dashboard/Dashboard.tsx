@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import { Transition } from 'semantic-ui-react';
 
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { Auth, Project, NewUser, User } from '../../fixtures/types';
@@ -17,17 +18,25 @@ export interface Props {
 }
 
 class Dashboard extends React.Component<Props> {
+  state = { visible: false };
+
+  public componentDidMount() {
+    this.setState({ visible: true });
+  }
+
   private get infoSection() {
     return (
-      <section className="info-section">
-        <h1 className="title">
-          Make Your Own <span className="subtitle">Workflow</span>
-        </h1>
-        <p className="content">
-          Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
-        </p>
-        <button disabled>Register</button>
-      </section>
+      <Transition visible={this.state.visible} animation="scale" duration={500}>
+        <section className="info-section">
+          <h1 className="title">
+            Make Your Own <span className="subtitle">Workflow</span>
+          </h1>
+          <p className="content">
+            Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
+          </p>
+          <button disabled>Register</button>
+        </section>
+      </Transition>
     );
   }
 

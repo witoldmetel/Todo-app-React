@@ -45,7 +45,8 @@
   }
 
   .info-section {
-    display: flex;
+    // Used for replace 'semantic ui react' styles
+    display: flex !important;
     justify-content: center;
     align-items: center;
     flex-direction: column;

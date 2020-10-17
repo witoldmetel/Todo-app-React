@@ -6,6 +6,7 @@ import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { Auth, Project, NewUser, User } from '../../fixtures/types';
 import { ProjectList, ParticleComponent, Form, Field } from '../index';
+import boardImage from '../../assets/graphics/board.jpg';
 
 import './Dashboard.scss';
 
@@ -34,10 +35,7 @@ class Dashboard extends React.Component<Props> {
     return (
       <section className="about-section">
         <div className="left-column">
-          <img
-            className="picture"
-            src="https://images.unsplash.com/photo-1550345332-09e3ac987658?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
+          <img className="picture" src={boardImage} />
         </div>
         <div className="right-column">
           <small className="small-title">About application</small>

@@ -234,7 +234,7 @@
     flex-direction: column;
     top: 2110px;
     width: 100%;
-    height: 800px;
+    height: 900px;
     background-color: $dark;
     color: $white;
 
@@ -244,6 +244,7 @@
       align-items: center;
       flex-direction: column;
       width: 50%;
+      margin-top: 90px;
       margin-bottom: 40px;
 
       .title {
@@ -263,6 +264,7 @@
       width: 450px;
       height: 550px;
       padding: 2.5rem;
+      margin-bottom: 40px;
       background-color: $dark-orange;
       color: $white;
       border-radius: 0.25rem;
@@ -319,15 +321,16 @@
     align-items: center;
     position: absolute;
     flex-direction: column;
-    top: 2910px;
+    top: 3010px;
     width: 100%;
-    height: 300px;
+    height: 350px;
 
     .content {
       display: flex;
       align-items: flex-start;
       flex-direction: column;
       width: 85%;
+      margin-top: 40px;
 
       .title {
         font-size: 1.875rem;
@@ -372,6 +375,7 @@
 
     .copyright-label {
       padding: 0.25rem auto;
+      margin-top: 20px;
       color: $gray;
       font-size: 0.875rem;
       font-weight: 600;

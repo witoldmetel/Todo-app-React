@@ -77,31 +77,19 @@ class Dashboard extends React.Component<Props> {
         </div>
         <div className="pictures">
           <div className="picture-container">
-            <img
-              alt="..."
-              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-              className="picture"
-            />
-            <h5 className="title">Mr Rogers</h5>
-            <p className="description">Neighborhood Watchman</p>
+            <img className="picture" src={boardImage} />
+            <h5 className="title">Feature 1</h5>
+            <p className="description">Some Description</p>
           </div>
           <div className="picture-container">
-            <img
-              alt="..."
-              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-              className="picture"
-            />
-            <h5 className="title">Mr Rogers</h5>
-            <p className="description">Neighborhood Watchman</p>
+            <img className="picture" src={boardImage} />
+            <h5 className="title">Feature 2</h5>
+            <p className="description">Some Description</p>
           </div>
           <div className="picture-container">
-            <img
-              alt="..."
-              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-              className="picture"
-            />
-            <h5 className="title">Mr Rogers</h5>
-            <p className="description">Neighborhood Watchman</p>
+            <img className="picture" src={boardImage} />
+            <h5 className="title">Feature 3</h5>
+            <p className="description">Some Description</p>
           </div>
         </div>
       </section>

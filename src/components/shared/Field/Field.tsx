@@ -19,6 +19,10 @@ export interface FieldProps {
    */
   type?: string;
   /**
+   *  is field disabled?
+   */
+  disabled?: boolean;
+  /**
    * field change handler
    */
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,6 +38,7 @@ export const Field = ({ ...props }: FieldProps) => {
         placeholder={props.placeholder}
         type={props.type}
         onChange={props.onChange}
+        disabled={props.disabled}
       />
     </div>
   );

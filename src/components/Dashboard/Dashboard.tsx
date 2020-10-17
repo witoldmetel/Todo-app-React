@@ -141,14 +141,17 @@ class Dashboard extends React.Component<Props> {
           <h4 className="title">Follow me on social media</h4>
           <h5 className="subtitle">Find me on any of these platforms, I respond 1-2 business days :)</h5>
           <div className="buttons">
-            <li className="item">
-              <i className="fire icon" />
+            <a href="https://github.com/witoldmetel" target="_blank" className="item">
+              <i className="github icon" />
+            </a>
+            <a href="https://www.linkedin.com/in/witoldmetel" target="_blank" className="item">
+              <i className="linkedin icon" />
+            </a>
+            <li className="item disabled">
+              <i className="twitter icon" />
             </li>
-            <li className="item">
-              <i className="fire icon" />
-            </li>
-            <li className="item">
-              <i className="fire icon" />
+            <li className="item disabled">
+              <i className="instagram icon" />
             </li>
           </div>
         </div>

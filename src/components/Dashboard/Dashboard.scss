@@ -84,6 +84,13 @@
         color: $white;
         background-color: $dark-orange;
       }
+
+      &.disabled {
+        color: $gray;
+        background-color: $light-gray;
+        border: none;
+        pointer-events: none;
+      }
     }
   }
 
@@ -290,8 +297,9 @@
         font-size: 0.75rem;
       }
 
-      textarea {
-        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      .text-area {
+        //@todo: Remove when text area will be enable
+        opacity: 0.45;
       }
 
       .contact-form-button {
@@ -306,10 +314,18 @@
           color: $white;
           background-color: $dark;
           cursor: pointer;
+          border: none;
 
           &:hover {
-            color: $dark;
+            color: $orange;
             background-color: $light-gray;
+          }
+
+          &.disabled {
+            color: $gray;
+            background-color: $light-gray;
+            border: none;
+            pointer-events: none;
           }
         }
       }

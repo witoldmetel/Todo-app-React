@@ -34,7 +34,7 @@ class Dashboard extends React.Component<Props> {
           <p className="content">
             Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
           </p>
-          <button disabled>Register</button>
+          <button className="disabled">Register</button>
         </section>
       </Transition>
     );
@@ -124,17 +124,24 @@ class Dashboard extends React.Component<Props> {
             <p className="content">Complete this form and we will get back to you in 24 hours.</p>
           </div>
           <Form initialValues={{}} onSubmit={() => console.log('submit')}>
-            <Field id="name" label="Name" placeholder="Name" onChange={(e) => console.log(e.target.value)} />
-            <Field id="email" label="Email" placeholder="Email" onChange={(e) => console.log(e.target.value)} />
+            <Field id="name" label="Name" placeholder="Name" onChange={(e) => console.log(e.target.value)} disabled />
+            <Field
+              id="email"
+              label="Email"
+              placeholder="Email"
+              onChange={(e) => console.log(e.target.value)}
+              disabled
+            />
             <label htmlFor="message">Message</label>
             <textarea
               className="text-area"
               id="message"
               placeholder="Type a message..."
               onChange={(e) => console.log(e.target.value)}
+              disabled
             />
             <div className="contact-form-button">
-              <button disabled>Send Message</button>
+              <button className="disabled">Send Message</button>
             </div>
           </Form>
         </div>

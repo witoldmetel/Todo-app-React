@@ -67,6 +67,7 @@ class Dashboard extends React.Component<Props> {
   private get functionalitySection() {
     return (
       <section className="functionality-section">
+        <div className="ramp-container" style={{ backgroundColor: '#0f1219' }} />
         <div className="top-card">
           <h2 className="title">Another funtionality</h2>
           <p className="content">
@@ -99,6 +100,7 @@ class Dashboard extends React.Component<Props> {
   private get contactSection() {
     return (
       <section className="contact-section">
+        <div className="ramp-container" style={{ backgroundColor: '#e2e8f0' }} />
         <div className="top-card">
           <h2 className="title">Contact Us</h2>
           <p className="content">
@@ -134,6 +136,7 @@ class Dashboard extends React.Component<Props> {
   private get footer() {
     return (
       <footer className="footer">
+        <div className="ramp-container" style={{ backgroundColor: '#0f1219' }} />
         <div className="content">
           <h4 className="title">Follow me on social media</h4>
           <h5 className="subtitle">Find me on any of these platforms, I respond 1-2 business days :)</h5>

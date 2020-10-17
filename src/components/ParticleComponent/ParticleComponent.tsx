@@ -17,6 +17,6 @@ export class ParticleComponent extends Component {
   }
 
   render() {
-    return <div className="particle" ref={this.particleRef}></div>;
+    return <div className="particle" ref={this.particleRef} />;
   }
 }

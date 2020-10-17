@@ -30,7 +30,7 @@ class SignUpComponent extends React.Component<Props, State> {
     password: '',
     username: '',
     accountType: ACCOUNT_TYPE.REGULAR,
-    errorMessage: '',
+    errorMessage: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +105,7 @@ class SignUpComponent extends React.Component<Props, State> {
       this.props.signUp({ email, password, username, accountType }, this.handleCancel);
     } else {
       this.setState({
-        errorMessage: this.formValidation.errorMessage,
+        errorMessage: this.formValidation.errorMessage
       });
     }
   };
@@ -134,7 +134,7 @@ class SignUpComponent extends React.Component<Props, State> {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 

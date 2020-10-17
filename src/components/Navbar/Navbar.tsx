@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import Links from './Links';
+import { Auth } from '../../fixtures/types';
 
 import './Navbar.scss';
 
-export default class Navbar extends React.Component {
+export interface Props {
+  auth: Auth;
+}
+
+class Navbar extends Component<Props> {
+  private get className() {
+    return classnames('ui menu', {
+      main: !this.props.auth.uid
+    });
+  }
+
   public render() {
     return (
-      <header className="ui menu">
+      <header className={this.className}>
         <nav className="ui container">
           <Link to="/" className="header item">
             <span className="logo" />
-            <p>Fire Jira</p>
+            <p className="brand-name">Fire Jira</p>
           </Link>
           <Links {...this.props} />
         </nav>
@@ -20,3 +33,11 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

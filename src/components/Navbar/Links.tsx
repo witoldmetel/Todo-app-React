@@ -71,8 +71,8 @@ class Links extends React.Component<Props> {
 const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile,
-    projectId: ownProps.match.params.id
+    profile: state.firebase.profile
+    // projectId: ownProps.match.params.id
   };
 };
 

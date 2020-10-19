@@ -20,6 +20,7 @@ class Navbar extends Component<Props> {
   }
 
   public render() {
+    console.log(this.props);
     return (
       <header className={this.className}>
         <nav className="ui container">

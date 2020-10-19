@@ -25,7 +25,7 @@ export interface Props {
 
 class MembersModal extends React.Component<Props> {
   state = {
-    members: [],
+    members: []
   };
 
   public componentDidMount() {
@@ -56,7 +56,7 @@ class MembersModal extends React.Component<Props> {
   private get filteredMembers() {
     const {
       users,
-      project: { members },
+      project: { members }
     } = this.props;
 
     const filteredUsers = [];
@@ -81,7 +81,7 @@ class MembersModal extends React.Component<Props> {
             id: user.id,
             value: user.username,
             image: { avatar: true, src: `https://api.adorable.io/avatars/${user.id}.png` },
-            text: user.username,
+            text: user.username
           };
         })
       : [];
@@ -180,11 +180,11 @@ const mapStateToProps = (state, ownProps) => {
     projectId,
     project,
     users: state.firestore.ordered.users,
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 
 export default compose(
   firestoreConnect([{ collection: 'projects' }, { collection: 'users' }]),
-  connect(mapStateToProps, { getProject, assignMembers, removeMember }),
+  connect(mapStateToProps, { getProject, assignMembers, removeMember })
 )(MembersModal);

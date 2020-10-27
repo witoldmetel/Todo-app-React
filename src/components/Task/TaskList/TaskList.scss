@@ -1,6 +1,6 @@
 .tasks-container {
   /*
-  * Change width to 70% when notifiations will be visble
+  * Change width to 70% when notifiations will be visible
   */
   width: 100%;
   min-width: 680px;
@@ -11,10 +11,13 @@
 
   .action-panel {
     display: flex;
-    justify-content: space-around;
 
     .members {
       width: 75px;
+    }
+
+    .filter.buttons {
+      margin: 0 10px;
     }
   }
 

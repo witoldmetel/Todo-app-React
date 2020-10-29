@@ -40,24 +40,24 @@ export class LandingPage extends React.Component {
         </div>
         <div className="right-column">
           <small className="small-title">About application</small>
-          <h3 className="title">Core functionality</h3>
+          <h3 className="title">Is it for me?</h3>
           <p className="content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, rerum quae provident, ad praesentium
-            ipsam eaque dolore consequatur quos veniam cum. Rem delectus, adipisci sunt similique consequuntur
-            voluptatem dignissimos corrupti.
+            When you have to shift through stacked email threads for design approvals, collaborating within the team
+            becomes tough. Therefore, Kanban is meant to cut the amount of time spent on managing projects because any
+            professional should spend their time doing their work and not managing.
           </p>
           <ul className="list">
             <li className="item">
               <i className="fire icon" />
-              <h4 className="item-name">item 1</h4>
+              <h4 className="item-name">It helps visualize the actual workflow</h4>
             </li>
             <li className="item">
               <i className="fire icon" />
-              <h4 className="item-name">item 2</h4>
+              <h4 className="item-name">It balances the work and workflow</h4>
             </li>
             <li className="item">
               <i className="fire icon" />
-              <h4 className="item-name">item 3</h4>
+              <h4 className="item-name">It encourages leadership roles at all levels</h4>
             </li>
           </ul>
         </div>
@@ -70,7 +70,7 @@ export class LandingPage extends React.Component {
       <section className="functionality-section">
         <div className="ramp-container" style={{ backgroundColor: '#0f1219' }} />
         <div className="top-card">
-          <h2 className="title">Another funtionality</h2>
+          <h2 className="title">Fire Jira Super Powers</h2>
           <p className="content">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, ex. Facere, magni? Iure est rem saepe
             ullam, deserunt pariatur, obcaecati, ea doloremque delectus quia laudantium nam suscipit nobis quidem
@@ -80,18 +80,18 @@ export class LandingPage extends React.Component {
         <div className="pictures">
           <div className="picture-container">
             <img className="picture" src={boardImage} />
-            <h5 className="title">Feature 1</h5>
-            <p className="description">Some Description</p>
+            <h5 className="title">Crate/Edit/Remove</h5>
+            <p className="description">You can easily manage your tasks and projects</p>
           </div>
           <div className="picture-container">
             <img className="picture" src={boardImage} />
-            <h5 className="title">Feature 2</h5>
-            <p className="description">Some Description</p>
+            <h5 className="title">Invite</h5>
+            <p className="description">You can easily add new members to your project</p>
           </div>
           <div className="picture-container">
             <img className="picture" src={boardImage} />
-            <h5 className="title">Feature 3</h5>
-            <p className="description">Some Description</p>
+            <h5 className="title">Customize (TBA)</h5>
+            <p className="description">You can easily customize your board</p>
           </div>
         </div>
       </section>
@@ -104,11 +104,6 @@ export class LandingPage extends React.Component {
         <div className="ramp-container" style={{ backgroundColor: '#e2e8f0' }} />
         <div className="top-card">
           <h2 className="title">Contact Us</h2>
-          <p className="content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit atque aut provident eaque corporis,
-            veritatis laborum aliquam? Id voluptate earum, soluta eius iusto distinctio dolor voluptatibus optio eum,
-            illo reiciendis?
-          </p>
         </div>
         <div className="contact-form">
           <div className="contact-info">

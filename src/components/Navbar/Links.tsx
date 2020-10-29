@@ -52,14 +52,9 @@ class Links extends React.Component<Props> {
         </Dropdown>
       </React.Fragment>
     ) : (
-      <React.Fragment>
-        <NavLink to="/signup" className="header item">
-          Register
-        </NavLink>
-        <NavLink to="/signin" className="header item">
-          Login
-        </NavLink>
-      </React.Fragment>
+      <NavLink to="/signin" className="header item">
+        Login
+      </NavLink>
     );
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
@@ -23,7 +24,9 @@ export class LandingPage extends React.Component {
           <p className="content">
             Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
           </p>
-          <button className="disabled">Register</button>
+          <NavLink to="/signup" className="register item">
+            Register
+          </NavLink>
         </section>
       </Transition>
     );

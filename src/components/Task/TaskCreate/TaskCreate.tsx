@@ -28,7 +28,7 @@ class TaskCreate extends React.Component<Props, State> {
   state = {
     title: '',
     description: '',
-    errorMessage: '',
+    errorMessage: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

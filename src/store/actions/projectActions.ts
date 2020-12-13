@@ -14,13 +14,15 @@ export const getProjects = () => {
 
     firestore
       .collection('projects')
-      .limit(5)
+      .orderBy('author')
+      // .limit(5)
       .get()
       .then((snapshot) => {
         const projects: Project[] = [];
 
         snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
 
+        console.log('🚀 ~ file: projectActions.ts ~ line 30 ~ .then ~ projects', projects);
         dispatch({ type: GET_PROJECTS, payload: projects });
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));

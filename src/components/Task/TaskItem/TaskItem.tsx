@@ -22,20 +22,20 @@ export interface Props {
 // Creates a keyframed trail
 const ContextMenu = Keyframes.Trail({
   open: { right: 65, opacity: 1, delay: 100 },
-  close: { right: 30, opacity: 0, delay: 0 },
+  close: { right: 30, opacity: 0, delay: 0 }
 }) as any;
 
 class TaskItem extends React.Component<Props> {
   state = {
     isContentOpen: false,
-    isMenuOpen: false,
+    isMenuOpen: false
   };
 
   private get isTaskEditable() {
     const {
       auth: { uid },
       task,
-      project,
+      project
     } = this.props;
 
     return uid === task.authorId || uid === project.authorId;
@@ -64,7 +64,7 @@ class TaskItem extends React.Component<Props> {
   private get statusIconClassName() {
     return classnames('icon', {
       'check green': !this.props.task.status,
-      'close icon red': this.props.task.status,
+      'close icon red': this.props.task.status
     });
   }
 
@@ -164,7 +164,7 @@ class TaskItem extends React.Component<Props> {
 
   private get contentClassName() {
     return classnames('task-content', {
-      isContentOpen: this.state.isContentOpen,
+      isContentOpen: this.state.isContentOpen
     });
   }
 
@@ -211,7 +211,7 @@ class TaskItem extends React.Component<Props> {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 

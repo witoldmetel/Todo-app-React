@@ -71,7 +71,7 @@ class ProjectList extends React.Component<Props> {
   }
 
   private onClick = () => {
-    console.log('wow');
+    this.props.getProjects();
   };
 
   public render() {
@@ -100,11 +100,14 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-  firestoreConnect(() => {
+  firestoreConnect((props) => {
+    console.log("🚀 ~ file: ProjectList.tsx ~ line 104 ~ firestoreConnect ~ props", this.props)
     return [
       {
         collection: 'projects',
-        limit: 5
+        limit: 5,
+        orderBy: ['author', 'desc'],
+        startAfter: 0
       }
     ];
   }),

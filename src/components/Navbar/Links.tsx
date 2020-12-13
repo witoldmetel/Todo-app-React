@@ -6,6 +6,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
 import { signOut } from '../../store/actions';
+import { getAvatarImage } from '../../utils/helpers';
 
 export interface Props {
   projectId: string;
@@ -40,11 +41,7 @@ class Links extends React.Component<Props> {
       <React.Fragment>
         {this.createProjectLink}
         {this.createTaskLink}
-        <Dropdown
-          item
-          icon={<img src={`https://api.adorable.io/avatars/${auth.uid}.png`} className="ui mini circular image" />}
-          simple
-        >
+        <Dropdown item icon={<img src={getAvatarImage(auth.uid)} className="ui mini circular image" />} simple>
           <Dropdown.Menu direction="left">
             <Dropdown.Item disabled>Settings</Dropdown.Item>
             <Dropdown.Item onClick={() => signOut()}>Logout</Dropdown.Item>

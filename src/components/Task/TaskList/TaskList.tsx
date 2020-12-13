@@ -39,7 +39,7 @@ class TaskList extends React.Component<Props> {
 
   private get className() {
     return classnames('list', {
-      empty: !this.props.tasks?.length,
+      empty: !this.props.tasks?.length
     });
   }
 
@@ -124,7 +124,7 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.firebase.auth,
     allTasks: state.firestore.ordered.tasks,
     tasks: getTasksSelector(state),
-    notifications: state.firestore.ordered.notifications,
+    notifications: state.firestore.ordered.notifications
   };
 };
 
@@ -136,14 +136,14 @@ export default compose(
         doc: props.match.params.id,
         subcollections: [{ collection: 'tasks' }],
         storeAs: 'tasks',
-        orderBy: ['updatedAt', 'desc'],
+        orderBy: ['updatedAt', 'desc']
       },
       {
         collection: 'notifications',
         limit: 5,
-        orderBy: ['time', 'desc'],
-      },
+        orderBy: ['time', 'desc']
+      }
     ];
   }),
-  connect(mapStateToProps, { getProject, getTasks }),
+  connect(mapStateToProps, { getProject, getTasks })
 )(TaskList);

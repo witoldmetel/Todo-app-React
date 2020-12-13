@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import { getProjects } from '../../../store/actions';
-import { Project, User } from '../../../fixtures/types';
+import { ACCOUNT_TYPE } from '../../../fixtures/constants';
+import { Project, NewUser, User } from '../../../fixtures/types';
 import { ProjectItem } from '../index';
 
 import './ProjectList.scss';
 
 export interface Props {
   authId: string;
+  profile: NewUser;
   projects: Project[];
   getProjects: () => void;
 }
@@ -21,9 +25,16 @@ class ProjectList extends React.Component<Props> {
 
   private get projects() {
     return this.props.projects.filter((project) =>
-      (project.members as User[]).some((member) => member.id === this.props.authId),
+      (project.members as User[]).some((member) => member.id === this.props.authId)
     );
   }
+
+  //@todo: Remove when above condition will work
+  // private get isUserHasProject() {
+  //   const { projects } = this.props;
+
+  //   return projects.some((project) => (project.members as User[]).some((member) => member.id === this.props.authId));
+  // }
 
   private get emptyList() {
     return (
@@ -34,6 +45,13 @@ class ProjectList extends React.Component<Props> {
         </Link>
       </React.Fragment>
     );
+  }
+
+  //@todo: Check if still needed
+  private get emptyContent() {
+    return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR
+      ? 'Project list is empty. You are not assign to any project'
+      : 'Project list is empty. Create new project';
   }
 
   private get renderList() {
@@ -52,15 +70,43 @@ class ProjectList extends React.Component<Props> {
         });
   }
 
+  private onClick = () => {
+    console.log('wow');
+  };
+
   public render() {
-    return <div className="projects-container">{this.renderList}</div>;
+    if (!isLoaded(this.props?.projects)) {
+      return (
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader">Loading page...</div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="projects-container">
+        {this.renderList}
+        <button onClick={this.onClick}>Load More</button>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.firestore.ordered.projects,
+    profile: state.firebase.profile,
+    projects: state.firestore.ordered.projects
   };
 };
 
-export default connect(mapStateToProps, { getProjects })(ProjectList);
+export default compose(
+  firestoreConnect(() => {
+    return [
+      {
+        collection: 'projects',
+        limit: 5
+      }
+    ];
+  }),
+  connect(mapStateToProps, { getProjects })
+)(ProjectList);

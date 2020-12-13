@@ -1,8 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import { getAvatarImage } from '../../utils/helpers';
+
 export interface Props {
-  randomFace?: string;
+  randomFace: string;
+
   className?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -13,12 +16,14 @@ export default class RandomAvatar extends React.Component<Props> {
     return classnames('ui mini circular image', this.props.className);
   }
 
-  public render() {
-    const imgUrl = `https://api.adorable.io/avatars/${this.props.randomFace}.png`;
+  private get imgUrl() {
+    return getAvatarImage(this.props.randomFace);
+  }
 
+  public render() {
     return (
       <img
-        src={imgUrl}
+        src={this.imgUrl}
         className={this.className}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}

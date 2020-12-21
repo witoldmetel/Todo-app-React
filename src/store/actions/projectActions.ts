@@ -4,7 +4,7 @@ import {
   CREATE_PROJECT,
   PROJECT_ERROR,
   ASSIGN_MEMBERS,
-  REMOVE_MEMBER,
+  REMOVE_MEMBER
 } from '../../fixtures/constants';
 import { Project, User } from '../../fixtures/types';
 
@@ -56,7 +56,7 @@ export const createProject = (project: Project, callback) => {
         ...project,
         author: profile.username,
         authorId,
-        members: [{ id: authorId, username: profile.username }],
+        members: [{ id: authorId, username: profile.username }]
       })
       .then(() => {
         dispatch({ type: CREATE_PROJECT });

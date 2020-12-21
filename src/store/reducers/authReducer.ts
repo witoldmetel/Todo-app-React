@@ -1,7 +1,7 @@
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_ERROR } from '../../fixtures/constants';
 
 const INITIAL_STATE = {
-  authError: null,
+  authError: null
 };
 
 type Action = { type: string; payload?: string };

@@ -20,14 +20,14 @@ export const isSingUpFormValid = ({ email, password, username }) => {
   if (!email.length || !password.length || !username.length) {
     return {
       isValid: false,
-      errorMessage: 'Fill empty fields',
+      errorMessage: 'Fill empty fields'
     };
   }
 
   if (!isEmailValid(email)) {
     return {
       isValid: false,
-      errorMessage: 'Incorrect email',
+      errorMessage: 'Incorrect email'
     };
   }
 
@@ -35,19 +35,19 @@ export const isSingUpFormValid = ({ email, password, username }) => {
     return {
       isValid: false,
       errorMessage:
-        'Your password must be 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character',
+        'Your password must be 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character'
     };
   }
 
   if (!isUsernameValid(username)) {
     return {
       isValid: false,
-      errorMessage: 'Invalid username',
+      errorMessage: 'Invalid username'
     };
   }
 
   return {
     isValid: true,
-    errorMessage: '',
+    errorMessage: ''
   };
 };

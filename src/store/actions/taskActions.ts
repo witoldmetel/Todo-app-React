@@ -7,7 +7,7 @@ import {
   DELETE_TASK,
   SET_TASK_STATUS,
   SEARCH_TASK,
-  SET_FILTER,
+  SET_FILTER
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -65,7 +65,7 @@ export const createTask = (task: Task, projectId: string, callback) => {
         author: profile.username,
         authorId,
         createdAt: date,
-        updatedAt: date,
+        updatedAt: date
       })
       .then(() => {
         dispatch({ type: CREATE_TASK });
@@ -126,7 +126,7 @@ export const searchTask = (searchValue: string) => {
   return (dispatch) =>
     dispatch({
       type: SEARCH_TASK,
-      payload: searchValue,
+      payload: searchValue
     });
 };
 
@@ -134,6 +134,6 @@ export const setFilter = (filter: string) => {
   return (dispatch) =>
     dispatch({
       type: SET_FILTER,
-      payload: filter,
+      payload: filter
     });
 };

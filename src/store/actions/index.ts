@@ -8,7 +8,7 @@ import {
   setTaskStatus,
   deleteTask,
   searchTask,
-  setFilter,
+  setFilter
 } from './taskActions';
 
 export {
@@ -27,5 +27,5 @@ export {
   setTaskStatus,
   deleteTask,
   searchTask,
-  setFilter,
+  setFilter
 };

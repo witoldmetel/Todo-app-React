@@ -35,8 +35,6 @@ export interface Props {
 class TaskList extends React.Component<Props> {
   state = { activePage: 1 };
 
-  private handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
-
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
     this.props.getTasks(this.props.projectId);
@@ -90,6 +88,24 @@ class TaskList extends React.Component<Props> {
     ) : null;
   }
 
+  private handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
+
+  private get pagination() {
+    if (this.props.tasks) {
+      const totalPages = Math.ceil(this.props.tasks.length / 8);
+
+      return totalPages > 1 ? (
+        <Pagination
+          activePage={this.state.activePage}
+          onPageChange={this.handlePaginationChange}
+          totalPages={totalPages}
+        />
+      ) : null;
+    } else {
+      return null;
+    }
+  }
+
   public render() {
     const { auth, notifications } = this.props;
 
@@ -110,7 +126,7 @@ class TaskList extends React.Component<Props> {
               <SearchBar />
             </div>
             <ul className={this.className}>{this.renderList}</ul>
-            <Pagination activePage={this.state.activePage} onPageChange={this.handlePaginationChange} totalPages={5} />
+            {this.pagination}
           </div>
           <NotificationsContainer authId={auth.uid} notifications={notifications} />
         </div>
@@ -120,6 +136,7 @@ class TaskList extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('🚀 ~ file: TaskList.tsx ~ line 123 ~ mapStateToProps ~ state', state);
   const projectId = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[projectId] : null;
@@ -146,8 +163,8 @@ export default compose(
       },
       {
         collection: 'notifications',
-        limit: 5,
-        orderBy: ['time', 'desc']
+        orderBy: ['time', 'desc'],
+        limit: 10
       }
     ];
   }),

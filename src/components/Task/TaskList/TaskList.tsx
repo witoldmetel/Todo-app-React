@@ -79,7 +79,7 @@ class TaskList extends React.Component<Props> {
       <Link className="ui vertical animated button members" to={`/project/${this.props.projectId}/members`}>
         <div className="hidden content">Members</div>
         <div className="visible content">
-          <i className="users icon"></i>
+          <i className="users icon" />
         </div>
       </Link>
     ) : null;

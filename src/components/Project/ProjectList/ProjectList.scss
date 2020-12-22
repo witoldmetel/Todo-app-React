@@ -10,6 +10,16 @@
   .card {
     height: 120px;
     margin: 0 20px;
+
+    .content {
+      .header,
+      .meta {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 
   // Scroll Section

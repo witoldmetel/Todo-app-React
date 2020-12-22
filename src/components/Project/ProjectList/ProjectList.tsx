@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 
-import { getProjects, getSnapProjects } from '../../../store/actions';
+import { getProjects } from '../../../store/actions';
 import { ACCOUNT_TYPE } from '../../../fixtures/constants';
 import { Project, NewUser, User } from '../../../fixtures/types';
 import { ProjectItem } from '../index';
@@ -14,12 +13,19 @@ export interface Props {
   authId: string;
   profile: NewUser;
   projects: Project[];
-  getProjects: () => void;
-  getSnapProjects: any;
+  getProjects: (projects?: Project[]) => void;
 }
 
 class ProjectList extends React.Component<Props> {
+  /**
+   * definite assignment assertion
+   * https://www.stevefenton.co.uk/2018/01/typescript-definite-assignment-assertions/
+   */
+  private containerRef!: React.RefObject<HTMLDivElement>;
+
   public componentDidMount() {
+    this.containerRef = React.createRef<HTMLDivElement>();
+
     this.props.getProjects();
   }
 
@@ -29,25 +35,6 @@ class ProjectList extends React.Component<Props> {
     );
   }
 
-  //@todo: Remove when above condition will work
-  // private get isUserHasProject() {
-  //   const { projects } = this.props;
-
-  //   return projects.some((project) => (project.members as User[]).some((member) => member.id === this.props.authId));
-  // }
-
-  private get emptyList() {
-    return (
-      <React.Fragment>
-        <h3 className="info">Add first project here:</h3>
-        <Link className="add-icon" to="/project/new">
-          <i className="plus circle icon green" />
-        </Link>
-      </React.Fragment>
-    );
-  }
-
-  //@todo: Check if still needed
   private get emptyContent() {
     return this.props.profile.accountType === ACCOUNT_TYPE.REGULAR
       ? 'Project list is empty. You are not assign to any project'
@@ -56,14 +43,22 @@ class ProjectList extends React.Component<Props> {
 
   private get renderList() {
     return !this.projects.length
-      ? this.emptyList
+      ? this.emptyContent
       : this.projects.map((project: Project, index: number) => {
           return <ProjectItem key={index} project={project} />;
         });
   }
 
-  private onClick = () => {
-    this.props.getSnapProjects(this.props.projects);
+  private handleScroll = () => {
+    const { scrollTop, offsetHeight, scrollHeight } = this.containerRef.current ?? {
+      scrollTop: 0,
+      offsetHeight: 0,
+      scrollHeight: 0
+    };
+
+    if (scrollTop + offsetHeight >= scrollHeight) {
+      this.props.getProjects(this.props.projects);
+    }
   };
 
   public render() {
@@ -76,9 +71,8 @@ class ProjectList extends React.Component<Props> {
     }
 
     return (
-      <div className="projects-container">
+      <div className="projects-container" ref={this.containerRef} onScroll={this.handleScroll}>
         {this.renderList}
-        <button onClick={this.onClick}>Load More</button>
       </div>
     );
   }
@@ -91,4 +85,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getProjects, getSnapProjects })(ProjectList);
+export default connect(mapStateToProps, { getProjects })(ProjectList);

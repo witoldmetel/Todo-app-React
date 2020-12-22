@@ -8,28 +8,8 @@ import {
 } from '../../fixtures/constants';
 import { Project, User } from '../../fixtures/types';
 
-export const getProjects = () => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    firestore
-      .collection('projects')
-      .orderBy('projectName')
-      .limit(5)
-      .get()
-      .then((snapshot) => {
-        const projects: Project[] = [];
-
-        snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
-
-        dispatch({ type: GET_PROJECTS, payload: projects });
-      })
-      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
-  };
-};
-
-export const getSnapProjects = (latestProjects: Project[]) => {
-  const latestData = latestProjects[latestProjects.length - 1];
+export const getProjects = (latestProjects?: Project[]) => {
+  const latestData = latestProjects ? latestProjects[latestProjects.length - 1].projectName : 0;
 
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -37,11 +17,11 @@ export const getSnapProjects = (latestProjects: Project[]) => {
     firestore
       .collection('projects')
       .orderBy('projectName')
-      .startAfter(latestData.projectName)
-      .limit(5)
+      .startAfter(latestData)
+      .limit(16)
       .get()
       .then((snapshot) => {
-        const projects: Project[] = latestProjects;
+        const projects: Project[] = latestProjects ?? [];
 
         snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
 

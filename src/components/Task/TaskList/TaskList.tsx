@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import { Pagination } from 'semantic-ui-react';
 import classnames from 'classnames';
 
 import { getProject, getTasks } from '../../../store/actions';
@@ -32,6 +33,10 @@ export interface Props {
 }
 
 class TaskList extends React.Component<Props> {
+  state = { activePage: 1 };
+
+  private handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
+
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
     this.props.getTasks(this.props.projectId);
@@ -105,6 +110,7 @@ class TaskList extends React.Component<Props> {
               <SearchBar />
             </div>
             <ul className={this.className}>{this.renderList}</ul>
+            <Pagination activePage={this.state.activePage} onPageChange={this.handlePaginationChange} totalPages={5} />
           </div>
           <NotificationsContainer authId={auth.uid} notifications={notifications} />
         </div>

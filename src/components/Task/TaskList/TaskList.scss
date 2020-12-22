@@ -1,8 +1,5 @@
 .tasks-container {
-  /*
-  * Change width to 70% when notifiations will be visible
-  */
-  width: 100%;
+  width: 70%;
   min-width: 680px;
   background-color: #fff;
   padding: 20px 30px;
@@ -24,6 +21,8 @@
   ul.list {
     list-style-type: none;
     padding: 0;
+    max-height: 445px;
+    overflow: auto;
 
     &.empty {
       display: flex;

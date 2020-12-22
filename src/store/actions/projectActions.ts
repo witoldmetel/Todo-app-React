@@ -14,7 +14,7 @@ export const getProjects = () => {
 
     firestore
       .collection('projects')
-      .orderBy('author')
+      .orderBy('projectName')
       .limit(5)
       .get()
       .then((snapshot) => {
@@ -36,8 +36,8 @@ export const getSnapProjects = (latestProjects: Project[]) => {
 
     firestore
       .collection('projects')
-      .orderBy('author', 'desc')
-      .startAfter(latestData)
+      .orderBy('projectName')
+      .startAfter(latestData.projectName)
       .limit(5)
       .get()
       .then((snapshot) => {

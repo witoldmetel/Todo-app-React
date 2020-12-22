@@ -3,10 +3,10 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Pagination } from 'semantic-ui-react';
+import { Pagination, PaginationProps } from 'semantic-ui-react';
 import classnames from 'classnames';
 
-import { getProject, getTasks } from '../../../store/actions';
+import { getProject } from '../../../store/actions';
 import { getTasksSelector } from '../../../store/selectors';
 import { Task, Project, Auth } from '../../../fixtures/types';
 import { TaskItem, FilterBar, SearchBar, NotificationsContainer } from '../../index';
@@ -29,15 +29,34 @@ export interface Props {
   auth: Auth;
   notifications: Notification[];
   getProject: (id: string) => void;
-  getTasks: (projectId: string) => void;
+  getTasks: (projectId: string) => void; //@todo: remove
 }
 
 class TaskList extends React.Component<Props> {
-  state = { activePage: 1 };
+  private static FIRST_ITEM_INDEX = 0;
+  private static LAST_ITEM_INDEX = 8;
+
+  state = {
+    activePage: 1,
+    firstActiveItemIndex: TaskList.FIRST_ITEM_INDEX,
+    lastActiveItemIndex: TaskList.LAST_ITEM_INDEX
+  };
 
   public componentDidMount() {
     this.props.getProject(this.props.projectId);
-    this.props.getTasks(this.props.projectId);
+  }
+
+  public componentDidUpdate(prevProps) {
+    if (
+      this.props.filters !== prevProps.filters ||
+      (this.props.searchValue && this.props.searchValue !== prevProps.searchValue)
+    ) {
+      this.setState({
+        activePage: 1,
+        firstActiveItemIndex: TaskList.FIRST_ITEM_INDEX,
+        lastActiveItemIndex: TaskList.LAST_ITEM_INDEX
+      });
+    }
   }
 
   private get className() {
@@ -70,9 +89,11 @@ class TaskList extends React.Component<Props> {
 
     return !this.props.tasks.length
       ? this.emptyList
-      : this.props.tasks.map((task: Task, index: number) => {
-          return <TaskItem key={index} task={task} project={this.props.project} projectId={this.props.projectId} />;
-        });
+      : this.props.tasks
+          .slice(this.state.firstActiveItemIndex, this.state.lastActiveItemIndex)
+          .map((task: Task, index: number) => {
+            return <TaskItem key={index} task={task} project={this.props.project} projectId={this.props.projectId} />;
+          });
   }
 
   private get membersButton() {
@@ -88,11 +109,17 @@ class TaskList extends React.Component<Props> {
     ) : null;
   }
 
-  private handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
+  private handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement>, { activePage }: PaginationProps) => {
+    this.setState({ activePage });
+    this.setState({
+      firstActiveItemIndex: (activePage as number) * TaskList.LAST_ITEM_INDEX - TaskList.LAST_ITEM_INDEX
+    });
+    this.setState({ lastActiveItemIndex: (activePage as number) * TaskList.LAST_ITEM_INDEX });
+  };
 
   private get pagination() {
     if (this.props.tasks) {
-      const totalPages = Math.ceil(this.props.tasks.length / 8);
+      const totalPages = Math.ceil(this.props.tasks.length / TaskList.LAST_ITEM_INDEX);
 
       return totalPages > 1 ? (
         <Pagination
@@ -136,7 +163,6 @@ class TaskList extends React.Component<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('🚀 ~ file: TaskList.tsx ~ line 123 ~ mapStateToProps ~ state', state);
   const projectId = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[projectId] : null;
@@ -147,7 +173,9 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.firebase.auth,
     allTasks: state.firestore.ordered.tasks,
     tasks: getTasksSelector(state),
-    notifications: state.firestore.ordered.notifications
+    notifications: state.firestore.ordered.notifications,
+    filters: state.filters,
+    searchValue: state.searchValue
   };
 };
 
@@ -168,5 +196,5 @@ export default compose(
       }
     ];
   }),
-  connect(mapStateToProps, { getProject, getTasks })
+  connect(mapStateToProps, { getProject })
 )(TaskList);

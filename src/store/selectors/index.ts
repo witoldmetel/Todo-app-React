@@ -16,10 +16,14 @@ export const getTasksSelector = createSelector(
           return tasks.filter((task: Task) => task.title?.toLowerCase().includes(searchValue?.toLowerCase()));
 
         case FILTERS.SHOW_COMPLETED:
-          return tasks.filter((task: Task) => task.status).filter((task: Task) => task.title.includes(searchValue));
+          return tasks
+            .filter((task: Task) => task.status)
+            .filter((task: Task) => task.title.toLowerCase().includes(searchValue?.toLowerCase()));
 
         case FILTERS.SHOW_INCOMPLETED:
-          return tasks.filter((task: Task) => !task.status).filter((task: Task) => task.title.includes(searchValue));
+          return tasks
+            .filter((task: Task) => !task.status)
+            .filter((task: Task) => task.title.toLowerCase().includes(searchValue?.toLowerCase()));
 
         default:
           return tasks;

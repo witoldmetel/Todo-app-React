@@ -13,6 +13,7 @@ export interface Props {
   authId: string;
   profile: NewUser;
   projects: Project[];
+
   getProjects: (projects?: Project[]) => void;
 }
 

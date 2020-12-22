@@ -1,16 +1,9 @@
 import React from 'react';
 
 import { formatTimeFromNow } from '../../utils/helpers';
+import { Notification } from '../../fixtures/types';
 
 import './NotificationsContainer.scss';
-
-interface Notification {
-  id: string;
-  content: string;
-  user: string;
-  authorId: string;
-  time: Date;
-}
 
 interface Props {
   authId: string;

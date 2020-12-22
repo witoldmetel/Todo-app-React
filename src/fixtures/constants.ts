@@ -1,7 +1,6 @@
 /**
  * ACTIONS TYPE
  */
-export const GET_TASKS = 'GET_TASKS';
 export const GET_TASK = 'GET_TASK';
 export const CREATE_TASK = 'CREATE_TASK';
 export const SET_TASK_STATUS = 'SET_TASK_STATUS';
@@ -28,17 +27,17 @@ export const REMOVE_MEMBER = 'REMOVE_MEMBER';
 export enum FILTERS {
   SHOW_ALL = 'SHOW_ALL',
   SHOW_INCOMPLETED = 'SHOW_INCOMPLETED',
-  SHOW_COMPLETED = 'SHOW_COMPLETED',
+  SHOW_COMPLETED = 'SHOW_COMPLETED'
 }
 
 export enum ACCOUNT_TYPE {
   ADMIN = 'ADMIN',
   REGULAR = 'REGULAR',
-  VIP = 'VIP',
+  VIP = 'VIP'
 }
 
 export const filters = [
   { id: 1, name: 'All', filterName: FILTERS.SHOW_ALL },
   { id: 2, name: 'Incompleted', filterName: FILTERS.SHOW_INCOMPLETED },
-  { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED },
+  { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED }
 ];

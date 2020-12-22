@@ -8,18 +8,11 @@ import classnames from 'classnames';
 
 import { getProject } from '../../../store/actions';
 import { getTasksSelector } from '../../../store/selectors';
-import { Task, Project, Auth } from '../../../fixtures/types';
+import { Task, Project, Auth, Notification } from '../../../fixtures/types';
+import { FILTERS } from '../../../fixtures/constants';
 import { TaskItem, FilterBar, SearchBar, NotificationsContainer } from '../../index';
 
 import './TaskList.scss';
-
-interface Notification {
-  id: string;
-  content: string;
-  user: string;
-  authorId: string;
-  time: unknown;
-}
 
 export interface Props {
   projectId: string;
@@ -28,8 +21,10 @@ export interface Props {
   tasks: Task[];
   auth: Auth;
   notifications: Notification[];
+  filters: FILTERS;
+  searchValue: string;
+
   getProject: (id: string) => void;
-  getTasks: (projectId: string) => void; //@todo: remove
 }
 
 class TaskList extends React.Component<Props> {
@@ -46,11 +41,10 @@ class TaskList extends React.Component<Props> {
     this.props.getProject(this.props.projectId);
   }
 
-  public componentDidUpdate(prevProps) {
-    if (
-      this.props.filters !== prevProps.filters ||
-      (this.props.searchValue && this.props.searchValue !== prevProps.searchValue)
-    ) {
+  public componentDidUpdate(prevProps: Props) {
+    const { filters, searchValue } = this.props;
+
+    if (filters !== prevProps.filters || (searchValue && searchValue !== prevProps.searchValue)) {
       this.setState({
         activePage: 1,
         firstActiveItemIndex: TaskList.FIRST_ITEM_INDEX,

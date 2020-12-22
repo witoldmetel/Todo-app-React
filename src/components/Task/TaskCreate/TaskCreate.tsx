@@ -15,6 +15,7 @@ export interface Props {
   };
   auth: Auth;
   history: History;
+
   createTask: (task: Task, projectId: string, callback) => void;
 }
 

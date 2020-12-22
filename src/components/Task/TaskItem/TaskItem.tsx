@@ -16,6 +16,7 @@ export interface Props {
   project: Project;
   task: Task;
   auth: Auth;
+
   setTaskStatus: (task: Task, projectId: string) => void;
 }
 
@@ -89,7 +90,7 @@ class TaskItem extends React.Component<Props> {
   private get taskIcon() {
     return (
       <div className="context-menu" onMouseEnter={this.openMenu} onMouseLeave={this.closeMenu}>
-        <RandomAvatar randomFace={this.props.task.authorId} className="task-icon" />
+        <RandomAvatar randomFace={this.props.task.authorId as string} className="task-icon" />
         {this.isTaskEditable ? (
           <ContextMenu items={this.contextMenuOptions} reverse={!this.state.isMenuOpen} state={this.menuState}>
             {(option, index: number) => (props) => (

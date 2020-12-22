@@ -10,6 +10,7 @@ import { Modal, Button } from '../../index';
 export interface Props {
   auth: Auth;
   history: History;
+
   createProject: (project: Project, callback) => void;
 }
 
@@ -24,7 +25,7 @@ class ProjectCreate extends React.Component<Props, State> {
   state = {
     projectName: '',
     description: '',
-    errorMessage: '',
+    errorMessage: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

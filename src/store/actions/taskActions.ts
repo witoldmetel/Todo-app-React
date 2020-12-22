@@ -1,5 +1,4 @@
 import {
-  GET_TASKS,
   GET_TASK,
   CREATE_TASK,
   TASK_ERROR,
@@ -10,25 +9,6 @@ import {
   SET_FILTER
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
-
-export const getTasks = (projectId: string) => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
-
-    tasksRef
-      .get()
-      .then((snapshot) => {
-        const tasks: Task[] = [];
-
-        snapshot.docs.forEach((doc) => tasks.push({ ...doc.data(), id: doc.id } as Task));
-
-        dispatch({ type: GET_TASKS, payload: tasks });
-      })
-      .catch((error) => dispatch({ type: TASK_ERROR, payload: error }));
-  };
-};
 
 export const getTask = (taskId: string, projectId: string) => {
   return (dispatch, getState, { getFirestore }) => {

@@ -15,6 +15,7 @@ export interface Props {
   task: Task;
   auth: Auth;
   history: History;
+
   getTask: (id: string, projectId: string) => void;
   deleteTask: (id: string, projectId: string) => void;
 }
@@ -73,7 +74,7 @@ const mapStateToProps = (state, ownProps) => {
     projectId,
     task,
     id,
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 
@@ -88,9 +89,9 @@ export default compose(
         collection: 'projects',
         doc: projectId,
         subcollections: [{ collection: 'tasks' }],
-        storeAs: 'tasks',
-      },
+        storeAs: 'tasks'
+      }
     ];
   }),
-  connect(mapStateToProps, { getTask, deleteTask }),
+  connect(mapStateToProps, { getTask, deleteTask })
 )(TaskRemove);

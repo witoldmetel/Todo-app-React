@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import { isLoaded } from 'react-redux-firebase';
 
-import { getProjects } from '../../../store/actions';
+import { getProjects, getSnapProjects } from '../../../store/actions';
 import { ACCOUNT_TYPE } from '../../../fixtures/constants';
 import { Project, NewUser, User } from '../../../fixtures/types';
 import { ProjectItem } from '../index';
@@ -16,6 +15,7 @@ export interface Props {
   profile: NewUser;
   projects: Project[];
   getProjects: () => void;
+  getSnapProjects: any;
 }
 
 class ProjectList extends React.Component<Props> {
@@ -55,14 +55,6 @@ class ProjectList extends React.Component<Props> {
   }
 
   private get renderList() {
-    if (!this.projects) {
-      return (
-        <div className="ui active inverted dimmer">
-          <div className="ui text loader">Loading projects</div>
-        </div>
-      );
-    }
-
     return !this.projects.length
       ? this.emptyList
       : this.projects.map((project: Project, index: number) => {
@@ -71,7 +63,7 @@ class ProjectList extends React.Component<Props> {
   }
 
   private onClick = () => {
-    this.props.getProjects();
+    this.props.getSnapProjects(this.props.projects);
   };
 
   public render() {
@@ -95,21 +87,8 @@ class ProjectList extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
-    projects: state.firestore.ordered.projects
+    projects: state.projects.projects
   };
 };
 
-export default compose(
-  firestoreConnect((props) => {
-    console.log("🚀 ~ file: ProjectList.tsx ~ line 104 ~ firestoreConnect ~ props", this.props)
-    return [
-      {
-        collection: 'projects',
-        limit: 5,
-        orderBy: ['author', 'desc'],
-        startAfter: 0
-      }
-    ];
-  }),
-  connect(mapStateToProps, { getProjects })
-)(ProjectList);
+export default connect(mapStateToProps, { getProjects, getSnapProjects })(ProjectList);

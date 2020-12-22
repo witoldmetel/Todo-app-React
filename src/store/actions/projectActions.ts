@@ -15,14 +15,36 @@ export const getProjects = () => {
     firestore
       .collection('projects')
       .orderBy('author')
-      // .limit(5)
+      .limit(5)
       .get()
       .then((snapshot) => {
         const projects: Project[] = [];
 
         snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
 
-        console.log('🚀 ~ file: projectActions.ts ~ line 30 ~ .then ~ projects', projects);
+        dispatch({ type: GET_PROJECTS, payload: projects });
+      })
+      .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));
+  };
+};
+
+export const getSnapProjects = (latestProjects: Project[]) => {
+  const latestData = latestProjects[latestProjects.length - 1];
+
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection('projects')
+      .orderBy('author', 'desc')
+      .startAfter(latestData)
+      .limit(5)
+      .get()
+      .then((snapshot) => {
+        const projects: Project[] = latestProjects;
+
+        snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
+
         dispatch({ type: GET_PROJECTS, payload: projects });
       })
       .catch((error) => dispatch({ type: PROJECT_ERROR, payload: error }));

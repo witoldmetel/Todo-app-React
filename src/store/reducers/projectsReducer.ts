@@ -4,7 +4,7 @@ import {
   CREATE_PROJECT,
   PROJECT_ERROR,
   ASSIGN_MEMBERS,
-  REMOVE_MEMBER,
+  REMOVE_MEMBER
 } from '../../fixtures/constants';
 import { Project } from '../../fixtures/types';
 
@@ -22,13 +22,13 @@ export const projectsReducer = (state = [], action: Action) => {
           authorId: doc.authorId,
           projectName: doc.projectName,
           description: doc.description,
-          members: doc.members,
+          members: doc.members
         });
       });
 
       return {
         ...state,
-        projects,
+        projects
       };
 
     case GET_PROJECT:

@@ -1,5 +1,5 @@
 import { signIn, signOut, signUp } from './authActions';
-import { getProjects, getProject, createProject, assignMembers, removeMember } from './projectActions';
+import { getProjects, getSnapProjects, getProject, createProject, assignMembers, removeMember } from './projectActions';
 import {
   getTasks,
   getTask,
@@ -8,7 +8,7 @@ import {
   setTaskStatus,
   deleteTask,
   searchTask,
-  setFilter,
+  setFilter
 } from './taskActions';
 
 export {
@@ -16,6 +16,7 @@ export {
   signOut,
   signUp,
   getProjects,
+  getSnapProjects,
   getProject,
   createProject,
   assignMembers,
@@ -27,5 +28,5 @@ export {
   setTaskStatus,
   deleteTask,
   searchTask,
-  setFilter,
+  setFilter
 };

@@ -6,5 +6,5 @@ export const FIREBASE_CONFIG = {
   storageBucket: 'fire-jira.appspot.com',
   messagingSenderId: '925649553379',
   appId: '1:925649553379:web:00226c76f9912a1d7502d6',
-  measurementId: 'G-4K5M4GYG7R',
+  measurementId: 'G-4K5M4GYG7R'
 };

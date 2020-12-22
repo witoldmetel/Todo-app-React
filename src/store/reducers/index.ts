@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   filters: filtersReducer,
   auth: authReducer,
   firebase: firebaseReducer,
-  firestore: firestoreReducer,
+  firestore: firestoreReducer
 });
 
 export default rootReducer;

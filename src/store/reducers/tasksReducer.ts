@@ -5,7 +5,7 @@ import {
   UPDATE_TASK,
   DELETE_TASK,
   TASK_ERROR,
-  SET_TASK_STATUS,
+  SET_TASK_STATUS
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -25,12 +25,13 @@ export const tasksReducer = (state = [], action: Action) => {
           description: doc.description,
           status: doc.status,
           createdAt: doc.createdAt,
+          updatedAt: doc.updatedAt
         });
       });
 
       return {
         ...state,
-        tasks,
+        tasks
       };
 
     case GET_TASK:

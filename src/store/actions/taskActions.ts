@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+
 import {
   GET_TASK,
   CREATE_TASK,
@@ -34,7 +36,7 @@ export const createTask = (task: Task, projectId: string, callback) => {
 
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
-    const date = firestore.Timestamp.now();
+    const date: firebase.firestore.Timestamp = firestore.Timestamp.now();
 
     const tasksRef = firestore.collection(`projects/${projectId}/tasks`);
 
@@ -63,7 +65,7 @@ export const updateTask = (task: Task, taskId: string, projectId: string, callba
 
     tasksRef
       .doc(taskId)
-      .update({ ...task, updatedAt: firestore.Timestamp.now() })
+      .update({ ...task, updatedAt: firestore.Timestamp.now() as firebase.firestore.Timestamp })
       .then(() => {
         dispatch({ type: UPDATE_TASK });
         callback();

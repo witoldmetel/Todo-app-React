@@ -11,11 +11,7 @@ interface Notification {
 }
 
 const createNotification = (notification: Notification) => {
-  return admin
-    .firestore()
-    .collection('notifications')
-    .add(notification)
-    .then((doc) => console.log(doc));
+  return admin.firestore().collection('notifications').add(notification);
 };
 
 /**
@@ -35,6 +31,7 @@ export const projectCreated = functions.firestore.document('projects/{projectId}
 
 export const projectUpdate = functions.firestore.document('projects/{projectId}').onUpdate((change) => {
   const before = change.before.data();
+  console.log('🚀 ~ file: index.ts ~ line 34 ~ projectUpdate ~ before', before);
   const after = change.after.data();
 
   if (before.members.length !== after.members.length) {

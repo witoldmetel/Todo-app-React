@@ -12,7 +12,7 @@ import reducers from './reducers';
 // Optional react-redux-firebase config
 const rrfConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 };
 
 // Initialize Cloud Firestore through Firebase
@@ -30,7 +30,7 @@ const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
 export const store = createStore(
   reducers,
   initialState,
-  compose(applyMiddleware(...middlewares), reduxFirestore(firebase)),
+  compose(applyMiddleware(...middlewares), reduxFirestore(firebase))
 );
 
 // React-redux-firebase provider props
@@ -38,5 +38,5 @@ export const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance,
+  createFirestoreInstance
 };

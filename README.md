@@ -8,6 +8,9 @@ Fire Jira is an app that has essentially the core Jira's functionality. A projec
 
 https://fire-jira.firebaseapp.com/
 
+Login: joedoe@firejira.com  
+Pass: firejira
+
 ## Firestore (Firebase) configuration
 
 In `services` folder you need to add file `firebaseConfig.ts` with your firebase configuration:
@@ -17,7 +20,7 @@ export const FIREBASE_CONFIG = {
   apiKey: 'your API key',
   authDomain: 'your auth domain',
   databaseURL: 'your database url',
-  projectId: 'your project id',
+  projectId: 'your project id'
 };
 ```
 

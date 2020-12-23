@@ -1,39 +1,9 @@
-import {
-  GET_TASKS,
-  GET_TASK,
-  CREATE_TASK,
-  UPDATE_TASK,
-  DELETE_TASK,
-  TASK_ERROR,
-  SET_TASK_STATUS
-} from '../../fixtures/constants';
-import { Task } from '../../fixtures/types';
+import { GET_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK, TASK_ERROR, SET_TASK_STATUS } from '../../fixtures/constants';
 
 type Action = { type: string; payload?: any; error?: string };
 
 export const tasksReducer = (state = [], action: Action) => {
   switch (action.type) {
-    case GET_TASKS:
-      const tasks: Task[] = [];
-
-      action.payload.forEach((doc: Task) => {
-        tasks.push({
-          id: doc.id,
-          author: doc.author,
-          authorId: doc.authorId,
-          title: doc.title,
-          description: doc.description,
-          status: doc.status,
-          createdAt: doc.createdAt,
-          updatedAt: doc.updatedAt
-        });
-      });
-
-      return {
-        ...state,
-        tasks
-      };
-
     case GET_TASK:
       return state;
 

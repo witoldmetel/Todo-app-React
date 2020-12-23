@@ -1,7 +1,9 @@
+@import './src/utils/sass/colors';
+
 .tasks-container {
   width: 70%;
   min-width: 680px;
-  background-color: #fff;
+  background-color: $white;
   padding: 20px 30px;
   border-radius: 10px 120px 10px 10px;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);

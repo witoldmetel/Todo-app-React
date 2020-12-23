@@ -1,7 +1,9 @@
+@import './src/utils/sass/colors';
+
 .user-panel {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: $white;
   width: 30%;
   padding: 20px 30px;
   border-radius: 10px 120px 10px 10px;

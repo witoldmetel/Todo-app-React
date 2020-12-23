@@ -6,7 +6,7 @@ import { Button, ButtonProps } from '../components/shared';
 export default {
   title: 'Button',
   component: Button,
-  argTypes: { onClick: { action: 'on button click' } },
+  argTypes: { onClick: { action: 'on button click' } }
 } as Meta;
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
@@ -14,19 +14,19 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 const Positive = Template.bind({});
 Positive.args = {
   className: 'positive',
-  label: 'Positive',
+  label: 'Positive'
 };
 
 const Negative = Template.bind({});
 Negative.args = {
   className: 'negative',
-  label: 'Negative',
+  label: 'Negative'
 };
 
 const Disabled = Template.bind({});
 Disabled.args = {
   label: 'Disabled',
-  disabled: true,
+  disabled: true
 };
 
 export const General = (args: ButtonProps) => (
@@ -40,5 +40,5 @@ export const General = (args: ButtonProps) => (
 export const ButtonWithIcon = Template.bind({});
 ButtonWithIcon.args = {
   label: '',
-  children: <i className=" icon check green" />,
+  children: <i className=" icon check green" />
 };

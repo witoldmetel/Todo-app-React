@@ -5,7 +5,7 @@ import { Form, Field } from '../components/shared';
 
 export default {
   title: 'Form',
-  component: Form,
+  component: Form
 } as Meta;
 
 const changeHandler = (e) => console.log(e.target.value);

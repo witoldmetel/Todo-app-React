@@ -4,7 +4,7 @@ export { default as FilterBar } from './FilterBar/FilterBar';
 export { ModalComponent as Modal } from './ModalComponent/ModalComponent';
 export { default as Navbar } from './Navbar/Navbar';
 export { ParticleComponent } from './ParticleComponent/ParticleComponent';
-export { default as RandomAvatar } from './RandomAvatar/RandomAvatar';
+export { RandomAvatar } from './RandomAvatar/RandomAvatar';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SignInComponent } from './SignInComponent/SignInComponent';
 export { default as SignUpComponent } from './SignUpComponent/SignUpComponent';

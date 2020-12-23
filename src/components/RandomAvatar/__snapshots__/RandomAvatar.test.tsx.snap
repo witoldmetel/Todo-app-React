@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar> renders correctly 1`] = `
+<img
+  className="ui mini circular image"
+  src="https://api.hello-avatar.com/adorables/avatars/randomFace.png"
+/>
+`;

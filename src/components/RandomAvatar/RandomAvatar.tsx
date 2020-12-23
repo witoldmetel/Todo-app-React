@@ -12,7 +12,7 @@ export interface Props {
   onMouseLeave?: () => void;
 }
 
-export default class RandomAvatar extends React.Component<Props> {
+export class RandomAvatar extends React.Component<Props> {
   private get className() {
     return classnames('ui mini circular image', this.props.className);
   }

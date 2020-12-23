@@ -46,5 +46,5 @@ export interface Notification {
   content: string;
   user: string;
   authorId: string;
-  time: Date;
+  time: firebase.firestore.Timestamp;
 }

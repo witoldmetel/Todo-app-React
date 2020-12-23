@@ -41,3 +41,58 @@ describe('UserName', () => {
     expect(userNameValidation).toBeTruthy();
   });
 });
+
+describe('SignUp Form', () => {
+  it('is empty', () => {
+    const formData = { email: '', password: '', username: '' };
+    const signUpValidation = isSingUpFormValid(formData);
+
+    const result = { errorMessage: 'Fill empty fields' };
+
+    expect(signUpValidation.isValid).toBeFalsy();
+    expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
+  });
+
+  it('has incorrect email', () => {
+    const formData = { email: 'firebase', password: 'Firebase123.', username: 'FirebaseAdmin' };
+    const signUpValidation = isSingUpFormValid(formData);
+
+    const result = { errorMessage: 'Incorrect email' };
+
+    expect(signUpValidation.isValid).toBeFalsy();
+    expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
+  });
+
+  it('has incorrect password', () => {
+    const formData = { email: 'firebase@gmail.com', password: 'firebase', username: 'FirebaseAdmin' };
+    const signUpValidation = isSingUpFormValid(formData);
+
+    const result = {
+      errorMessage:
+        'Your password must be 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character'
+    };
+
+    expect(signUpValidation.isValid).toBeFalsy();
+    expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
+  });
+
+  it('has incorrect user name', () => {
+    const formData = { email: 'firebase@gmail.com', password: 'Firebase123.', username: 'FirebaseAdmin!!!' };
+    const signUpValidation = isSingUpFormValid(formData);
+
+    const result = { errorMessage: 'Invalid username' };
+
+    expect(signUpValidation.isValid).toBeFalsy();
+    expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
+  });
+
+  it('is valid', () => {
+    const formData = { email: 'firebase@gmail.com', password: 'Firebase123.', username: 'FirebaseAdmin' };
+    const signUpValidation = isSingUpFormValid(formData);
+
+    const result = { errorMessage: '' };
+
+    expect(signUpValidation.isValid).toBeTruthy();
+    expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
+  });
+});

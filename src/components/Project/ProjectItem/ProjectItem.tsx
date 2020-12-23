@@ -15,14 +15,18 @@ class ProjectItem extends React.Component<Props> {
     return (
       <Link className="ui card" to={`/project/${id}`}>
         <div className="content">
-          <div className="header">{projectName}</div>
+          <div className="header" title={projectName}>
+            {projectName}
+          </div>
           <div className="meta">
-            <span className="category">{description}</span>
+            <span className="category" title={description}>
+              {description}
+            </span>
           </div>
         </div>
         <div className="extra content">
           <div className="right floated author">
-            <RandomAvatar className="ui avatar image" randomFace={authorId} />
+            <RandomAvatar className="ui avatar image" randomFace={authorId as string} />
             {author}
           </div>
         </div>

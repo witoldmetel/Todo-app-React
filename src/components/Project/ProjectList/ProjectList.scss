@@ -5,9 +5,28 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 1rem;
   justify-items: center;
+  padding: 5px;
 
   .card {
     height: 120px;
     margin: 0 20px;
+
+    .content {
+      .header,
+      .meta {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  // Scroll Section
+  max-height: 520px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

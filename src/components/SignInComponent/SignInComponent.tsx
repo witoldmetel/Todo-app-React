@@ -10,6 +10,7 @@ export interface Props {
   auth: Auth;
   authError: string;
   history: History;
+
   signIn: (credentials: Credentials, calback) => void;
 }
 

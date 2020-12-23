@@ -19,6 +19,7 @@ export interface Props {
   users: User[];
   auth: Auth;
   history: History;
+
   getProject: (id: string) => void;
   assignMembers: (project: Project, projectId: string, members: string[]) => void;
   removeMember: (project: Project, projectId: string, memberId: string) => void;
@@ -115,7 +116,7 @@ class MembersModal extends React.Component<Props> {
         <div className="field">
           <label>Owner</label>
           <div className="author-avatar">
-            <RandomAvatar className="ui avatar image" randomFace={authorId} />
+            <RandomAvatar className="ui avatar image" randomFace={authorId as string} />
             <b>{author}</b>
           </div>
         </div>

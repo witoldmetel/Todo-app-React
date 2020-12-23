@@ -15,6 +15,7 @@ export interface Props {
   };
   auth: Auth;
   history: History;
+
   createTask: (task: Task, projectId: string, callback) => void;
 }
 
@@ -28,7 +29,7 @@ class TaskCreate extends React.Component<Props, State> {
   state = {
     title: '',
     description: '',
-    errorMessage: '',
+    errorMessage: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

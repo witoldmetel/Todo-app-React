@@ -1,7 +1,6 @@
 /**
  * ACTIONS TYPE
  */
-export const GET_TASKS = 'GET_TASKS';
 export const GET_TASK = 'GET_TASK';
 export const CREATE_TASK = 'CREATE_TASK';
 export const SET_TASK_STATUS = 'SET_TASK_STATUS';

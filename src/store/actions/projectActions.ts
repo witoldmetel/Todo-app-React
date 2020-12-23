@@ -8,15 +8,20 @@ import {
 } from '../../fixtures/constants';
 import { Project, User } from '../../fixtures/types';
 
-export const getProjects = () => {
+export const getProjects = (latestProjects?: Project[]) => {
+  const latestData = latestProjects ? latestProjects[latestProjects.length - 1].projectName : 0;
+
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
     firestore
       .collection('projects')
+      .orderBy('projectName')
+      .startAfter(latestData)
+      .limit(16)
       .get()
       .then((snapshot) => {
-        const projects: Project[] = [];
+        const projects: Project[] = latestProjects ?? [];
 
         snapshot.docs.forEach((doc) => projects.push({ ...doc.data(), id: doc.id } as Project));
 

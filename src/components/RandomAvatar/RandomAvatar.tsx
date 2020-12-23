@@ -7,6 +7,7 @@ export interface Props {
   randomFace: string;
 
   className?: string;
+
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }

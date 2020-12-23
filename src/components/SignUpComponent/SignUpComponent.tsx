@@ -12,6 +12,7 @@ import { Modal, Button } from '../index';
 export interface Props {
   auth: Auth;
   history: History;
+
   signUp: (newUser: NewUser, callback) => void;
 }
 

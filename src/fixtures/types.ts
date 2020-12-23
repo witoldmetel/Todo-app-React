@@ -40,3 +40,11 @@ export interface NewUser {
   username: string;
   accountType: ACCOUNT_TYPE;
 }
+
+export interface Notification {
+  id: string;
+  content: string;
+  user: string;
+  authorId: string;
+  time: Date;
+}

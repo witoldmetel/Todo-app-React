@@ -12,6 +12,7 @@ export interface Props {
   projectId: string;
   profile: NewUser;
   auth: Auth;
+
   signOut: () => void;
 }
 

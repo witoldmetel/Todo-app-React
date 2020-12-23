@@ -15,6 +15,7 @@ export interface Props {
   task: Task;
   auth: Auth;
   history: History;
+
   getTask: (id: string, projectId: string) => void;
   updateTask: (task: Task, id: string, projectId: string, callback) => void;
 }
@@ -30,7 +31,7 @@ class TaskEdit extends React.Component<Props, State> {
   state = {
     title: this.props.task?.title || '',
     description: this.props.task?.description || '',
-    errorMessage: '',
+    errorMessage: ''
   };
 
   public componentDidMount() {
@@ -41,7 +42,7 @@ class TaskEdit extends React.Component<Props, State> {
     if (prevProps.task !== this.props.task && prevProps.task === null) {
       this.setState({
         title: this.props.task.title,
-        description: this.props.task.description,
+        description: this.props.task.description
       });
     }
   }
@@ -133,7 +134,7 @@ const mapStateToProps = (state, ownProps) => {
     projectId,
     task,
     id,
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 
@@ -148,9 +149,9 @@ export default compose(
         collection: 'projects',
         doc: projectId,
         subcollections: [{ collection: 'tasks' }],
-        storeAs: 'tasks',
-      },
+        storeAs: 'tasks'
+      }
     ];
   }),
-  connect(mapStateToProps, { getTask, updateTask }),
+  connect(mapStateToProps, { getTask, updateTask })
 )(TaskEdit);

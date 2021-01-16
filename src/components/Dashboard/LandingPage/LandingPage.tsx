@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
-import boardImage from '../../../assets/graphics/board.jpg';
+import mainImage from '../../../assets/graphics/main.png';
+import crudImage from '../../../assets/graphics/crud.png';
+import inviteImage from '../../../assets/graphics/invite.png';
 
 import './LandingPage.scss';
 
@@ -22,7 +24,8 @@ export class LandingPage extends React.Component {
             Make Your Own <span className="subtitle">Workflow</span>
           </h1>
           <p className="content">
-            Welcome on Fire Jira. Track and manage projects in real time. Register and check it now!
+            Welcome on <span className="subtitle">Fire Jira</span>. Track and manage projects in real time. Register and
+            check it now!
           </p>
           <NavLink to="/signup" className="register item">
             Register
@@ -36,7 +39,7 @@ export class LandingPage extends React.Component {
     return (
       <section className="about-section">
         <div className="left-column">
-          <img className="picture" src={boardImage} />
+          <img className="picture" alt="main view of app" src={mainImage} />
         </div>
         <div className="right-column">
           <small className="small-title">About application</small>
@@ -72,26 +75,21 @@ export class LandingPage extends React.Component {
         <div className="top-card">
           <h2 className="title">Fire Jira Super Powers</h2>
           <p className="content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, ex. Facere, magni? Iure est rem saepe
-            ullam, deserunt pariatur, obcaecati, ea doloremque delectus quia laudantium nam suscipit nobis quidem
-            dolore!
+            As a Fire Jira user, I can easily manage my tasks (adding, editing and removing). To track progress, you can
+            use filters and check which tasks are done. We can easily find tasks using the search bar. Additionally, as
+            a project creator, you can decide who will be part of your project as a team member.
           </p>
         </div>
         <div className="pictures">
           <div className="picture-container">
-            <img className="picture" src={boardImage} />
+            <img className="picture" alt="manage view of tasks" src={crudImage} />
             <h5 className="title">Crate/Edit/Remove</h5>
             <p className="description">You can easily manage your tasks and projects</p>
           </div>
           <div className="picture-container">
-            <img className="picture" src={boardImage} />
+            <img className="picture" alt="members modal" src={inviteImage} />
             <h5 className="title">Invite</h5>
-            <p className="description">You can easily add new members to your project</p>
-          </div>
-          <div className="picture-container">
-            <img className="picture" src={boardImage} />
-            <h5 className="title">Customize (TBA)</h5>
-            <p className="description">You can easily customize your board</p>
+            <p className="description">You can add new members to your project</p>
           </div>
         </div>
       </section>

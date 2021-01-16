@@ -41,3 +41,11 @@ export const filters = [
   { id: 2, name: 'Incompleted', filterName: FILTERS.SHOW_INCOMPLETED },
   { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED }
 ];
+
+export enum MODAL_SIZE {
+  MINI = 'mini',
+  TINY = 'tiny',
+  SMALL = 'small',
+  LARGE = 'large',
+  FULLSCREEN = 'fullscreen'
+}

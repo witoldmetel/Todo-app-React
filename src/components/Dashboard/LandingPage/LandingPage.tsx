@@ -101,11 +101,11 @@ export class LandingPage extends React.Component {
       <section className="contact-section">
         <div className="ramp-container" style={{ backgroundColor: '#e2e8f0' }} />
         <div className="top-card">
-          <h2 className="title">Contact Us</h2>
+          <h2 className="title">Contact Me</h2>
         </div>
         <div className="contact-form">
           <div className="contact-info">
-            <h4 className="title">Want to work with us?</h4>
+            <h4 className="title">Have some questions?</h4>
             <p className="content">Complete this form and we will get back to you in 24 hours.</p>
           </div>
           <Form initialValues={{}} onSubmit={() => console.log('submit')}>

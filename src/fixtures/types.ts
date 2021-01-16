@@ -10,14 +10,14 @@ export interface Project {
 }
 
 export interface Task {
-  id: string;
+  id?: string;
   author?: string;
   authorId?: string;
   title: string;
   description: string;
-  status: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  status?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Auth {

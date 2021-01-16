@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { Auth, Project } from '../../../fixtures/types';
+import { MODAL_SIZE } from '../../../fixtures/constants';
 import { createProject } from '../../../store/actions';
 import { Modal, Button } from '../../index';
 
@@ -18,7 +19,7 @@ export interface State {
   projectName: string;
   description: string;
   errorMessage: string;
-  [key: string]: string;
+  [key: string]: unknown;
 }
 
 class ProjectCreate extends React.Component<Props, State> {
@@ -29,7 +30,7 @@ class ProjectCreate extends React.Component<Props, State> {
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as State);
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   private get errorMessage() {
@@ -94,6 +95,7 @@ class ProjectCreate extends React.Component<Props, State> {
         content={this.content}
         actionButtons={this.actionButtons}
         history={this.props.history}
+        size={MODAL_SIZE.TINY}
       />
     );
   }

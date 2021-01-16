@@ -8,6 +8,7 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { getProject, assignMembers, removeMember } from '../../../store/actions';
 import { Project, Auth, User } from '../../../fixtures/types';
+import { MODAL_SIZE } from '../../../fixtures/constants';
 import { RandomAvatar, Modal, Button } from '../../index';
 import { getAvatarImage } from '../../../utils/helpers';
 
@@ -25,7 +26,11 @@ export interface Props {
   removeMember: (project: Project, projectId: string, memberId: string) => void;
 }
 
-class MembersModal extends React.Component<Props> {
+export interface State {
+  members: User[];
+}
+
+class MembersModal extends React.Component<Props, State> {
   state = {
     members: []
   };
@@ -168,7 +173,13 @@ class MembersModal extends React.Component<Props> {
         <div className="ui text loader">Loading members</div>
       </div>
     ) : (
-      <Modal header="Members" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
+      <Modal
+        header="Members"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+        size={MODAL_SIZE.TINY}
+      />
     );
   }
 }

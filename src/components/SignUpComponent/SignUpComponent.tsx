@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { Auth, NewUser } from '../../fixtures/types';
-import { ACCOUNT_TYPE } from '../../fixtures/constants';
+import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';
 import { signUp } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
 import { Modal, Button } from '../index';
@@ -128,7 +128,13 @@ class SignUpComponent extends React.Component<Props, State> {
     if (auth.uid) return <Redirect to="/" />;
 
     return (
-      <Modal header="Register" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
+      <Modal
+        header="Register"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+        size={MODAL_SIZE.TINY}
+      />
     );
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
+import { MODAL_SIZE } from '../../../fixtures/constants';
 import { createTask } from '../../../store/actions';
 import { Modal, Button } from '../../index';
 
@@ -16,13 +17,14 @@ export interface Props {
   auth: Auth;
   history: History;
 
-  createTask: (task: Task, projectId: string, callback) => void;
+  createTask: (task: Task, projectId: string, callback: () => void) => void;
 }
 
 export interface State {
   title: string;
   description: string;
   errorMessage: string;
+  [x: string]: unknown;
 }
 
 class TaskCreate extends React.Component<Props, State> {
@@ -33,7 +35,7 @@ class TaskCreate extends React.Component<Props, State> {
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as any);
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   private get errorMessage() {
@@ -98,6 +100,7 @@ class TaskCreate extends React.Component<Props, State> {
         content={this.content}
         actionButtons={this.actionButtons}
         history={this.props.history}
+        size={MODAL_SIZE.TINY}
       />
     );
   }

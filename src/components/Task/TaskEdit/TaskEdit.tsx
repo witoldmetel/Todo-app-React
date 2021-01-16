@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
+import { MODAL_SIZE } from '../../../fixtures/constants';
 import { getTask, updateTask } from '../../../store/actions';
 import { Modal, Button } from '../../index';
 
@@ -17,14 +18,14 @@ export interface Props {
   history: History;
 
   getTask: (id: string, projectId: string) => void;
-  updateTask: (task: Task, id: string, projectId: string, callback) => void;
+  updateTask: (task: Task, id: string, projectId: string, callback: () => void) => void;
 }
 
 export interface State {
   title: string;
   description: string;
   errorMessage: string;
-  [key: string]: string;
+  [key: string]: unknown;
 }
 
 class TaskEdit extends React.Component<Props, State> {
@@ -117,6 +118,7 @@ class TaskEdit extends React.Component<Props, State> {
         content={this.content}
         actionButtons={this.actionButtons}
         history={this.props.history}
+        size={MODAL_SIZE.TINY}
       />
     );
   }
@@ -139,6 +141,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default compose(
+  //@todo: Add proper type
   firestoreConnect((props: any) => {
     const projectPathname = props.location.pathname;
     //@todo: Refactoring this

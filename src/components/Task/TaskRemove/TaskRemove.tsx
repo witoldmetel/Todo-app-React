@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
+import { MODAL_SIZE } from '../../../fixtures/constants';
 import { getTask, deleteTask } from '../../../store/actions';
 import { Modal, Button } from '../../index';
 
@@ -57,6 +58,7 @@ class TaskRemove extends React.Component<Props> {
         content="Are you sure you want to delete this task?"
         actionButtons={this.actionButtons}
         history={this.props.history}
+        size={MODAL_SIZE.MINI}
       />
     );
   }
@@ -79,6 +81,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default compose(
+  //todo: Add type
   firestoreConnect((props: any) => {
     const projectPathname = props.location.pathname;
     //@todo: Refactoring this

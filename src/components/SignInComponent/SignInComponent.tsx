@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Credentials, Auth } from '../../fixtures/types';
 import { signIn } from '../../store/actions';
 import { Modal, Button, Form, Field } from '../index';
+import { MODAL_SIZE } from '../../fixtures/constants';
 
 export interface Props {
   auth: Auth;
@@ -59,7 +60,13 @@ class SignInComponent extends React.Component<Props> {
 
   public render() {
     return (
-      <Modal header="Sign In" content={this.content} actionButtons={this.actionButtons} history={this.props.history} />
+      <Modal
+        header="Sign In"
+        content={this.content}
+        actionButtons={this.actionButtons}
+        history={this.props.history}
+        size={MODAL_SIZE.TINY}
+      />
     );
   }
 }

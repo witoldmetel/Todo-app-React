@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Transition } from 'semantic-ui-react';
 
+import { sendMessage } from '../../../store/actions';
 import { ParticleComponent, Form, Field } from '../../index';
 import mainImage from '../../../assets/graphics/main.png';
 import crudImage from '../../../assets/graphics/crud.png';
@@ -9,8 +11,25 @@ import inviteImage from '../../../assets/graphics/invite.png';
 
 import './LandingPage.scss';
 
-export class LandingPage extends React.Component {
-  state = { visible: false };
+export interface Props {
+  sendMessage: any;
+}
+
+export interface State {
+  visible: boolean;
+  name: string;
+  email: string;
+  message: string;
+  error: null;
+  [x: string]: unknown;
+}
+
+class LandingPage extends React.Component<Props, State> {
+  state = { visible: false, name: '', email: '', message: '', error: null };
+
+  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ [e.target.id]: e.target.value } as State);
+  };
 
   public componentDidMount() {
     this.setState({ visible: true });
@@ -96,37 +115,39 @@ export class LandingPage extends React.Component {
     );
   }
 
+  private handleSubmit = () => {
+    this.props.sendMessage(this.state);
+  };
+
   private get contactSection() {
     return (
       <section className="contact-section">
         <div className="ramp-container" style={{ backgroundColor: '#e2e8f0' }} />
         <div className="top-card">
-          <h2 className="title">Contact Us</h2>
+          <h2 className="title">Contact Me</h2>
         </div>
         <div className="contact-form">
           <div className="contact-info">
-            <h4 className="title">Want to work with us?</h4>
+            <h4 className="title">Have some questions?</h4>
             <p className="content">Complete this form and we will get back to you in 24 hours.</p>
           </div>
-          <Form initialValues={{}} onSubmit={() => console.log('submit')}>
-            <Field id="name" label="Name" placeholder="Name" onChange={(e) => console.log(e.target.value)} disabled />
-            <Field
-              id="email"
-              label="Email"
-              placeholder="Email"
-              onChange={(e) => console.log(e.target.value)}
-              disabled
-            />
+          <Form
+            initialValues={[this.state.name, this.state.email, this.state.message]}
+            errorMessage={this.state.error}
+            onSubmit={this.handleSubmit}
+          >
+            <Field id="name" label="Name" placeholder="Name" onChange={this.onInputChange} />
+            <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
             <label htmlFor="message">Message</label>
             <textarea
               className="text-area"
               id="message"
               placeholder="Type a message..."
-              onChange={(e) => console.log(e.target.value)}
-              disabled
+              onChange={this.onInputChange as any}
+              maxLength={5}
             />
             <div className="contact-form-button">
-              <button className="disabled">Send Message</button>
+              <button onClick={this.handleSubmit}>Send Message</button>
             </div>
           </Form>
         </div>
@@ -177,3 +198,5 @@ export class LandingPage extends React.Component {
     );
   }
 }
+
+export default connect(null, { sendMessage })(LandingPage);

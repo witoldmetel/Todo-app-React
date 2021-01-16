@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import { Auth } from '../../fixtures/types';
 import { ProjectList } from '../index';
-import { LandingPage } from './LandingPage/LandingPage';
+import LandingPage from './LandingPage/LandingPage';
 
 import './Dashboard.scss';
 

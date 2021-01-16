@@ -1,4 +1,5 @@
 import { signIn, signOut, signUp } from './authActions';
+import { sendMessage } from './contactActions';
 import { getProjects, getProject, createProject, assignMembers, removeMember } from './projectActions';
 import { getTask, createTask, updateTask, setTaskStatus, deleteTask, searchTask, setFilter } from './taskActions';
 
@@ -17,5 +18,6 @@ export {
   setTaskStatus,
   deleteTask,
   searchTask,
-  setFilter
+  setFilter,
+  sendMessage
 };

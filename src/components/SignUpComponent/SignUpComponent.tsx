@@ -22,7 +22,7 @@ export interface State {
   username: string;
   accountType: ACCOUNT_TYPE;
   errorMessage: string;
-  [key: string]: string;
+  [key: string]: unknown;
 }
 
 class SignUpComponent extends React.Component<Props, State> {

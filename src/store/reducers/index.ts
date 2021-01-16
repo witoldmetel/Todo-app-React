@@ -7,6 +7,7 @@ import { tasksReducer } from './tasksReducer';
 import { searchReducer } from './searchReducer';
 import { filtersReducer } from './filtersReducer';
 import { authReducer } from './authReducer';
+import { contactReducer } from './contactReducer';
 
 const rootReducer = combineReducers({
   projects: projectsReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   searchValue: searchReducer,
   filters: filtersReducer,
   auth: authReducer,
+  contact: contactReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer
 });

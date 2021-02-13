@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
+import background from '../../../assets/graphics/background_img.jpg';
 import mainImage from '../../../assets/graphics/main.png';
 import crudImage from '../../../assets/graphics/crud.png';
 import inviteImage from '../../../assets/graphics/invite.png';
@@ -167,6 +168,22 @@ export class LandingPage extends React.Component {
       <div className="dashboard">
         <div className="particles-section">
           <ParticleComponent />
+          <div
+            style={{
+              backgroundImage: `url(${background})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
+              backgroundPosition: 'right',
+              backgroundSize: 'cover',
+              position: 'absolute',
+              opacity: 0.75,
+              zIndex: 1,
+              height: '100%',
+              width: '100%',
+              top: 0,
+              left: 0
+            }}
+          />
         </div>
         {this.infoSection}
         {this.aboutSection}

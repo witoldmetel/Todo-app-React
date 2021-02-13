@@ -7,7 +7,7 @@ import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';
 import { signUp } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
-import { Modal, Button } from '../index';
+import { Modal, Button, Form, Field } from '../index';
 
 export interface Props {
   auth: Auth;
@@ -42,25 +42,16 @@ class SignUpComponent extends React.Component<Props, State> {
     this.setState({ accountType: e.target.id as ACCOUNT_TYPE });
   };
 
-  private get errorMessage() {
-    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
-  }
-
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="joe@schmoe.com" onChange={this.onInputChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="password" onChange={this.onInputChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" placeholder="Joe Schmoe" onChange={this.onInputChange} />
-        </div>
+      <Form
+        initialValues={[this.state.email, this.state.password, this.state.username]}
+        errorMessage={this.state.errorMessage}
+        onSubmit={this.handleSubmit}
+      >
+        <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={this.onInputChange} />
+        <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
+        <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={this.onInputChange} />
         <div className="inline fields">
           <label>Account Type:</label>
           <div className="field">
@@ -88,8 +79,7 @@ class SignUpComponent extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-        {this.errorMessage}
-      </div>
+      </Form>
     );
   }
 

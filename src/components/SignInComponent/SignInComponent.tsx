@@ -12,7 +12,7 @@ export interface Props {
   authError: string;
   history: History;
 
-  signIn: (credentials: Credentials, calback) => void;
+  signIn: (credentials: Credentials, calback: () => void) => void;
 }
 
 class SignInComponent extends React.Component<Props> {
@@ -33,7 +33,7 @@ class SignInComponent extends React.Component<Props> {
         errorMessage={this.state.error}
         onSubmit={this.handleSubmit}
       >
-        <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
+        <Field id="email" label="Email" placeholder="Email" type="email" onChange={this.onInputChange} />
         <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
       </Form>
     );

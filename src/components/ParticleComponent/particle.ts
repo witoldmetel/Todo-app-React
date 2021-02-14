@@ -7,6 +7,10 @@ export default function particle(particle: p5) {
     private velocity: Vector;
 
     constructor() {
+      /**
+       * Set hardcoded height for particles container
+       */
+      particle.height = 650;
       this.position = particle.createVector(particle.random(0, particle.width), particle.random(0, particle.height));
       this.size = particle.random(5, 20);
       this.velocity = particle.createVector(particle.random(-1, 1), particle.random(-1, 1));

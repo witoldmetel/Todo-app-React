@@ -151,8 +151,8 @@ class TaskItem extends React.Component<Props> {
             <span>
               Created by: <b>{author}</b>
             </span>
-            <span>Created: {formatTime(createdAt)}</span>
-            <span>Updated: {formatTimeFromNow(updatedAt)}</span>
+            <span>Created: {formatTime(createdAt as firebase.firestore.Timestamp)}</span>
+            <span>Updated: {formatTimeFromNow(updatedAt as firebase.firestore.Timestamp)}</span>
           </div>
         </div>
         <div className="second column">

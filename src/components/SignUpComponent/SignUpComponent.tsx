@@ -1,19 +1,22 @@
 import React from 'react';
 import { History } from 'history';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
-import { Auth, NewUser } from '../../fixtures/types';
+import { Auth, NewUser, Credentials } from '../../fixtures/types';
 import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';
-import { signUp } from '../../store/actions';
+import { signUp, signIn } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
-import { Modal, Button } from '../index';
+import { Modal, Button, Form, Field } from '../index';
+
+import './SignUpComponent.scss';
 
 export interface Props {
   auth: Auth;
   history: History;
 
-  signUp: (newUser: NewUser, callback) => void;
+  signUp: (newUser: NewUser, callback: () => void) => void;
+  signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
 }
 
 export interface State {
@@ -22,11 +25,11 @@ export interface State {
   username: string;
   accountType: ACCOUNT_TYPE;
   errorMessage: string;
-  [key: string]: string;
+  [key: string]: unknown;
 }
 
 class SignUpComponent extends React.Component<Props, State> {
-  state = {
+  state: State = {
     email: '',
     password: '',
     username: '',
@@ -34,64 +37,58 @@ class SignUpComponent extends React.Component<Props, State> {
     errorMessage: ''
   };
 
+  private static readonly ACCOUNT_TYPE = [ACCOUNT_TYPE.REGULAR, ACCOUNT_TYPE.VIP];
+
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as State);
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   private onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ accountType: e.target.id as ACCOUNT_TYPE });
+    this.setState({ accountType: e.target.value as ACCOUNT_TYPE });
   };
 
-  private get errorMessage() {
-    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
+  private get accountTypeFields() {
+    return SignUpComponent.ACCOUNT_TYPE.map((accountType) => (
+      <Field
+        key={accountType}
+        fieldClassName="register-account-type"
+        label={accountType}
+        type="radio"
+        name="account"
+        value={accountType}
+        checked={this.state.accountType === accountType}
+        onChange={this.onCheckboxChange}
+      />
+    ));
   }
 
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="joe@schmoe.com" onChange={this.onInputChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="password" onChange={this.onInputChange} />
-        </div>
-        <div className="field">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" placeholder="Joe Schmoe" onChange={this.onInputChange} />
-        </div>
-        <div className="inline fields">
-          <label>Account Type:</label>
-          <div className="field">
-            <div className="ui radio checkbox">
-              <input
-                id={ACCOUNT_TYPE.REGULAR}
-                type="radio"
-                name="account"
-                checked={this.state.accountType === ACCOUNT_TYPE.REGULAR}
-                onChange={this.onCheckboxChange}
-              />
-              <label>Regular</label>
-            </div>
+      <>
+        <Form
+          initialValues={[this.state.email, this.state.password, this.state.username, this.state.accountType]}
+          errorMessage={this.state.errorMessage}
+          onSubmit={this.handleSubmit}
+        >
+          <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={this.onInputChange} />
+          <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
+          <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={this.onInputChange} />
+          <div className="inline fields" role="group">
+            <label>Account Type:</label>
+            {this.accountTypeFields}
           </div>
-          <div className="field">
-            <div className="ui radio checkbox">
-              <input
-                id={ACCOUNT_TYPE.VIP}
-                type="radio"
-                name="account"
-                checked={this.state.accountType === ACCOUNT_TYPE.VIP}
-                onChange={this.onCheckboxChange}
-              />
-              <label>VIP</label>
-            </div>
-          </div>
+        </Form>
+        <div className="register-note">
+          Let&apos;s try <strong>Fire Jira</strong> without registering:
+          <Button label="Demo Page" className="demo-button inverted orange" onClick={this.signInToDemoPage} />
         </div>
-        {this.errorMessage}
-      </div>
+      </>
     );
   }
+
+  private signInToDemoPage = () => {
+    this.props.signIn({ email: 'joedoe@firejira.com', password: 'firejira' }, this.handleCancel);
+  };
 
   private get formValidation() {
     const { email, password, username } = this.state;
@@ -129,6 +126,7 @@ class SignUpComponent extends React.Component<Props, State> {
 
     return (
       <Modal
+        className="register-form"
         header="Register"
         content={this.content}
         actionButtons={this.actionButtons}
@@ -145,4 +143,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { signUp })(SignUpComponent);
+export default connect(mapStateToProps, { signUp, signIn })(SignUpComponent);

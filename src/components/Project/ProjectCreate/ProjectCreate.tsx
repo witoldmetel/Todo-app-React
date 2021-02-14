@@ -6,16 +6,16 @@ import { Redirect } from 'react-router-dom';
 import { Auth, Project } from '../../../fixtures/types';
 import { MODAL_SIZE } from '../../../fixtures/constants';
 import { createProject } from '../../../store/actions';
-import { Modal, Button } from '../../index';
+import { Modal, Button, Form, Field } from '../../index';
 
-export interface Props {
+interface Props {
   auth: Auth;
   history: History;
 
-  createProject: (project: Project, callback) => void;
+  createProject: (project: Project, callback: () => void) => void;
 }
 
-export interface State {
+interface State {
   projectName: string;
   description: string;
   errorMessage: string;
@@ -23,7 +23,7 @@ export interface State {
 }
 
 class ProjectCreate extends React.Component<Props, State> {
-  state = {
+  state: State = {
     projectName: '',
     description: '',
     errorMessage: ''
@@ -33,35 +33,28 @@ class ProjectCreate extends React.Component<Props, State> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private get errorMessage() {
-    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
-  }
-
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label>Project Name</label>
-          <input
-            type="text"
-            id="projectName"
-            placeholder="Project Name"
-            value={this.state.projectName}
-            onChange={this.onInputChange}
-          />
-        </div>
-        <div className="field">
-          <label>Description</label>
-          <input
-            type="text"
-            id="description"
-            placeholder="Description"
-            value={this.state.description}
-            onChange={this.onInputChange}
-          />
-        </div>
-        {this.errorMessage}
-      </div>
+      <Form
+        initialValues={[this.state.projectName, this.state.description]}
+        errorMessage={this.state.errorMessage}
+        onSubmit={this.handleSubmit}
+      >
+        <Field
+          id="projectName"
+          label="Project Name"
+          placeholder="Project Name"
+          type="text"
+          onChange={this.onInputChange}
+        />
+        <Field
+          id="description"
+          label="Description"
+          placeholder="Description"
+          type="text"
+          onChange={this.onInputChange}
+        />
+      </Form>
     );
   }
 

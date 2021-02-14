@@ -48,7 +48,7 @@ export const getProject = (projectId: string) => {
   };
 };
 
-export const createProject = (project: Project, callback) => {
+export const createProject = (project: Project, callback: () => void) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 

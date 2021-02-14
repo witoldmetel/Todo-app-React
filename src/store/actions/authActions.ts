@@ -1,6 +1,7 @@
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_ERROR } from '../../fixtures/constants';
+import { NewUser, Credentials } from '../../fixtures/types';
 
-export const signUp = (newUser, callback) => {
+export const signUp = (newUser: NewUser, callback: () => void) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -22,7 +23,7 @@ export const signUp = (newUser, callback) => {
   };
 };
 
-export const signIn = (credentials, callback) => {
+export const signIn = (credentials: Credentials, callback: (flag: boolean) => void) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
@@ -31,9 +32,12 @@ export const signIn = (credentials, callback) => {
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(() => {
         dispatch({ type: LOGIN_SUCCESS });
-        callback();
+        callback(true);
       })
-      .catch((error) => dispatch({ type: LOGIN_ERROR, payload: error }));
+      .catch((error) => {
+        dispatch({ type: LOGIN_ERROR, payload: error });
+        callback(false);
+      });
   };
 };
 

@@ -4,17 +4,22 @@ import { Modal } from 'semantic-ui-react';
 
 import { MODAL_SIZE } from '../../fixtures/constants';
 
-export interface Props {
+interface Props {
   header: string | Element;
   content: string | JSX.Element;
   actionButtons: JSX.Element;
   history: History;
 
   size?: MODAL_SIZE;
+  className?: string;
 }
 
-export class ModalComponent extends React.Component<Props> {
-  state = { open: true };
+interface State {
+  open: boolean;
+}
+
+export class ModalComponent extends React.Component<Props, State> {
+  state: State = { open: true };
 
   private closeModal = () => {
     this.setState({ open: false });
@@ -24,7 +29,13 @@ export class ModalComponent extends React.Component<Props> {
 
   public render() {
     return (
-      <Modal dimmer="blurring" open={this.state.open} onClose={this.closeModal} size={this.props.size}>
+      <Modal
+        dimmer="blurring"
+        className={this.props.className}
+        open={this.state.open}
+        onClose={this.closeModal}
+        size={this.props.size}
+      >
         <Modal.Header>{this.props.header}</Modal.Header>
         <Modal.Content>{this.props.content}</Modal.Content>
         <Modal.Actions>{this.props.actionButtons}</Modal.Actions>

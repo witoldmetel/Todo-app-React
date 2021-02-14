@@ -1,0 +1,27 @@
+.register-form {
+  .ui.form.content .inline.fields {
+    .register-account-type {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+
+      label {
+        margin: 0 0 0 5px;
+        font-weight: normal;
+      }
+
+      input {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .register-note {
+    margin-top: 10px;
+
+    .demo-button {
+      margin-left: 10px;
+      padding: 5px;
+    }
+  }
+}

@@ -7,19 +7,26 @@ import { signIn } from '../../store/actions';
 import { Modal, Button, Form, Field } from '../index';
 import { MODAL_SIZE } from '../../fixtures/constants';
 
-export interface Props {
+interface Props {
   auth: Auth;
   authError: string;
   history: History;
 
-  signIn: (credentials: Credentials, calback) => void;
+  signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
 }
 
-class SignInComponent extends React.Component<Props> {
-  state = {
+interface State {
+  email: string;
+  password: string;
+  error: string;
+  [key: string]: unknown;
+}
+
+class SignInComponent extends React.Component<Props, State> {
+  state: State = {
     email: '',
     password: '',
-    error: null
+    error: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,20 +40,24 @@ class SignInComponent extends React.Component<Props> {
         errorMessage={this.state.error}
         onSubmit={this.handleSubmit}
       >
-        <Field id="email" label="Email" placeholder="Email" onChange={this.onInputChange} />
+        <Field id="email" label="Email" placeholder="Email" type="email" onChange={this.onInputChange} />
         <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
       </Form>
     );
   }
 
   private handleSubmit = () => {
-    this.setState({ error: this.props.authError });
     this.props.signIn(this.state, this.handleCancel);
   };
 
-  private handleCancel = () => {
-    this.setState({ error: null });
-    this.props.history.push('/');
+  private handleCancel = (flag?: boolean) => {
+    if (flag) {
+      this.setState({ error: '' });
+
+      this.props.history.push('/');
+    } else {
+      this.setState({ error: this.props.authError });
+    }
   };
 
   private get actionButtons() {

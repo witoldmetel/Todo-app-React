@@ -11,7 +11,7 @@ export const isPasswordValid = (password: string) => {
 };
 
 export const isUsernameValid = (username: string) => {
-  const regExp = /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+  const regExp = /^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
   return regExp.test(username);
 };
@@ -27,7 +27,7 @@ export const isSingUpFormValid = ({ email, password, username }) => {
   if (!isEmailValid(email)) {
     return {
       isValid: false,
-      errorMessage: 'Incorrect email'
+      errorMessage: 'Incorrect email format'
     };
   }
 
@@ -42,7 +42,7 @@ export const isSingUpFormValid = ({ email, password, username }) => {
   if (!isUsernameValid(username)) {
     return {
       isValid: false,
-      errorMessage: 'Invalid username'
+      errorMessage: 'Your username must be 5 to 20 characters, without special characters'
     };
   }
 

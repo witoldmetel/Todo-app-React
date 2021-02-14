@@ -7,7 +7,7 @@ import { signIn } from '../../store/actions';
 import { Modal, Button, Form, Field } from '../index';
 import { MODAL_SIZE } from '../../fixtures/constants';
 
-export interface Props {
+interface Props {
   auth: Auth;
   authError: string;
   history: History;
@@ -15,11 +15,18 @@ export interface Props {
   signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
 }
 
-class SignInComponent extends React.Component<Props> {
-  state = {
+interface State {
+  email: string;
+  password: string;
+  error: string;
+  [key: string]: string;
+}
+
+class SignInComponent extends React.Component<Props, State> {
+  state: State = {
     email: '',
     password: '',
-    error: null
+    error: ''
   };
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +52,7 @@ class SignInComponent extends React.Component<Props> {
 
   private handleCancel = (flag?: boolean) => {
     if (flag) {
-      this.setState({ error: null });
+      this.setState({ error: '' });
 
       this.props.history.push('/');
     } else {

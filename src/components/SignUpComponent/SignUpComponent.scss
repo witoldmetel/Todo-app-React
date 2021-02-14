@@ -1,0 +1,12 @@
+.register-form .ui.form.content .inline.fields {
+  .register-account-type {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    label {
+      margin: 0 0 0 5px;
+      font-weight: normal;
+    }
+  }
+}

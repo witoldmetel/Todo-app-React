@@ -46,7 +46,7 @@ class SignInComponent extends React.Component<Props, State> {
     );
   }
 
-  private handleSubmit = async () => {
+  private handleSubmit = () => {
     this.props.signIn(this.state, this.handleCancel);
   };
 

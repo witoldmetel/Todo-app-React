@@ -1,11 +1,11 @@
 import React from 'react';
 import { History } from 'history';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
-import { Auth, NewUser } from '../../fixtures/types';
+import { Auth, NewUser, Credentials } from '../../fixtures/types';
 import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';
-import { signUp } from '../../store/actions';
+import { signUp, signIn } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
 import { Modal, Button, Form, Field } from '../index';
 
@@ -16,6 +16,7 @@ export interface Props {
   history: History;
 
   signUp: (newUser: NewUser, callback: () => void) => void;
+  signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
 }
 
 export interface State {
@@ -63,21 +64,31 @@ class SignUpComponent extends React.Component<Props, State> {
 
   private get content() {
     return (
-      <Form
-        initialValues={[this.state.email, this.state.password, this.state.username, this.state.accountType]}
-        errorMessage={this.state.errorMessage}
-        onSubmit={this.handleSubmit}
-      >
-        <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={this.onInputChange} />
-        <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
-        <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={this.onInputChange} />
-        <div className="inline fields" role="group">
-          <label>Account Type:</label>
-          {this.accountTypeFields}
+      <>
+        <Form
+          initialValues={[this.state.email, this.state.password, this.state.username, this.state.accountType]}
+          errorMessage={this.state.errorMessage}
+          onSubmit={this.handleSubmit}
+        >
+          <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={this.onInputChange} />
+          <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
+          <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={this.onInputChange} />
+          <div className="inline fields" role="group">
+            <label>Account Type:</label>
+            {this.accountTypeFields}
+          </div>
+        </Form>
+        <div className="register-note">
+          Let&apos;s try <strong>Fire Jira</strong> without register:
+          <Button label="Demo Page" className="demo-button inverted orange" onClick={this.signInToDemoPage} />
         </div>
-      </Form>
+      </>
     );
   }
+
+  private signInToDemoPage = () => {
+    this.props.signIn({ email: 'joedoe@firejira.com', password: 'firejira' }, this.handleCancel);
+  };
 
   private get formValidation() {
     const { email, password, username } = this.state;
@@ -132,4 +143,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { signUp })(SignUpComponent);
+export default connect(mapStateToProps, { signUp, signIn })(SignUpComponent);

@@ -161,12 +161,12 @@ export class LandingPage extends React.Component {
             >
               <i className="linkedin icon" />
             </a>
-            <a className="item disabled">
+            <span className="item disabled">
               <i className="twitter icon" />
-            </a>
-            <a className="item disabled">
+            </span>
+            <span className="item disabled">
               <i className="instagram icon" />
-            </a>
+            </span>
           </div>
         </div>
         <div className="ui inverted divider" />

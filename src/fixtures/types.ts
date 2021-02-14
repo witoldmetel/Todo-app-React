@@ -16,8 +16,8 @@ export interface Task {
   title: string;
   description: string;
   status?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: firebase.firestore.Timestamp;
+  updatedAt?: firebase.firestore.Timestamp;
 }
 
 export interface Auth {

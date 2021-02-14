@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { Task, Auth } from '../../../fixtures/types';
 import { MODAL_SIZE } from '../../../fixtures/constants';
 import { getTask, updateTask } from '../../../store/actions';
-import { Modal, Button } from '../../index';
+import { Modal, Button, Form, Field } from '../../index';
 
 export interface Props {
   projectId: string;
@@ -29,9 +29,9 @@ export interface State {
 }
 
 class TaskEdit extends React.Component<Props, State> {
-  state = {
-    title: this.props.task?.title || '',
-    description: this.props.task?.description || '',
+  state: State = {
+    title: this.props.task.title,
+    description: this.props.task.description,
     errorMessage: ''
   };
 
@@ -39,7 +39,7 @@ class TaskEdit extends React.Component<Props, State> {
     this.props.getTask(this.props.id, this.props.projectId);
   }
 
-  public componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: Props) {
     if (prevProps.task !== this.props.task && prevProps.task === null) {
       this.setState({
         title: this.props.task.title,
@@ -49,38 +49,33 @@ class TaskEdit extends React.Component<Props, State> {
   }
 
   private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value } as State);
+    this.setState({ [e.target.id]: e.target.value });
   };
-
-  private get errorMessage() {
-    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
-  }
 
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label>Title</label>
-          <input
-            type="text"
-            id="title"
-            placeholder="task title"
-            value={this.state.title}
-            onChange={this.onInputChange}
-          />
-        </div>
-        <div className="field">
-          <label>Description</label>
-          <input
-            type="text"
-            id="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.onInputChange}
-          />
-        </div>
-        {this.errorMessage}
-      </div>
+      <Form
+        initialValues={[this.state.title, this.state.description]}
+        errorMessage={this.state.errorMessage}
+        onSubmit={this.handleSubmit}
+      >
+        <Field
+          id="title"
+          label="Title"
+          placeholder="task title"
+          value={this.state.title}
+          type="text"
+          onChange={this.onInputChange}
+        />
+        <Field
+          id="description"
+          label="Description"
+          placeholder="description"
+          value={this.state.description}
+          type="text"
+          onChange={this.onInputChange}
+        />
+      </Form>
     );
   }
 

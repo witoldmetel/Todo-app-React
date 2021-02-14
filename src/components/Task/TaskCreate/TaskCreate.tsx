@@ -41,7 +41,7 @@ class TaskCreate extends React.Component<Props, State> {
   private get content() {
     return (
       <Form
-        initialValues={[this.state.email, this.state.password]}
+        initialValues={[this.state.title, this.state.description]}
         errorMessage={this.state.errorMessage}
         onSubmit={this.handleSubmit}
       >

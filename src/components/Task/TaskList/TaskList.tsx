@@ -83,11 +83,9 @@ class TaskList extends React.Component<Props> {
 
     return !this.props.tasks.length
       ? this.emptyList
-      : this.props.tasks
-          .slice(this.state.firstActiveItemIndex, this.state.lastActiveItemIndex)
-          .map((task: Task, index: number) => {
-            return <TaskItem key={index} task={task} project={this.props.project} projectId={this.props.projectId} />;
-          });
+      : this.props.tasks.slice(this.state.firstActiveItemIndex, this.state.lastActiveItemIndex).map((task: Task) => {
+          return <TaskItem key={task.id} task={task} project={this.props.project} projectId={this.props.projectId} />;
+        });
   }
 
   private get membersButton() {

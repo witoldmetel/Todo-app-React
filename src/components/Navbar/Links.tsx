@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Popup } from 'semantic-ui-react';
 
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
@@ -20,11 +20,26 @@ class Links extends React.Component<Props> {
   private get createProjectLink() {
     const { profile } = this.props;
 
-    return profile.accountType === ACCOUNT_TYPE.VIP && !this.props.projectId ? (
+    if (this.props.projectId) {
+      return null;
+    }
+
+    return profile.accountType === ACCOUNT_TYPE.VIP ? (
       <NavLink to="/project/new" className="header item">
         Create New Project
       </NavLink>
-    ) : null;
+    ) : (
+      <Popup
+        trigger={
+          <NavLink to="/project/new" className="header item disabled" onClick={(e) => e.preventDefault()}>
+            <i className="shopping cart icon" />
+            Create New Project
+          </NavLink>
+        }
+        content="Available only for VIP accounts"
+        position="bottom center"
+      />
+    );
   }
 
   private get createTaskLink() {

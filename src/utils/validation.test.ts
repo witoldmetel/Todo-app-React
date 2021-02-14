@@ -57,7 +57,7 @@ describe('SignUp Form', () => {
     const formData = { email: 'firebase', password: 'Firebase123.', username: 'FirebaseAdmin' };
     const signUpValidation = isSingUpFormValid(formData);
 
-    const result = { errorMessage: 'Incorrect email' };
+    const result = { errorMessage: 'Incorrect email format' };
 
     expect(signUpValidation.isValid).toBeFalsy();
     expect(signUpValidation.errorMessage).toEqual(result.errorMessage);
@@ -80,7 +80,7 @@ describe('SignUp Form', () => {
     const formData = { email: 'firebase@gmail.com', password: 'Firebase123.', username: 'FirebaseAdmin!!!' };
     const signUpValidation = isSingUpFormValid(formData);
 
-    const result = { errorMessage: 'Invalid username' };
+    const result = { errorMessage: 'Your username must be 5 to 20 characters, without special characters' };
 
     expect(signUpValidation.isValid).toBeFalsy();
     expect(signUpValidation.errorMessage).toEqual(result.errorMessage);

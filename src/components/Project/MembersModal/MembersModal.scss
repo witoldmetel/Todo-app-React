@@ -7,4 +7,8 @@
     background: none;
     padding: 5px;
   }
+
+  .field.disabled-option {
+    cursor: not-allowed;
+  }
 }

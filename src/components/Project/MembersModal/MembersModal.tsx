@@ -60,18 +60,18 @@ class MembersModal extends React.Component<Props, State> {
     this.getUserIds(selectedValue, options);
   };
 
-  private get filteredMembers() {
+  private get filteredMembers(): User[] {
     const {
       users,
       project: { members }
     } = this.props;
 
-    const filteredUsers = [];
+    const filteredUsers: User[] = [];
 
     users &&
       users.filter((user) => {
         if (!(members as User[]).find((member: User) => member.id === user.id)) {
-          (filteredUsers as User[]).push(user);
+          filteredUsers.push(user);
         }
       });
 
@@ -82,7 +82,7 @@ class MembersModal extends React.Component<Props, State> {
     const { users } = this.props;
 
     return users
-      ? (this.filteredMembers as User[]).map((user) => {
+      ? this.filteredMembers.map((user) => {
           return {
             key: user.id,
             id: user.id,
@@ -94,10 +94,10 @@ class MembersModal extends React.Component<Props, State> {
       : [];
   }
 
-  private removeMember = (id: string) => {
-    const { project, projectId } = this.props;
+  private removeMember = (id: string) => () => {
+    const { auth, project, projectId, removeMember } = this.props;
 
-    return id !== this.props.project.authorId ? this.props.removeMember(project, projectId, id) : null;
+    return auth.uid === project.authorId && id !== project.authorId ? removeMember(project, projectId, id) : null;
   };
 
   private get members() {
@@ -106,11 +106,44 @@ class MembersModal extends React.Component<Props, State> {
         key={member.id}
         className="ui icon button member"
         data-tooltip={member.username}
-        onClick={() => this.removeMember(member.id)}
+        onClick={this.removeMember(member.id)}
       >
         <RandomAvatar className="ui avatar image" randomFace={member.id} />
       </div>
     ));
+  }
+
+  private get dropdownField() {
+    const { auth, project } = this.props;
+
+    return auth.uid === project.authorId ? (
+      <div className="field">
+        <label>Add Member</label>
+        <Dropdown
+          placeholder="Add members"
+          fluid
+          multiple
+          search
+          selection
+          options={this.memberOptions}
+          onChange={this.onChange}
+        />
+      </div>
+    ) : (
+      <div className="ui field" data-tooltip="Available only for project owner">
+        <label>Add Member</label>
+        <Dropdown
+          placeholder="Add members"
+          disabled
+          fluid
+          multiple
+          search
+          selection
+          options={this.memberOptions}
+          onChange={this.onChange}
+        />
+      </div>
+    );
   }
 
   private get content() {
@@ -129,18 +162,7 @@ class MembersModal extends React.Component<Props, State> {
           <label>Members</label>
           {this.members}
         </div>
-        <div className="field">
-          <label>Add Member</label>
-          <Dropdown
-            placeholder="Add members"
-            fluid
-            multiple
-            search
-            selection
-            options={this.memberOptions}
-            onChange={this.onChange}
-          />
-        </div>
+        {this.dropdownField}
       </div>
     );
   }

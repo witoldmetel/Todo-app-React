@@ -79,7 +79,7 @@ class SignUpComponent extends React.Component<Props, State> {
           </div>
         </Form>
         <div className="register-note">
-          Let&apos;s try <strong>Fire Jira</strong> without register:
+          Let&apos;s try <strong>Fire Jira</strong> without registering:
           <Button label="Demo Page" className="demo-button inverted orange" onClick={this.signInToDemoPage} />
         </div>
       </>

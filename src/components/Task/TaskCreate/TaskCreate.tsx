@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Task, Auth } from '../../../fixtures/types';
 import { MODAL_SIZE } from '../../../fixtures/constants';
 import { createTask } from '../../../store/actions';
-import { Modal, Button } from '../../index';
+import { Modal, Button, Form, Field } from '../../index';
 
 export interface Props {
   match: {
@@ -24,11 +24,11 @@ export interface State {
   title: string;
   description: string;
   errorMessage: string;
-  [x: string]: unknown;
+  [key: string]: unknown;
 }
 
 class TaskCreate extends React.Component<Props, State> {
-  state = {
+  state: State = {
     title: '',
     description: '',
     errorMessage: ''
@@ -38,35 +38,22 @@ class TaskCreate extends React.Component<Props, State> {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  private get errorMessage() {
-    return this.state.errorMessage ? <div className="ui red message">{this.state.errorMessage}</div> : null;
-  }
-
   private get content() {
     return (
-      <div className="ui form content">
-        <div className="field">
-          <label>Title</label>
-          <input
-            type="text"
-            id="title"
-            placeholder="task title"
-            value={this.state.title}
-            onChange={this.onInputChange}
-          />
-        </div>
-        <div className="field">
-          <label>Description</label>
-          <input
-            type="text"
-            id="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.onInputChange}
-          />
-        </div>
-        {this.errorMessage}
-      </div>
+      <Form
+        initialValues={[this.state.email, this.state.password]}
+        errorMessage={this.state.errorMessage}
+        onSubmit={this.handleSubmit}
+      >
+        <Field id="title" label="Title" placeholder="task title" type="text" onChange={this.onInputChange} />
+        <Field
+          id="description"
+          label="Description"
+          placeholder="description"
+          type="text"
+          onChange={this.onInputChange}
+        />
+      </Form>
     );
   }
 

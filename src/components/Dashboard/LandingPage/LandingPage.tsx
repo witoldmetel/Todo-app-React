@@ -83,12 +83,12 @@ export class LandingPage extends React.Component {
         </div>
         <div className="pictures">
           <div className="picture-container">
-            <img className="picture" alt="manage view of tasks" src={crudImage} />
+            <img className="picture" alt="manage view of tasks" src={crudImage} height="375" width="500" />
             <h5 className="title">Crate/Edit/Remove</h5>
             <p className="description">You can easily manage your tasks and projects</p>
           </div>
           <div className="picture-container">
-            <img className="picture" alt="members modal" src={inviteImage} />
+            <img className="picture" alt="members modal" src={inviteImage} height="375" width="500" />
             <h5 className="title">Invite</h5>
             <p className="description">You can add new members to your project</p>
           </div>

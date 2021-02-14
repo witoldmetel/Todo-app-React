@@ -12,7 +12,7 @@ export interface Props {
   authError: string;
   history: History;
 
-  signIn: (credentials: Credentials, calback: () => void) => void;
+  signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
 }
 
 class SignInComponent extends React.Component<Props> {
@@ -39,14 +39,18 @@ class SignInComponent extends React.Component<Props> {
     );
   }
 
-  private handleSubmit = () => {
-    this.setState({ error: this.props.authError });
+  private handleSubmit = async () => {
     this.props.signIn(this.state, this.handleCancel);
   };
 
-  private handleCancel = () => {
-    this.setState({ error: null });
-    this.props.history.push('/');
+  private handleCancel = (flag?: boolean) => {
+    if (flag) {
+      this.setState({ error: null });
+
+      this.props.history.push('/');
+    } else {
+      this.setState({ error: this.props.authError });
+    }
   };
 
   private get actionButtons() {

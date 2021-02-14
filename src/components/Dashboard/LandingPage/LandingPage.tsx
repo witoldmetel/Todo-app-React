@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
-import background from '../../../assets/graphics/background_img.jpg';
+import background from '../../../assets/graphics/sky.png';
 import mainImage from '../../../assets/graphics/main.png';
 import crudImage from '../../../assets/graphics/crud.png';
 import inviteImage from '../../../assets/graphics/invite.png';

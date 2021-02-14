@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
-import background from '../../../assets/graphics/sky.png';
-import mainImage from '../../../assets/graphics/main.png';
-import crudImage from '../../../assets/graphics/crud.png';
-import inviteImage from '../../../assets/graphics/invite.png';
+import background from '../../../assets/graphics/sky.webp';
+import mainImage from '../../../assets/graphics/main.webp';
+import crudImage from '../../../assets/graphics/crud.webp';
+import inviteImage from '../../../assets/graphics/invite.webp';
 
 import './LandingPage.scss';
 
@@ -143,18 +143,30 @@ export class LandingPage extends React.Component {
           <h4 className="title">Follow me on social media</h4>
           <h5 className="subtitle">Find me on any of these platforms, I respond 1-2 business days :)</h5>
           <div className="buttons">
-            <a href="https://github.com/witoldmetel" target="_blank" className="item">
+            <a
+              href="https://github.com/witoldmetel"
+              target="_blank"
+              rel="noopener"
+              className="item"
+              aria-label="github icon with link to github profile"
+            >
               <i className="github icon" />
             </a>
-            <a href="https://www.linkedin.com/in/witoldmetel" target="_blank" className="item">
+            <a
+              href="https://www.linkedin.com/in/witoldmetel"
+              target="_blank"
+              rel="noopener"
+              className="item"
+              aria-label="linkedin icon with link to linkedin profile"
+            >
               <i className="linkedin icon" />
             </a>
-            <li className="item disabled">
+            <a className="item disabled">
               <i className="twitter icon" />
-            </li>
-            <li className="item disabled">
+            </a>
+            <a className="item disabled">
               <i className="instagram icon" />
-            </li>
+            </a>
           </div>
         </div>
         <div className="ui inverted divider" />

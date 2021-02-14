@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { Pagination, PaginationProps } from 'semantic-ui-react';
+import { Pagination, PaginationProps, Popup } from 'semantic-ui-react';
 import classnames from 'classnames';
 
 import { getProject } from '../../../store/actions';
@@ -98,7 +98,24 @@ class TaskList extends React.Component<Props> {
           <i className="users icon" />
         </div>
       </Link>
-    ) : null;
+    ) : (
+      <Popup
+        trigger={
+          <Link
+            className="ui vertical animated button members disabled-option"
+            to={`/project/${this.props.projectId}/members`}
+            onClick={(e) => e.preventDefault()}
+          >
+            <div className="hidden content">Members</div>
+            <div className="visible content">
+              <i className="users icon" />
+            </div>
+          </Link>
+        }
+        content="Available only for project owner"
+        position="right center"
+      />
+    );
   }
 
   private handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement>, { activePage }: PaginationProps) => {

@@ -13,6 +13,10 @@
 
     .members {
       width: 75px;
+
+      &.disabled-option {
+        cursor: not-allowed !important;
+      }
     }
 
     .filter.buttons {

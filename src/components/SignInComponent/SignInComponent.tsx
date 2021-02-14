@@ -19,7 +19,7 @@ interface State {
   email: string;
   password: string;
   error: string;
-  [key: string]: string;
+  [key: string]: unknown;
 }
 
 class SignInComponent extends React.Component<Props, State> {

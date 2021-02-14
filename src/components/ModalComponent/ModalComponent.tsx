@@ -19,7 +19,7 @@ interface State {
 }
 
 export class ModalComponent extends React.Component<Props, State> {
-  state = { open: true };
+  state: State = { open: true };
 
   private closeModal = () => {
     this.setState({ open: false });

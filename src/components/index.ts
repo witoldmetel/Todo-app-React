@@ -11,4 +11,3 @@ export { default as SignUpComponent } from './SignUpComponent/SignUpComponent';
 export { ProjectCreate, ProjectItem, ProjectList, MembersModal } from './Project';
 export { TaskCreate, TaskEdit, TaskItem, TaskList, TaskRemove } from './Task';
 export { NotificationsContainer } from './NotificationsContainer/NotificationsContainer';
-export { UnknownPage } from './UnknownPage/UnknownPage';

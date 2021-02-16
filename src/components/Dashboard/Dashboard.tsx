@@ -39,4 +39,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default compose(firestoreConnect([{ collection: 'projects' }]), connect(mapStateToProps))(Dashboard);
+export default compose(
+  firestoreConnect([{ collection: 'projects' }]),
+  connect(mapStateToProps)
+)(Dashboard) as React.ComponentType;

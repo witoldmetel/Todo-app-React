@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { DEFAULT } from '../../fixtures/routes';
+
 import './UnknownPage.scss';
 
-export class UnknownPage extends React.Component {
+export default class UnknownPage extends React.Component {
   render() {
     return (
       <div className="unknown-page">
@@ -15,7 +17,7 @@ export class UnknownPage extends React.Component {
           </div>
           <p>Nice try! That was one in a million.</p>
           <p>
-            Let&#39;s go <Link to="/">back</Link>
+            Let&#39;s go <Link to={DEFAULT}>back</Link>
           </p>
         </div>
       </div>

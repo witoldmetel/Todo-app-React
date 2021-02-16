@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
 import { ParticleComponent, Form, Field } from '../../index';
+import { SIGNUP } from '../../../fixtures/routes';
+
 import background from '../../../assets/graphics/sky.webp';
 import mainImage from '../../../assets/graphics/main.webp';
 import crudImage from '../../../assets/graphics/crud.webp';
@@ -28,7 +30,7 @@ export class LandingPage extends React.Component {
             Welcome on <span className="subtitle">Fire Jira</span>. Track and manage projects in real time. Register and
             check it now!
           </p>
-          <NavLink to="/signup" className="register item">
+          <NavLink to={SIGNUP} className="register item">
             Register
           </NavLink>
         </section>

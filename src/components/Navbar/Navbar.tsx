@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, match } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import Links from './Links';
 import { Auth } from '../../fixtures/types';
+import { DEFAULT } from '../../fixtures/routes';
 
 import './Navbar.scss';
 
 export interface Props {
   auth: Auth;
+  history?: unknown;
+  location?: unknown;
+  match?: match;
 }
 
 class Navbar extends Component<Props> {
@@ -23,7 +27,7 @@ class Navbar extends Component<Props> {
     return (
       <header className={this.className}>
         <nav className="ui container">
-          <Link to="/" className="header item">
+          <Link to={DEFAULT} className="header item">
             <span className="logo" />
             <p className="brand-name">Fire Jira</p>
           </Link>

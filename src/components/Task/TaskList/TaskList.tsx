@@ -9,6 +9,7 @@ import classnames from 'classnames';
 import { getProject } from '../../../store/actions';
 import { getTasksSelector } from '../../../store/selectors';
 import { Task, Project, Auth, Notification } from '../../../fixtures/types';
+import { DEFAULT } from '../../../fixtures/routes';
 import { FILTERS } from '../../../fixtures/constants';
 import { TaskItem, FilterBar, SearchBar, NotificationsContainer } from '../../index';
 
@@ -126,7 +127,7 @@ class TaskList extends React.Component<Props> {
   public render() {
     const { auth, notifications } = this.props;
 
-    if (!auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to={DEFAULT} />;
 
     return !this.props.project ? (
       <div className="ui active inverted dimmer">

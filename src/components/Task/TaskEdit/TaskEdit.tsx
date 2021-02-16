@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Task, Auth } from '../../../fixtures/types';
 import { MODAL_SIZE } from '../../../fixtures/constants';
+import { DEFAULT } from '../../../fixtures/routes';
 import { getTask, updateTask } from '../../../store/actions';
 import { Modal, Button, Form, Field } from '../../index';
 
@@ -101,7 +102,7 @@ class TaskEdit extends React.Component<Props, State> {
   public render() {
     const { auth } = this.props;
 
-    if (!auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to={DEFAULT} />;
 
     return !this.props.task ? (
       <div className="ui active inverted dimmer">

@@ -5,6 +5,7 @@ import { Dropdown, Popup } from 'semantic-ui-react';
 
 import { Auth, NewUser } from '../../fixtures/types';
 import { ACCOUNT_TYPE } from '../../fixtures/constants';
+import { PROJECT_NEW, SIGNIN } from '../../fixtures/routes';
 import { signOut } from '../../store/actions';
 import { getAvatarImage } from '../../utils/helpers';
 
@@ -25,13 +26,13 @@ class Links extends React.Component<Props> {
     }
 
     return profile.accountType === ACCOUNT_TYPE.VIP ? (
-      <NavLink to="/project/new" className="header item">
+      <NavLink to={PROJECT_NEW} className="header item">
         Create New Project
       </NavLink>
     ) : (
       <Popup
         trigger={
-          <NavLink to="/project/new" className="header item disabled" onClick={(e) => e.preventDefault()}>
+          <NavLink to={PROJECT_NEW} className="header item disabled" onClick={(e) => e.preventDefault()}>
             <i className="shopping cart icon" />
             Create New Project
           </NavLink>
@@ -65,7 +66,7 @@ class Links extends React.Component<Props> {
         </Dropdown>
       </React.Fragment>
     ) : (
-      <NavLink to="/signin" className="header item">
+      <NavLink to={SIGNIN} className="header item">
         Login
       </NavLink>
     );

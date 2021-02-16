@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Auth, NewUser, Credentials } from '../../fixtures/types';
 import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';
+import { DEFAULT } from '../../fixtures/routes';
 import { signUp, signIn } from '../../store/actions';
 import { isSingUpFormValid } from '../../utils/validation';
 import { Modal, Button, Form, Field } from '../index';
@@ -122,7 +123,7 @@ class SignUpComponent extends React.Component<Props, State> {
   public render() {
     const { auth } = this.props;
 
-    if (auth.uid) return <Redirect to="/" />;
+    if (auth.uid) return <Redirect to={DEFAULT} />;
 
     return (
       <Modal

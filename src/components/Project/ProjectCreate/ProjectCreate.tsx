@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Auth, Project } from '../../../fixtures/types';
 import { MODAL_SIZE } from '../../../fixtures/constants';
+import { DEFAULT } from '../../../fixtures/routes';
 import { createProject } from '../../../store/actions';
 import { Modal, Button, Form, Field } from '../../index';
 
@@ -80,7 +81,7 @@ class ProjectCreate extends React.Component<Props, State> {
   public render() {
     const { auth } = this.props;
 
-    if (!auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to={DEFAULT} />;
 
     return (
       <Modal

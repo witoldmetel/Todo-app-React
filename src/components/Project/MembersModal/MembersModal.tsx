@@ -8,6 +8,7 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { getProject, assignMembers, removeMember } from '../../../store/actions';
 import { Project, Auth, User } from '../../../fixtures/types';
+import { DEFAULT } from '../../../fixtures/routes';
 import { MODAL_SIZE } from '../../../fixtures/constants';
 import { RandomAvatar, Modal, Button } from '../../index';
 import { getAvatarImage } from '../../../utils/helpers';
@@ -188,7 +189,7 @@ class MembersModal extends React.Component<Props, State> {
   public render() {
     const { auth, project } = this.props;
 
-    if (!auth.uid) return <Redirect to="/" />;
+    if (!auth.uid) return <Redirect to={DEFAULT} />;
 
     return !project ? (
       <div className="ui active inverted dimmer">

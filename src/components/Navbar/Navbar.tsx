@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import Links from './Links';
 import { Auth } from '../../fixtures/types';
+import { DEFAULT } from '../../fixtures/routes';
 
 import './Navbar.scss';
 
@@ -26,7 +27,7 @@ class Navbar extends Component<Props> {
     return (
       <header className={this.className}>
         <nav className="ui container">
-          <Link to="/" className="header item">
+          <Link to={DEFAULT} className="header item">
             <span className="logo" />
             <p className="brand-name">Fire Jira</p>
           </Link>

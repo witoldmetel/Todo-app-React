@@ -2,6 +2,17 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { Project } from './fixtures/types';
+import {
+  DEFAULT,
+  SIGNIN,
+  SIGNUP,
+  PROJECT_NEW,
+  PROJECT,
+  PROJECT_MEMBERS,
+  TASK_NEW,
+  TASK_EDIT,
+  TASK_DELETE
+} from './fixtures/routes';
 import { Navbar } from './components';
 
 import './App.scss';
@@ -48,15 +59,15 @@ class App extends React.Component<Props> {
       >
         <BrowserRouter>
           <Switch>
-            <NavRoute path="/" exact component={Dashboard} />
-            <NavRoute path="/signin" exact component={SignInComponent} />
-            <NavRoute path="/signup" exact component={SignUpComponent} />
-            <NavRoute path="/project/new" exact component={ProjectCreate} />
-            <NavRoute path="/project/:id" exact component={TaskList} />
-            <NavRoute path="/project/:id/members" exact component={MembersModal} />
-            <NavRoute path="/project/:id/task/new" exact component={TaskCreate} />
-            <NavRoute path="/project/:id/task/edit/:id" exact component={TaskEdit} />
-            <NavRoute path="/project/:id/task/delete/:id" exact component={TaskRemove} />
+            <NavRoute path={DEFAULT} exact component={Dashboard} />
+            <NavRoute path={SIGNIN} exact component={SignInComponent} />
+            <NavRoute path={SIGNUP} exact component={SignUpComponent} />
+            <NavRoute path={PROJECT_NEW} exact component={ProjectCreate} />
+            <NavRoute path={PROJECT} exact component={TaskList} />
+            <NavRoute path={PROJECT_MEMBERS} exact component={MembersModal} />
+            <NavRoute path={TASK_NEW} exact component={TaskCreate} />
+            <NavRoute path={TASK_EDIT} exact component={TaskEdit} />
+            <NavRoute path={TASK_DELETE} exact component={TaskRemove} />
             <Route component={UnknownPage} />
           </Switch>
         </BrowserRouter>

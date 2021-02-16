@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, match } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -10,6 +10,9 @@ import './Navbar.scss';
 
 export interface Props {
   auth: Auth;
+  history?: unknown;
+  location?: unknown;
+  match?: match;
 }
 
 class Navbar extends Component<Props> {

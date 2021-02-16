@@ -97,4 +97,4 @@ export default compose(
     ];
   }),
   connect(mapStateToProps, { getTask, deleteTask })
-)(TaskRemove);
+)(TaskRemove) as React.ComponentType;

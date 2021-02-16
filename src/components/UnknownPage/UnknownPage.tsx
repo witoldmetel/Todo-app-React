@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './UnknownPage.scss';
 
-export class UnknownPage extends React.Component {
+export default class UnknownPage extends React.Component {
   render() {
     return (
       <div className="unknown-page">

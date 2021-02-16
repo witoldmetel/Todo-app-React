@@ -1,7 +1,7 @@
 import React from 'react';
 import { History } from 'history';
 import { connect } from 'react-redux';
-import { Redirect, NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { Auth, NewUser, Credentials } from '../../fixtures/types';
 import { ACCOUNT_TYPE, MODAL_SIZE } from '../../fixtures/constants';

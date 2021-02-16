@@ -222,4 +222,4 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   firestoreConnect([{ collection: 'projects' }, { collection: 'users' }]),
   connect(mapStateToProps, { getProject, assignMembers, removeMember })
-)(MembersModal);
+)(MembersModal) as React.ComponentType;

@@ -152,4 +152,4 @@ export default compose(
     ];
   }),
   connect(mapStateToProps, { getTask, updateTask })
-)(TaskEdit);
+)(TaskEdit) as React.ComponentType;

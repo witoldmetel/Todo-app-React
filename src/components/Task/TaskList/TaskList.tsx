@@ -187,4 +187,4 @@ export default compose(
     ];
   }),
   connect(mapStateToProps, { getProject })
-)(TaskList);
+)(TaskList) as React.ComponentType;

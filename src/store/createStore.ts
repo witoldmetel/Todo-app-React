@@ -17,13 +17,9 @@ const rrfConfig = {
 // Initialize Cloud Firestore through Firebase
 firebase.firestore();
 
-//@todo: Check if we need initial state
-const initialState = {};
-
 // App store
 export const store = configureStore({
   reducer: rootReducer,
-  preloadedState: initialState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: { extraArgument: { getFirebase, getFirestore } }, serializableCheck: false }),
   enhancers: [reduxFirestore(firebase)]

@@ -42,8 +42,8 @@
     "@storybook/react": "^6.0.21",
     "@types/enzyme": "3.10.5",
     "@types/enzyme-adapter-react-16": "1.0.6",
-    "@types/jest": "25.2.1",
     "@types/history": "^2.0.45",
+    "@types/jest": "25.2.1",
     "@types/node": "13.13.2",
     "@types/p5": "0.9.0",
     "@types/react": "16.9.34",
@@ -77,17 +77,15 @@
     "react-redux-firebase": "^3.4.0",
     "react-router-dom": "^5.2.0",
     "react-spring": "^8.0.27",
-    "redux": "^3.7.2",
     "redux-firestore": "^0.13.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
     "sass": "1.26.3",
     "semantic-ui-react": "^2.0.3",
     "ts-jest": "25.4.0",
     "yup": "^0.29.3"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "typescript": "3.8.3"

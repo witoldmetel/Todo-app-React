@@ -73,7 +73,7 @@
     "parcel-bundler": "1.12.4",
     "prettier": "2.0.5",
     "react-is": "^16.13.1",
-    "react-redux": "^5.0.7",
+    "react-redux": "7.2.0",
     "react-redux-firebase": "^3.4.0",
     "react-router-dom": "^5.2.0",
     "react-spring": "^8.0.27",

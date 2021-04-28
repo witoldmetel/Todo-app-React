@@ -1,39 +1,29 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { setFilter } from '../../store/actions';
-import { filters } from '../../fixtures/constants';
+import { filters, FILTERS } from '../../fixtures/constants';
+import { setFilterStatus } from '../../store/slices/filtersSlice';
 
-export interface Props {
-  setFilter: (filterName: string) => void;
-}
+const FilterBar = () => {
+  const [activeFilter, setActiveFilter] = useState(FILTERS.SHOW_ALL);
+  const dispatch = useDispatch();
 
-class FilterBar extends React.Component<Props> {
-  state = { activeFilter: 1 };
-
-  private setActiveFilter = (id: number, filterName: string) => {
-    this.setState({ activeFilter: id });
-    this.props.setFilter(filterName);
+  const setFilter = (status: FILTERS) => () => {
+    setActiveFilter(status);
+    dispatch(setFilterStatus(status));
   };
 
-  private get filterButtons() {
-    return filters.map((filter) => {
-      return (
-        <button
-          key={filter.id}
-          type="button"
-          onClick={() => this.setActiveFilter(filter.id, filter.filterName)}
-          className={this.state.activeFilter === filter.id ? 'ui active button' : 'ui button'}
-        >
-          {filter.name}
-        </button>
-      );
-    });
-  }
+  const filterButtons = filters.map((filter) => {
+    const className = activeFilter === filter.status ? 'ui active button' : 'ui button';
 
-  public render() {
-    return <div className="ui filter buttons">{this.filterButtons}</div>;
-  }
-}
+    return (
+      <button key={filter.status} type="button" onClick={setFilter(filter.status)} className={className}>
+        {filter.name}
+      </button>
+    );
+  });
 
-export default connect(null, { setFilter })(FilterBar);
+  return <div className="ui filter buttons">{filterButtons}</div>;
+};
+
+export default FilterBar;

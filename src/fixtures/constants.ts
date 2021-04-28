@@ -37,9 +37,9 @@ export enum ACCOUNT_TYPE {
 }
 
 export const filters = [
-  { id: 1, name: 'All', filterName: FILTERS.SHOW_ALL },
-  { id: 2, name: 'Incompleted', filterName: FILTERS.SHOW_INCOMPLETED },
-  { id: 3, name: 'Completed', filterName: FILTERS.SHOW_COMPLETED }
+  { name: 'All', status: FILTERS.SHOW_ALL },
+  { name: 'Incompleted', status: FILTERS.SHOW_INCOMPLETED },
+  { name: 'Completed', status: FILTERS.SHOW_COMPLETED }
 ];
 
 export enum MODAL_SIZE {

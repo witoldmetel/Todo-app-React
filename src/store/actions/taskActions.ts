@@ -7,8 +7,7 @@ import {
   UPDATE_TASK,
   DELETE_TASK,
   SET_TASK_STATUS,
-  SEARCH_TASK,
-  SET_FILTER
+  SEARCH_TASK
 } from '../../fixtures/constants';
 import { Task } from '../../fixtures/types';
 
@@ -109,13 +108,5 @@ export const searchTask = (searchValue: string) => {
     dispatch({
       type: SEARCH_TASK,
       payload: searchValue
-    });
-};
-
-export const setFilter = (filter: string) => {
-  return (dispatch) =>
-    dispatch({
-      type: SET_FILTER,
-      payload: filter
     });
 };

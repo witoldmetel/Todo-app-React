@@ -1,6 +1,6 @@
 import { signIn, signOut, signUp } from './authActions';
 import { getProjects, getProject, createProject, assignMembers, removeMember } from './projectActions';
-import { getTask, createTask, updateTask, setTaskStatus, deleteTask, searchTask, setFilter } from './taskActions';
+import { getTask, createTask, updateTask, setTaskStatus, deleteTask, searchTask } from './taskActions';
 
 export {
   signIn,
@@ -16,6 +16,5 @@ export {
   updateTask,
   setTaskStatus,
   deleteTask,
-  searchTask,
-  setFilter
+  searchTask
 };

@@ -13,23 +13,21 @@ Pass: firejira
 
 ## Main structure and principles
 
-1. Names for newly created modules should follow pattern `[resource]-[?operation]` example `user-list`
+1. Names for newly created components should follow pattern `[resource]-[?operation]` example `user-list`
 
-2. For modules which will be inside other module use nested `modules` pattern `modules/user/modules/user-list/user-list.component.tsx`. (ONLY IF ITS NEEDED, LET'S TRY TO KEEP STRUCTURE AS FLAT AS POSSIBLE)
+2. For components which will be inside other module use nested `components` pattern `components/user/components/user-list/user-list.component.tsx`. (ONLY IF ITS NEEDED, LET'S TRY TO KEEP STRUCTURE AS FLAT AS POSSIBLE)
 
 3. Store types of top-level entities in separate types module to avoid circular dependencies.
 
 4. Module names for resources received from API should be unified and follow names from API. Example: Module for `/users` endpoints should include name `users`.
 
-5. All styles should follow pattern `[resource].styles.ts` example `user.styles.ts` for each module.
+5. Every const-like variable (consts, enums etc) should have name with CAPITAL_LETTERS.
 
-6. Every const-like variable (consts, enums etc) should have name with CAPITAL_LETTERS.
-
-7. Name convention:
+6. Name convention:
 
 - components: `[resource]-[?method].[?functionality].component.tsx` Example: `user.page.component.tsx` or `user-create.dialog.component.tsx`
 - pages: `[module].page.component.tsx` => main component uses for route.
-- styles: should be inside component where it's used.
+- styles: should be inside component where it's used and have the same name as component.
 - types: `[module].types.ts`, should not be created for nested modules.
 - constants: `constants.ts`, all constants variables reusable in scope of module.
 - reusable hooks: `use-[functionality].ts` ==> should be stored in `src/hooks`

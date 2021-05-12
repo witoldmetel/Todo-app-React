@@ -1,31 +1,25 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { searchTask } from '../../store/actions';
+import { searchTask } from '../../store/slices/taskSlice';
 
-export interface Props {
-  searchTask: (searchValue: string) => void;
-}
+const SearchBar = () => {
+  const [searchValue, setSearchValue] = useState('');
+  const dispatch = useDispatch();
 
-class SearchBar extends React.Component<Props> {
-  state = { search: '' };
-
-  private onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
 
-    this.setState({ search: searchValue });
-
-    this.props.searchTask(searchValue.toLowerCase());
+    setSearchValue(searchValue);
+    dispatch(searchTask(searchValue.toLowerCase()));
   };
 
-  public render() {
-    return (
-      <div className="ui icon input">
-        <input type="text" placeholder="Search task... " value={this.state.search} onChange={this.onSearcherChange} />
-        <i className="search icon" />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="ui icon input">
+      <input type="text" placeholder="Search task... " value={searchValue} onChange={onSearcherChange} />
+      <i className="search icon" />
+    </div>
+  );
+};
 
-export default connect(null, { searchTask })(SearchBar);
+export default SearchBar;

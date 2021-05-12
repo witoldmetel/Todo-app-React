@@ -4,16 +4,14 @@ import { FILTERS } from '../../fixtures/constants';
 
 type Action = { payload: FILTERS; type: string };
 
-const initialState = {
-  status: FILTERS.SHOW_ALL
-};
+const initialState = FILTERS.SHOW_ALL;
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
     setFilterStatus(state, action: Action) {
-      state.status = action.payload;
+      state = action.payload;
     }
   }
 });

@@ -8,8 +8,8 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    searchTask(state, action) {
-      state.searchValue = action.payload;
+    searchTask(state, { payload }) {
+      state.searchValue = payload;
     }
   }
 });

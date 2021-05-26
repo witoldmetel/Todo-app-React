@@ -1,13 +1,12 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import { configureStore } from '@reduxjs/toolkit';
 import { getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
+import logger from 'redux-logger';
 
 import 'firebase/firestore';
 
 import firebase from '../services/firebase';
-import reducers from './reducers';
+import { rootReducer } from './reducers';
 
 // Optional react-redux-firebase config
 const rrfConfig = {
@@ -18,20 +17,13 @@ const rrfConfig = {
 // Initialize Cloud Firestore through Firebase
 firebase.firestore();
 
-const initialState = {};
-
-// Optional redux state logger
-// provide useful log message in browser console regarding redux state
-// const reduxLogger = createLogger();
-
-const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
-
 // App store
-export const store = createStore(
-  reducers,
-  initialState,
-  compose(applyMiddleware(...middlewares), reduxFirestore(firebase))
-);
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: { extraArgument: { getFirebase, getFirestore } }, serializableCheck: false }),
+  enhancers: [reduxFirestore(firebase)]
+});
 
 // React-redux-firebase provider props
 export const rrfProps = {

@@ -8,7 +8,7 @@ interface Props {
   header: string | Element;
   content: string | JSX.Element;
   actionButtons: JSX.Element;
-  history: History;
+  history: any;
 
   size?: MODAL_SIZE;
   className?: string;

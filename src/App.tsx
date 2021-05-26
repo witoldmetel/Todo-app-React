@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useDispatch } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AuthCheck } from 'reactfire';
 
-import { Project } from './fixtures/types';
 import {
   DEFAULT,
   SIGNIN,
@@ -13,7 +13,8 @@ import {
   TASK_EDIT,
   TASK_DELETE
 } from './fixtures/routes';
-import { Navbar } from './components';
+import { Navbar, LandingPage } from './components';
+import { setAuthListener } from './store/Auth/authSlice';
 
 import './App.scss';
 
@@ -28,12 +29,12 @@ const TaskList = React.lazy(() => import('./components/Task/TaskList/TaskList'))
 const TaskEdit = React.lazy(() => import('./components/Task/TaskEdit/TaskEdit'));
 const UnknownPage = React.lazy(() => import('./components/UnknownPage/UnknownPage'));
 
-export interface Props {
-  projects: Project[];
-}
+const App = () => {
+  const dispatch = useDispatch();
 
-class App extends React.Component<Props> {
-  private NavRoute = ({ exact = true, path, component: Component }: { exact: boolean; path: string; component }) => (
+  (async () => await dispatch(setAuthListener()))();
+
+  const NavRoute = ({ exact = true, path, component: Component }: { exact: boolean; path: string; component }) => (
     <Route
       exact={exact}
       path={path}
@@ -46,17 +47,15 @@ class App extends React.Component<Props> {
     />
   );
 
-  public render() {
-    const { NavRoute } = this;
-
-    return (
-      <Suspense
-        fallback={
-          <div className="ui active inverted dimmer">
-            <div className="ui text loader">Loading page...</div>
-          </div>
-        }
-      >
+  return (
+    <Suspense
+      fallback={
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader">Loading page...</div>
+        </div>
+      }
+    >
+      <AuthCheck fallback={<LandingPage />}>
         <BrowserRouter>
           <Switch>
             <NavRoute path={DEFAULT} exact component={Dashboard} />
@@ -71,9 +70,9 @@ class App extends React.Component<Props> {
             <Route component={UnknownPage} />
           </Switch>
         </BrowserRouter>
-      </Suspense>
-    );
-  }
-}
+      </AuthCheck>
+    </Suspense>
+  );
+};
 
 export default App;

@@ -1,3 +1,5 @@
+// https://stackoverflow.com/questions/37482366/is-it-safe-to-expose-firebase-apikey-to-the-public
+// https://medium.com/@devesu/how-to-secure-your-firebase-project-even-when-your-api-key-is-publicly-available-a462a2a58843
 export const FIREBASE_CONFIG = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'fire-jira.firebaseapp.com',

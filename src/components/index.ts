@@ -1,5 +1,6 @@
 export * from './shared';
 export { default as Dashboard } from './Dashboard/Dashboard';
+export { LandingPage } from './Dashboard/LandingPage/LandingPage';
 export { default as FilterBar } from './FilterBar/FilterBar';
 export { ModalComponent as Modal } from './ModalComponent/ModalComponent';
 export { default as Navbar } from './Navbar/Navbar';

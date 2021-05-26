@@ -16,7 +16,15 @@ export const isUsernameValid = (username: string) => {
   return regExp.test(username);
 };
 
-export const isSingUpFormValid = ({ email, password, username }) => {
+export const isSingUpFormValid = ({
+  email,
+  password,
+  username
+}: {
+  email: string;
+  password: string;
+  username: string;
+}) => {
   if (!email.length || !password.length || !username.length) {
     return {
       isValid: false,

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { History } from 'history';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -12,136 +13,116 @@ import { Modal, Button, Form, Field } from '../index';
 
 import './SignUpComponent.scss';
 
-export interface Props {
-  auth: Auth;
-  history: History;
+const SignUpComponent = () => {
+  const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.REGULAR);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  signUp: (newUser: NewUser, callback: () => void) => void;
-  signIn: (credentials: Credentials, calback: (flag?: boolean) => void) => void;
-}
-
-export interface State {
-  email: string;
-  password: string;
-  username: string;
-  accountType: ACCOUNT_TYPE;
-  errorMessage: string;
-  [key: string]: unknown;
-}
-
-class SignUpComponent extends React.Component<Props, State> {
-  state: State = {
-    email: '',
-    password: '',
-    username: '',
-    accountType: ACCOUNT_TYPE.REGULAR,
-    errorMessage: ''
+  const onInputEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
-  private static readonly ACCOUNT_TYPE = [ACCOUNT_TYPE.REGULAR, ACCOUNT_TYPE.VIP];
-
-  private onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.id]: e.target.value });
+  const onInputPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
-  private onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ accountType: e.target.value as ACCOUNT_TYPE });
+  const onInputUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
 
-  private get accountTypeFields() {
-    return SignUpComponent.ACCOUNT_TYPE.map((accountType) => (
+  const onCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAccountType(e.target.value as ACCOUNT_TYPE);
+  };
+
+  const getAccountTypeFields = () => {
+    return [ACCOUNT_TYPE.REGULAR, ACCOUNT_TYPE.VIP].map((type) => (
       <Field
-        key={accountType}
+        key={type}
         fieldClassName="register-account-type"
-        label={accountType}
+        label={type}
         type="radio"
         name="account"
-        value={accountType}
-        checked={this.state.accountType === accountType}
-        onChange={this.onCheckboxChange}
+        value={type}
+        checked={accountType === type}
+        onChange={onCheckboxChange}
       />
     ));
-  }
+  };
 
-  private get content() {
+  const getFormValidation = () => isSingUpFormValid({ email, password, username });
+
+  const handleCancel = () => {
+    history.push('/');
+  };
+
+  const handleSubmit = () => {
+    if (getFormValidation().isValid) {
+      // this.props.signUp({ email, password, username, accountType }, handleCancel);
+    } else {
+      setErrorMessage(getFormValidation().errorMessage);
+    }
+  };
+
+  const signInToDemoPage = () => {
+    // this.props.signIn({ email: 'joedoe@firejira.com', password: 'firejira' }, handleCancel);
+  };
+
+  const getContent = () => {
     return (
       <>
         <Form
-          initialValues={[this.state.email, this.state.password, this.state.username, this.state.accountType]}
-          errorMessage={this.state.errorMessage}
-          onSubmit={this.handleSubmit}
+          initialValues={[email, password, username, accountType]}
+          errorMessage={errorMessage}
+          onSubmit={handleSubmit}
         >
-          <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={this.onInputChange} />
-          <Field id="password" label="Password" placeholder="Password" type="password" onChange={this.onInputChange} />
-          <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={this.onInputChange} />
+          <Field id="email" label="Email" placeholder="joe@schmoe.com" type="email" onChange={onInputEmailChange} />
+          <Field
+            id="password"
+            label="Password"
+            placeholder="Password"
+            type="password"
+            onChange={onInputPasswordChange}
+          />
+          <Field id="username" label="Username" placeholder="Joe Schmoe" type="text" onChange={onInputUsernameChange} />
           <div className="inline fields" role="group">
             <label>Account Type:</label>
-            {this.accountTypeFields}
+            {getAccountTypeFields()}
           </div>
         </Form>
         <div className="register-note">
           Let&apos;s try <strong>Fire Jira</strong> without registering:
-          <Button label="Demo Page" className="demo-button inverted orange" onClick={this.signInToDemoPage} />
+          <Button label="Demo Page" className="demo-button inverted orange" onClick={signInToDemoPage} />
         </div>
       </>
     );
-  }
-
-  private signInToDemoPage = () => {
-    this.props.signIn({ email: 'joedoe@firejira.com', password: 'firejira' }, this.handleCancel);
   };
 
-  private get formValidation() {
-    const { email, password, username } = this.state;
-
-    return isSingUpFormValid({ email, password, username });
-  }
-
-  private handleSubmit = () => {
-    const { email, password, username, accountType } = this.state;
-
-    if (this.formValidation.isValid) {
-      this.props.signUp({ email, password, username, accountType }, this.handleCancel);
-    } else {
-      this.setState({
-        errorMessage: this.formValidation.errorMessage
-      });
-    }
-  };
-
-  private handleCancel = () => this.props.history.push('/');
-
-  private get actionButtons() {
+  const getActionButtons = () => {
     return (
-      <React.Fragment>
-        <Button label="Register" className="positive" onClick={this.handleSubmit} />
-        <Button label="Cancel" onClick={this.handleCancel} />
-      </React.Fragment>
+      <>
+        <Button label="Register" className="positive" onClick={handleSubmit} />
+        <Button label="Cancel" onClick={handleCancel} />
+      </>
     );
-  }
-
-  public render() {
-    const { auth } = this.props;
-
-    if (auth.uid) return <Redirect to={DEFAULT} />;
-
-    return (
-      <Modal
-        className="register-form"
-        header="Register"
-        content={this.content}
-        actionButtons={this.actionButtons}
-        history={this.props.history}
-        size={MODAL_SIZE.TINY}
-      />
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth
   };
+
+  // const { auth } = this.props;
+
+  // if (auth.uid) return <Redirect to={DEFAULT} />;
+
+  return (
+    <Modal
+      className="register-form"
+      header="Register"
+      content={getContent()}
+      actionButtons={getActionButtons()}
+      history={history}
+      size={MODAL_SIZE.TINY}
+    />
+  );
 };
 
-export default connect(mapStateToProps, { signUp, signIn })(SignUpComponent);
+export default SignUpComponent;

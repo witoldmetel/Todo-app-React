@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Transition } from 'semantic-ui-react';
 
@@ -12,33 +12,33 @@ import inviteImage from '../../../assets/graphics/invite.webp';
 
 import './LandingPage.scss';
 
-export class LandingPage extends React.Component {
-  state = { visible: false };
+export const LandingPage: any = (): any => {
+  const [isVisible, setIsVisible] = useState(false);
 
-  public componentDidMount() {
-    this.setState({ visible: true });
-  }
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
-  private get infoSection() {
+  const getInfoSection = () => {
     return (
-      <Transition visible={this.state.visible} animation="scale" duration={500}>
-        <section className="info-section">
-          <h1 className="title">
-            Make Your Own <span className="subtitle">Workflow</span>
-          </h1>
-          <p className="content">
-            Welcome on <span className="subtitle">Fire Jira</span>. Track and manage projects in real time. Register and
-            check it now!
-          </p>
-          <NavLink to={SIGNUP} className="register item">
-            Register
-          </NavLink>
-        </section>
-      </Transition>
+      // <Transition visible={isVisible} animation="scale" duration={500}>
+      <section className="info-section">
+        <h1 className="title">
+          Make Your Own <span className="subtitle">Workflow</span>
+        </h1>
+        <p className="content">
+          Welcome on <span className="subtitle">Fire Jira</span>. Track and manage projects in real time. Register and
+          check it now!
+        </p>
+        <NavLink to={SIGNUP} className="register item">
+          Register
+        </NavLink>
+      </section>
+      // </Transition>
     );
-  }
+  };
 
-  private get aboutSection() {
+  const getAboutSection = () => {
     return (
       <section className="about-section">
         <div className="left-column">
@@ -69,9 +69,9 @@ export class LandingPage extends React.Component {
         </div>
       </section>
     );
-  }
+  };
 
-  private get functionalitySection() {
+  const getFunctionalitySection = () => {
     return (
       <section className="functionality-section">
         <div className="ramp-container" style={{ backgroundColor: '#0f1219' }} />
@@ -97,9 +97,9 @@ export class LandingPage extends React.Component {
         </div>
       </section>
     );
-  }
+  };
 
-  private get contactSection() {
+  const getContactSection = () => {
     return (
       <section className="contact-section">
         <div className="ramp-container" style={{ backgroundColor: '#e2e8f0' }} />
@@ -135,9 +135,9 @@ export class LandingPage extends React.Component {
         </div>
       </section>
     );
-  }
+  };
 
-  private get footer() {
+  const getFooter = () => {
     return (
       <footer className="footer">
         <div className="ramp-container" style={{ backgroundColor: '#0f1219' }} />
@@ -175,36 +175,34 @@ export class LandingPage extends React.Component {
         <div className="copyright-label">Copyright © witoldmetel</div>
       </footer>
     );
-  }
+  };
 
-  public render() {
-    return (
-      <div className="dashboard">
-        <div className="particles-section">
-          <ParticleComponent />
-          <div
-            style={{
-              backgroundImage: `url(${background})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundAttachment: 'fixed',
-              backgroundPosition: 'right',
-              backgroundSize: 'cover',
-              position: 'absolute',
-              opacity: 0.75,
-              zIndex: 1,
-              height: '100%',
-              width: '100%',
-              top: 0,
-              left: 0
-            }}
-          />
-        </div>
-        {this.infoSection}
-        {this.aboutSection}
-        {this.functionalitySection}
-        {this.contactSection}
-        {this.footer}
+  return (
+    <div className="dashboard">
+      <div className="particles-section">
+        {/* <ParticleComponent /> */}
+        <div
+          style={{
+            backgroundImage: `url(${background})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'right',
+            backgroundSize: 'cover',
+            position: 'absolute',
+            opacity: 0.75,
+            zIndex: 1,
+            height: '100%',
+            width: '100%',
+            top: 0,
+            left: 0
+          }}
+        />
       </div>
-    );
-  }
-}
+      {getInfoSection}
+      {getAboutSection}
+      {getFunctionalitySection}
+      {getContactSection}
+      {getFooter}
+    </div>
+  );
+};

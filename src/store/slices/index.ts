@@ -1,10 +1,10 @@
 import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
 
-import filtersReducer from './filtersSlice';
 import taskReducer from './taskSlice';
+import filtersReducer from './filtersSlice';
 
 export const rootReducer = {
-  filters: filtersReducer,
-  task: taskReducer
+  task: taskReducer,
+  filters: filtersReducer
 };

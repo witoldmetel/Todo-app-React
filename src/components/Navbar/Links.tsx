@@ -17,7 +17,7 @@ export interface Props {
   signOut: () => void;
 }
 
-class Links extends React.Component<Props> {
+export const Links = () => {
   private get createProjectLink() {
     const { profile } = this.props;
 
@@ -72,9 +72,7 @@ class Links extends React.Component<Props> {
     );
   }
 
-  public render() {
     return <div className="right menu">{this.renderLinks}</div>;
-  }
 }
 
 const mapStateToProps = (state, ownProps) => {

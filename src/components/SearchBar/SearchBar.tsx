@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { searchTask } from '../../store/slices/taskSlice';
 
 const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState('');
 
   const onSearcherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
